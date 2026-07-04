@@ -90,6 +90,38 @@ belleangelina.github.io GitHub Actions 拉取 writings 内容
 
 同时，站点仓库 `belleangelina.github.io` 应保留 `workflow_dispatch` 手动触发入口，用于自动触发失败、调试部署或临时重建站点。
 
+### 4.1 跨仓库触发凭证
+
+跨仓库触发使用 fine-grained PAT。
+
+配置方案：
+
+- 创建一个 fine-grained personal access token。
+- token 只授权给目标站点仓库：`belleangelina/belleangelina.github.io`。
+- token 权限只给触发 `repository_dispatch` 所需的最小权限，目标为能向站点仓库发送 dispatch 事件。
+- 将 token 存入内容仓库 `belleangelina/writings` 的 GitHub Actions secret。
+- 推荐 secret 名称：`SITE_REPO_DISPATCH_TOKEN`。
+- 内容仓库 workflow 在 push 到 `main` 后，使用该 secret 调用 GitHub API，向 `belleangelina.github.io` 发送 `repository_dispatch` 事件。
+
+站点仓库 workflow 触发方式：
+
+```yaml
+on:
+  repository_dispatch:
+    types: [content-updated]
+  workflow_dispatch:
+```
+
+内容仓库 workflow 触发方式：
+
+```yaml
+on:
+  push:
+    branches: [main]
+```
+
+该方案适合个人 public 仓库，配置直接，权限边界清晰。后续如果需要更严格的组织级权限治理，再考虑改为 GitHub App。
+
 约束和注意事项：
 
 - 两个仓库都使用 public 仓库，适配 GitHub 免费账户。
@@ -486,6 +518,7 @@ V1 采用“完整但克制”的范围，并保持纯静态实现。
 - rss.xml
 - `writings` README 内容规范
 - 自动部署 + 手动触发备用
+- 使用 fine-grained PAT 完成跨仓库 `repository_dispatch`
 
 `sitemap.xml` 用于帮助搜索引擎发现站点页面；`rss.xml` 用于提供静态 RSS 订阅源，让读者通过 RSS 阅读器订阅更新。二者均在构建阶段静态生成，不需要后端。
 
@@ -512,8 +545,7 @@ V1 采用“完整但克制”的范围，并保持纯静态实现。
 
 当前待确认：
 
-1. GitHub Actions 具体权限与 token 配置方案。
-2. `writings` README 具体内容。
+1. `writings` README 具体内容。
 
 ## 18. 文档同步规则
 
@@ -531,6 +563,7 @@ V1 采用“完整但克制”的范围，并保持纯静态实现。
 - 内容文件 V1 只支持 Markdown `.md`，暂不支持 MDX `.mdx`。
 - 内容更新后自动触发网站重新构建和部署。
 - 自动部署采用 `writings` push 后触发 `belleangelina.github.io` 的 `repository_dispatch`；站点仓库同时保留 `workflow_dispatch` 手动触发备用。
+- 跨仓库触发使用 fine-grained PAT，作为 secret 存入 `writings`，推荐名称为 `SITE_REPO_DISPATCH_TOKEN`。
 - 首页作为入口页，不作为完整文章列表页。
 - 站点视觉采用极简文学阅读风格。
 - 文章列表页按 `date` 倒序；长篇内部按 `volume` / `chapter` 升序。
