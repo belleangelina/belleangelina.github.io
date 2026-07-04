@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getAllPublishedArticles, getPublishedNovels, getPublishedShorts, getPublishedNotes } from '../../lib/content';
+
+const [articles, novels, shorts, notes] = await Promise.all([
+  getAllPublishedArticles(),
+  getPublishedNovels(),
+  getPublishedShorts(),
+  getPublishedNotes()
+]);
+---
+
+<BaseLayout title="文章" description="文章总览。">
+  <section class="hero">
+    <div class="eyebrow">Articles</div>
+    <h1>文章</h1>
+    <p class="lede">长篇、短篇和记录的总览。列表按日期倒序展示。</p>
+  </section>
+
+  <section class="section" aria-labelledby="cats-title">
+    <h2 id="cats-title">分类</h2>
+    <div class="grid">
+      <article class="card"><h3><a href="/articles/novels/">长篇</a></h3><p>{novels.length} 部作品</p></article>
+      <article class="card"><h3><a href="/articles/shorts/">短篇</a></h3><p>{shorts.length} 篇短篇</p></article>
+      <article class="card"><h3><a href="/articles/notes/">记录</a></h3><p>{notes.length} 篇记录</p></article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="all-title">
+    <h2 id="all-title">全部更新</h2>
+    {articles.length > 0 ? (
+      <div class="article-list">
+        {articles.map((article) => (
+          <ArticleCard title={article.title} url={article.url} summary={article.summary} date={article.date} />
+        ))}
+      </div>
+    ) : (
+      <p class="empty">暂时还没有已发布内容。</p>
+    )}
+  </section>
+</BaseLayout>
