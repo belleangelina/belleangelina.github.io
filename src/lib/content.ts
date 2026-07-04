@@ -16,6 +16,7 @@ export interface BaseEntry {
   slug: string;
   url: string;
   sourcePath: string;
+  order: number;
 }
 
 export interface Article extends BaseEntry {
@@ -109,6 +110,7 @@ async function readMarkdown(sourcePath: string, fallbackSlug: string, url: strin
   const date = toDateString(parsed.data.date);
   const cover = publicAssetUrl(sourcePath, parsed.data.cover);
   const slug = fallbackSlug;
+  const order = toNumber(parsed.data.chapter ?? parsed.data.volume, 0);
 
   const base: BaseEntry = {
     title,
@@ -118,7 +120,8 @@ async function readMarkdown(sourcePath: string, fallbackSlug: string, url: strin
     cover,
     slug,
     url,
-    sourcePath
+    sourcePath,
+    order
   };
 
   if (!kind) return base;
@@ -191,7 +194,6 @@ export async function getPublishedNovels(): Promise<Novel[]> {
       const volumeBase = await readMarkdown(volumeIndex, volumeSlug, `/articles/novels/${novelSlug}/${volumeSlug}/`);
       if (!volumeBase) return null;
 
-      const rawVolume = matter(await fs.readFile(volumeIndex, 'utf8')).data.volume;
       const chapterFiles = (await listMarkdownFiles(volumeDir)).filter((file) => path.basename(file) !== 'index.md');
       const chapters = await Promise.all(chapterFiles.map(async (file) => {
         const chapterSlug = basenameWithoutExt(file);
@@ -199,14 +201,12 @@ export async function getPublishedNovels(): Promise<Novel[]> {
       }));
 
       const publishedChapters = (chapters.filter(Boolean) as Article[]).sort((a, b) => {
-        const aData = matter(fsSyncRead(a.sourcePath)).data;
-        const bData = matter(fsSyncRead(b.sourcePath)).data;
-        return toNumber(aData.chapter) - toNumber(bData.chapter) || a.title.localeCompare(b.title);
+        return a.order - b.order || a.title.localeCompare(b.title);
       });
 
       return {
         ...volumeBase,
-        volume: toNumber(rawVolume),
+        volume: volumeBase.order,
         chapters: publishedChapters
       } as Volume;
     }));
@@ -220,10 +220,6 @@ export async function getPublishedNovels(): Promise<Novel[]> {
   }));
 
   return sortByDateDesc(novels.filter(Boolean) as Novel[]);
-}
-
-function fsSyncRead(filePath: string): string {
-  return require('node:fs').readFileSync(filePath, 'utf8');
 }
 
 export async function getAllPublishedArticles(): Promise<Article[]> {
