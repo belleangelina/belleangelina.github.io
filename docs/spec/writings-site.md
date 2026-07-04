@@ -382,9 +382,7 @@ cover: ./summer-rain/cover.jpg
 
 ## 12. V1 范围
 
-待继续确认。
-
-当前建议 V1 采用“完整但克制”的范围，并保持纯静态实现：
+V1 采用“完整但克制”的范围，并保持纯静态实现。
 
 必须有：
 
@@ -402,8 +400,12 @@ cover: ./summer-rain/cover.jpg
 - 关于页
 - tags 展示
 - `published` / `draft` 过滤
+- sitemap.xml
+- rss.xml
 - `writings-public` README 内容规范
 - 自动部署
+
+`sitemap.xml` 用于帮助搜索引擎发现站点页面；`rss.xml` 用于提供静态 RSS 订阅源，让读者通过 RSS 阅读器订阅更新。二者均在构建阶段静态生成，不需要后端。
 
 暂不做：
 
@@ -422,15 +424,14 @@ cover: ./summer-rain/cover.jpg
 
 当前待确认：
 
-1. V1 第一版范围。
-2. 是否需要 RSS / sitemap。
-3. 是否需要暗色模式。
-4. 首页展示内容与风格。
-5. 标签页是否在 V1 实现。
-6. 是否使用 MDX，还是只支持 Markdown。
-7. 站点视觉风格。
-8. GitHub Actions 具体权限与 token 配置方案。
-9. `writings-public` README 具体内容。
+1. V1 第一版范围的剩余细节。
+2. 是否需要暗色模式。
+3. 首页展示内容与风格。
+4. 标签页是否在 V1 实现的具体形式。
+5. 是否使用 MDX，还是只支持 Markdown。
+6. 站点视觉风格。
+7. GitHub Actions 具体权限与 token 配置方案。
+8. `writings-public` README 具体内容。
 
 ## 14. 文档同步规则
 
@@ -456,3 +457,4 @@ cover: ./summer-rain/cover.jpg
 - slug 由目录名 / 文件名决定，不额外写 `slug` 字段。
 - 支持可选封面图和 Markdown 正文插图。
 - 长篇章节页需要上一章 / 返回目录 / 下一章导航，并支持跨卷衔接。
+- V1 包含静态生成的 `sitemap.xml` 和 `rss.xml`。
