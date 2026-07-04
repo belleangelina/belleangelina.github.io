@@ -53,7 +53,6 @@ GitHub Pages 只托管静态网站。站点应在 GitHub Actions 构建阶段把
 
 - 静态预生成页面
 - 浏览器端 JavaScript
-- 标签筛选
 - 本地搜索索引，如果后续需要
 - 暗色模式
 - 阅读进度等本地状态
@@ -106,7 +105,7 @@ belleangelina.github.io GitHub Actions 拉取 writings-public 内容
 └─ 记录
 ```
 
-“记录”暂不支持子分类；等内容多了之后再拆分。当前记录只通过 tags 辅助组织。
+“记录”暂不支持子分类；等内容多了之后再拆分。V1 中记录只作为一种文章类型展示，不再额外引入标签系统。
 
 ## 6. URL 设计
 
@@ -126,6 +125,8 @@ belleangelina.github.io GitHub Actions 拉取 writings-public 内容
 /articles/notes/                       # 记录列表
 /articles/notes/<note-slug>/            # 记录阅读页
 ```
+
+V1 不提供 `/tags/` 或 `/tags/<tag>/` 标签页。
 
 slug 规则：
 
@@ -245,7 +246,7 @@ notes/<note-slug>.md
 notes/<note-slug>/
 ```
 
-记录暂不设置子分类字段，只使用 tags。
+记录暂不设置子分类，也不在 V1 使用 tags 字段。
 
 ## 9. Frontmatter 规则
 
@@ -253,15 +254,13 @@ notes/<note-slug>/
 
 ### 9.1 通用字段
 
-建议通用字段：
+V1 通用字段：
 
 ```yaml
 title: 标题
 status: published
 summary: 简介，可选但推荐
 date: 2026-07-04
-tags:
-  - 标签
 cover: ./relative/path/to/cover.jpg
 ```
 
@@ -274,6 +273,8 @@ status: draft      # 草稿，不出现在网站
 
 V1 只支持 `published` 和 `draft`。只有 `published` 会出现在网站中。
 
+V1 暂不使用 `tags` 字段，也不生成标签页。后续如果内容规模变大，再重新讨论标签系统。
+
 ### 9.2 长篇作品 index.md
 
 示例：
@@ -283,8 +284,6 @@ title: 夜航
 status: published
 summary: 作品简介。
 date: 2026-07-04
-tags:
-  - 长篇
 cover: ./cover.jpg
 ```
 
@@ -322,8 +321,6 @@ title: 夏雨
 status: published
 date: 2026-07-04
 summary: 一个发生在雨天的故事。
-tags:
-  - 短篇
 cover: ./summer-rain/cover.jpg
 ```
 
@@ -336,9 +333,6 @@ title: GitHub Pages 部署踩坑
 status: published
 date: 2026-07-04
 summary: 记录一次 GitHub Pages 部署失败的排查过程。
-tags:
-  - GitHub Pages
-  - Astro
 ```
 
 ## 10. 图片和资源规则
@@ -409,7 +403,6 @@ V1 采用“完整但克制”的范围，并保持纯静态实现。
 - 记录列表页
 - 记录阅读页
 - 关于页
-- tags 展示
 - `published` / `draft` 过滤
 - 浅色 / 暗色模式
 - sitemap.xml
@@ -421,6 +414,9 @@ V1 采用“完整但克制”的范围，并保持纯静态实现。
 
 暂不做：
 
+- tags 字段
+- 标签列表页
+- 标签详情页
 - 全文搜索
 - 评论系统
 - 阅读进度同步
@@ -438,11 +434,10 @@ V1 采用“完整但克制”的范围，并保持纯静态实现。
 
 1. V1 第一版范围的剩余细节。
 2. 首页展示内容与风格。
-3. 标签页是否在 V1 实现的具体形式。
-4. 是否使用 MDX，还是只支持 Markdown。
-5. 站点视觉风格。
-6. GitHub Actions 具体权限与 token 配置方案。
-7. `writings-public` README 具体内容。
+3. 是否使用 MDX，还是只支持 Markdown。
+4. 站点视觉风格。
+5. GitHub Actions 具体权限与 token 配置方案。
+6. `writings-public` README 具体内容。
 
 ## 15. 文档同步规则
 
@@ -459,6 +454,7 @@ V1 采用“完整但克制”的范围，并保持纯静态实现。
 - 内容更新后自动触发网站重新构建和部署。
 - 文章顶层分类为：长篇 / 短篇 / 记录。
 - 记录暂不做子分类。
+- V1 暂不使用 `tags` 字段，也不做标签列表页或标签详情页。
 - 内容仓库目录需要整理，并在 README 中写清楚结构和规范。
 - 使用 frontmatter 元数据。
 - `status` 只支持 `published` / `draft`，仅 `published` 上站。
