@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const siteName = 'Belle Angelina';
+const title = Astro.props.title ? `${Astro.props.title} · ${siteName}` : siteName;
+const description = Astro.props.description ?? '个人文章、小说和记录展示站。';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="alternate" type="application/rss+xml" title="Belle Angelina RSS" href="/rss.xml" />
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = stored || (prefersDark ? 'dark' : 'light');
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-shell header-inner">
+        <a class="site-title" href="/">Belle Angelina</a>
+        <nav class="site-nav" aria-label="主导航">
+          <a href="/">首页</a>
+          <a href="/articles/">文章</a>
+          <a href="/articles/novels/">长篇</a>
+          <a href="/articles/shorts/">短篇</a>
+          <a href="/articles/notes/">记录</a>
+          <a href="/about/">关于</a>
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="切换浅色或暗色模式">主题</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="site-shell">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-shell">
+        <p>© 2026 Manbo. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script is:inline>
+      (() => {
+        const button = document.querySelector('[data-theme-toggle]');
+        if (!button) return;
+
+        const updateLabel = () => {
+          const current = document.documentElement.dataset.theme || 'light';
+          button.textContent = current === 'dark' ? '浅色' : '暗色';
+        };
+
+        button.addEventListener('click', () => {
+          const current = document.documentElement.dataset.theme || 'light';
+          const next = current === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = next;
+          localStorage.setItem('theme', next);
+          updateLabel();
+        });
+
+        updateLabel();
+      })();
+    </script>
+  </body>
+</html>
