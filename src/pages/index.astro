@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getPublishedNovels, getPublishedShorts, getPublishedNotes, getRecentArticles } from '../lib/content';
+
+const [novels, shorts, notes, recent] = await Promise.all([
+  getPublishedNovels(),
+  getPublishedShorts(),
+  getPublishedNotes(),
+  getRecentArticles(5)
+]);
+---
+
+<BaseLayout title="首页" description="Belle Angelina 的文章、小说和记录。">
+  <section class="hero">
+    <div class="eyebrow">Writings</div>
+    <h1>文字、故事和记录。</h1>
+    <p class="lede">这里整理长篇、短篇和一些日常记录。页面保持安静，把空间留给阅读。</p>
+  </section>
+
+  <section class="section" aria-labelledby="entrances-title">
+    <div class="section-head">
+      <h2 id="entrances-title">主要入口</h2>
+      <a href="/articles/">查看全部文章</a>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h3><a href="/articles/novels/">长篇</a></h3>
+        <p>{novels.length} 部作品。按作品、卷、章连续阅读。</p>
+      </article>
+      <article class="card">
+        <h3><a href="/articles/shorts/">短篇</a></h3>
+        <p>{shorts.length} 篇短篇。适合一次读完的独立文字。</p>
+      </article>
+      <article class="card">
+        <h3><a href="/articles/notes/">记录</a></h3>
+        <p>{notes.length} 篇记录。包括开发、部署和写作相关笔记。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="recent-title">
+    <div class="section-head">
+      <h2 id="recent-title">最近更新</h2>
+      <a href="/articles/">全部文章</a>
+    </div>
+    {recent.length > 0 ? (
+      <div class="article-list">
+        {recent.map((article) => (
+          <ArticleCard title={article.title} url={article.url} summary={article.summary} date={article.date} />
+        ))}
+      </div>
+    ) : (
+      <p class="empty">暂时还没有已发布内容。</p>
+    )}
+  </section>
+</BaseLayout>
