@@ -1,0 +1,17 @@
+---
+interface Props {
+  title: string;
+  url: string;
+  summary?: string;
+  date?: string;
+  label?: string;
+}
+
+const { title, url, summary = '', date = '', label = '' } = Astro.props;
+---
+
+<article class="article-card">
+  <h3><a href={url}>{title}</a></h3>
+  {(date || label) && <div class="meta">{[label, date].filter(Boolean).join(' · ')}</div>}
+  {summary && <p>{summary}</p>}
+</article>
