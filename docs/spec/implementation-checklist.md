@@ -65,10 +65,20 @@ https://belleangelina.github.io/
 - `sitemap.xml`
 - GitHub Pages deploy workflow
 
+部署验证结果：
+
+- GitHub Actions workflow 已触发。
+- build job 未启动。
+- GitHub 页面提示：`The job was not started because your account is locked due to a billing issue.`
+
+当前阻塞点：
+
+- 这是 GitHub 账号 / billing 状态阻塞，不是站点代码构建失败。
+- 在 billing issue 解除前，GitHub Actions 不会运行 build job，因此无法完成 Pages 部署验证和公开网址闭环。
+
 待完成：
 
-- 确认 GitHub Actions 是否成功构建并部署。
+- 解除 GitHub billing/account lock。
+- 重新运行 GitHub Actions workflow。
 - 打开 `https://belleangelina.github.io/` 验证首页、短篇页、RSS 和 sitemap。
 - 若部署失败或页面异常，继续修复。
-
-备注：当前 GitHub Actions 查询工具未返回 push workflow run，因此部署状态尚未在本文档中确认。
