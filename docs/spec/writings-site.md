@@ -30,13 +30,13 @@
 理由：
 
 - 更适合文章、小说、记录类静态内容站。
-- 支持 Markdown / MDX。
+- 支持 Markdown。
 - 适合用 Content Collections 或自定义内容加载逻辑管理 frontmatter。
 - 可以静态构建并部署到 GitHub Pages。
 
 ### 3.1 GitHub Pages 静态约束
 
-GitHub Pages 只托管静态网站。站点应在 GitHub Actions 构建阶段把 Markdown / MDX 内容转换为静态 HTML、CSS 和 JavaScript，然后由 GitHub Pages 发布。
+GitHub Pages 只托管静态网站。站点应在 GitHub Actions 构建阶段把 Markdown 内容转换为静态 HTML、CSS 和 JavaScript，然后由 GitHub Pages 发布。
 
 因此 V1 不应依赖服务端能力，例如：
 
@@ -59,6 +59,12 @@ GitHub Pages 只托管静态网站。站点应在 GitHub Actions 构建阶段把
 - 从公开 API 拉取公开数据，如果后续需要
 
 设计结论：V1 应按纯静态站点设计。评论、登录、服务端搜索、在线编辑、订阅邮件等需要服务端或外部服务的能力，不进入核心范围。
+
+### 3.2 内容文件格式
+
+V1 只支持 Markdown 文件，即 `.md`。
+
+V1 暂不支持 MDX `.mdx`。原因是当前内容主要是小说、短篇和记录，Markdown 已能满足正文、标题、列表、引用、代码块、图片等需求。MDX 可以在文章中嵌入组件，但会增加写作复杂度、构建复杂度和内容约束，暂不进入第一版。
 
 ## 4. 发布流程
 
@@ -250,7 +256,7 @@ notes/<note-slug>/
 
 ## 9. Frontmatter 规则
 
-所有会发布的网站内容都使用 Markdown / MDX frontmatter。
+所有会发布的网站内容都使用 Markdown frontmatter。
 
 ### 9.1 通用字段
 
@@ -403,6 +409,7 @@ V1 采用“完整但克制”的范围，并保持纯静态实现。
 - 记录列表页
 - 记录阅读页
 - 关于页
+- 只支持 Markdown `.md` 内容文件
 - `published` / `draft` 过滤
 - 浅色 / 暗色模式
 - sitemap.xml
@@ -414,6 +421,7 @@ V1 采用“完整但克制”的范围，并保持纯静态实现。
 
 暂不做：
 
+- MDX `.mdx`
 - tags 字段
 - 标签列表页
 - 标签详情页
@@ -434,10 +442,9 @@ V1 采用“完整但克制”的范围，并保持纯静态实现。
 
 1. V1 第一版范围的剩余细节。
 2. 首页展示内容与风格。
-3. 是否使用 MDX，还是只支持 Markdown。
-4. 站点视觉风格。
-5. GitHub Actions 具体权限与 token 配置方案。
-6. `writings-public` README 具体内容。
+3. 站点视觉风格。
+4. GitHub Actions 具体权限与 token 配置方案。
+5. `writings-public` README 具体内容。
 
 ## 15. 文档同步规则
 
@@ -451,6 +458,7 @@ V1 采用“完整但克制”的范围，并保持纯静态实现。
 - 站点仓库使用 public，可发布为 GitHub Pages 个人主站。
 - 技术栈选择 Astro。
 - GitHub Pages 仅托管静态网站，V1 按纯静态站点设计。
+- 内容文件 V1 只支持 Markdown `.md`，暂不支持 MDX `.mdx`。
 - 内容更新后自动触发网站重新构建和部署。
 - 文章顶层分类为：长篇 / 短篇 / 记录。
 - 记录暂不做子分类。
