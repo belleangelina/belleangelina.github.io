@@ -34,6 +34,33 @@
 - 适合用 Content Collections 或自定义内容加载逻辑管理 frontmatter。
 - 可以静态构建并部署到 GitHub Pages。
 
+### 3.1 GitHub Pages 静态约束
+
+GitHub Pages 只托管静态网站。站点应在 GitHub Actions 构建阶段把 Markdown / MDX 内容转换为静态 HTML、CSS 和 JavaScript，然后由 GitHub Pages 发布。
+
+因此 V1 不应依赖服务端能力，例如：
+
+- 后端 API 服务
+- 数据库读写
+- 用户登录 / 会话
+- 服务端渲染 SSR
+- 服务端搜索
+- 评论系统后端
+- 表单提交处理
+- 动态生成私有用户内容
+
+可以使用的能力：
+
+- 静态预生成页面
+- 浏览器端 JavaScript
+- 标签筛选
+- 本地搜索索引，如果后续需要
+- 暗色模式
+- 阅读进度等本地状态
+- 从公开 API 拉取公开数据，如果后续需要
+
+设计结论：V1 应按纯静态站点设计。评论、登录、服务端搜索、在线编辑、订阅邮件等需要服务端或外部服务的能力，不进入核心范围。
+
 ## 4. 发布流程
 
 采用自动发布。
@@ -357,7 +384,7 @@ cover: ./summer-rain/cover.jpg
 
 待继续确认。
 
-当前建议 V1 采用“完整但克制”的范围：
+当前建议 V1 采用“完整但克制”的范围，并保持纯静态实现：
 
 必须有：
 
@@ -387,6 +414,7 @@ cover: ./summer-rain/cover.jpg
 - 订阅邮件
 - 复杂图片管理
 - 多语言
+- 任何依赖站点自有后端或数据库的功能
 
 ## 13. 待讨论问题
 
@@ -415,6 +443,7 @@ cover: ./summer-rain/cover.jpg
 - 采用双仓库方案：内容仓库 `writings-public`，站点仓库 `belleangelina.github.io`。
 - 站点仓库使用 public，可发布为 GitHub Pages 个人主站。
 - 技术栈选择 Astro。
+- GitHub Pages 仅托管静态网站，V1 按纯静态站点设计。
 - 内容更新后自动触发网站重新构建和部署。
 - 文章顶层分类为：长篇 / 短篇 / 记录。
 - 记录暂不做子分类。
