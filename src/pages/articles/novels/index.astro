@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import { getPublishedNovels } from '../../../lib/content';
+
+const novels = await getPublishedNovels();
+---
+
+<BaseLayout title="长篇" description="长篇作品列表。">
+  <section class="hero">
+    <div class="eyebrow">Novels</div>
+    <h1>长篇</h1>
+    <p class="lede">按作品、卷和章组织的长篇内容。</p>
+  </section>
+
+  {novels.length > 0 ? (
+    <div class="article-list">
+      {novels.map((novel) => (
+        <ArticleCard title={novel.title} url={novel.url} summary={novel.summary} date={novel.date} label={`${novel.volumes.length} 卷`} />
+      ))}
+    </div>
+  ) : (
+    <p class="empty">暂时还没有已发布长篇作品。</p>
+  )}
+</BaseLayout>
