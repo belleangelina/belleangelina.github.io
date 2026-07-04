@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getPublishedShorts } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  const shorts = await getPublishedShorts();
+  return shorts.map((article) => ({
+    params: { slug: article.slug },
+    props: { article }
+  }));
+}
+
+const { article } = Astro.props;
+---
+
+<BaseLayout title={article.title} description={article.summary || article.title}>
+  <article class="reading">
+    <header class="reading-header">
+      <div class="eyebrow">Short</div>
+      <h1>{article.title}</h1>
+      {article.date && <p class="meta">{article.date}</p>}
+      {article.summary && <p class="lede">{article.summary}</p>}
+    </header>
+    <div class="prose" set:html={article.html} />
+  </article>
+</BaseLayout>
