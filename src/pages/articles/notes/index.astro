@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import { getPublishedNotes } from '../../../lib/content';
+
+const notes = await getPublishedNotes();
+---
+
+<BaseLayout title="记录" description="记录列表。">
+  <section class="hero">
+    <div class="eyebrow">Notes</div>
+    <h1>记录</h1>
+    <p class="lede">开发、部署、写作和其他日常记录。</p>
+  </section>
+
+  {notes.length > 0 ? (
+    <div class="article-list">
+      {notes.map((article) => (
+        <ArticleCard title={article.title} url={article.url} summary={article.summary} date={article.date} />
+      ))}
+    </div>
+  ) : (
+    <p class="empty">暂时还没有已发布记录。</p>
+  )}
+</BaseLayout>
