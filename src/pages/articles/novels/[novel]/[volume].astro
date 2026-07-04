@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import ArticleCard from '../../../../components/ArticleCard.astro';
+import { getPublishedNovels } from '../../../../lib/content';
+
+export async function getStaticPaths() {
+  const novels = await getPublishedNovels();
+  return novels.flatMap((novel) => novel.volumes.map((volume) => ({
+    params: { novel: novel.slug, volume: volume.slug },
+    props: { novel, volume }
+  })));
+}
+
+const { novel, volume } = Astro.props;
+---
+
+<BaseLayout title={volume.title} description={volume.summary || `${novel.title} ${volume.title}`}>
+  <section class="reading">
+    <header class="reading-header">
+      <div class="eyebrow"><a href={novel.url}>{novel.title}</a></div>
+      <h1>{volume.title}</h1>
+      {volume.summary && <p class="lede">{volume.summary}</p>}
+    </header>
+
+    {volume.chapters.length > 0 ? (
+      <div class="article-list">
+        {volume.chapters.map((chapter) => (
+          <ArticleCard title={chapter.title} url={chapter.url} summary={chapter.summary} date={chapter.date} />
+        ))}
+      </div>
+    ) : (
+      <p class="empty">这一卷暂时还没有已发布章节。</p>
+    )}
+  </section>
+</BaseLayout>
