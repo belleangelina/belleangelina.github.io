@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import { getPublishedShorts } from '../../../lib/content';
+
+const shorts = await getPublishedShorts();
+---
+
+<BaseLayout title="短篇" description="短篇列表。">
+  <section class="hero">
+    <div class="eyebrow">Shorts</div>
+    <h1>短篇</h1>
+    <p class="lede">独立短篇和一次读完的文字。</p>
+  </section>
+
+  {shorts.length > 0 ? (
+    <div class="article-list">
+      {shorts.map((article) => (
+        <ArticleCard title={article.title} url={article.url} summary={article.summary} date={article.date} />
+      ))}
+    </div>
+  ) : (
+    <p class="empty">暂时还没有已发布短篇。</p>
+  )}
+</BaseLayout>
