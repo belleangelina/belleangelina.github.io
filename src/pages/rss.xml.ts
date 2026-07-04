@@ -1,5 +1,7 @@
 import { getAllPublishedArticles, siteUrl } from '../lib/content';
 
+export const prerender = true;
+
 function escapeXml(value: string): string {
   return value
     .replace(/&/g, '&amp;')
