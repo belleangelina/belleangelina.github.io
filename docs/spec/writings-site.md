@@ -581,7 +581,7 @@ V1 采用“完整但克制”的范围，并保持纯静态实现。
 - 自动部署采用 `writings` push 后触发 `belleangelina.github.io` 的 `repository_dispatch`；站点仓库同时保留 `workflow_dispatch` 手动触发备用。
 - 跨仓库触发使用 fine-grained PAT，作为 secret 存入 `writings`，推荐名称为 `SITE_REPO_DISPATCH_TOKEN`。
 - `writings/README.md` 已更新为内容仓库规范说明。
-- 旧短篇 `short-stories/RainyGirl.md` 已迁移到 `shorts/rainy-girl.md`，并补充 V1 frontmatter。
+- 旧短篇 `short-stories/RainyGirl.md` 已迁移到 `shorts/RainyGirl.md`，并补充 V1 frontmatter；未改变原文件名。
 - 首页作为入口页，不作为完整文章列表页。
 - 站点视觉采用极简文学阅读风格。
 - V1 必须适配移动端，采用响应式布局。
