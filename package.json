@@ -1,0 +1,20 @@
+{
+  "name": "belleangelina-writings-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "latest",
+    "fast-glob": "latest",
+    "gray-matter": "latest",
+    "marked": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest"
+  }
+}
