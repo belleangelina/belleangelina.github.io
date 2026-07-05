@@ -11,15 +11,15 @@ const { title, url, date = '', label = '', cover = '' } = Astro.props;
 const meta = [label, date].filter(Boolean).join(' · ');
 ---
 
-<article class="index-entry story-card">
-  <a class="index-entry-link story-card-link" href={url}>
-    <span class="story-card-art" aria-hidden="true">
-      {cover ? <img class="index-entry-image story-card-image" src={cover} alt="" loading="lazy" /> : <span class="story-card-mark"></span>}
+<article class="index-entry">
+  <a class="index-entry-link" href={url}>
+    <span class="index-entry-mark" aria-hidden="true">
+      {cover ? <img class="index-entry-image" src={cover} alt="" loading="lazy" /> : <span class="index-entry-moon"></span>}
     </span>
-    <span class="story-card-content">
-      <span class="index-entry-meta story-card-meta">{meta || 'Entry'}</span>
-      <span class="index-entry-title story-card-title">{title}</span>
+    <span class="index-entry-content">
+      <span class="index-entry-meta">{meta || 'Entry'}</span>
+      <span class="index-entry-title">{title}</span>
     </span>
-    <span class="index-entry-action story-card-action">Read</span>
+    <span class="index-entry-action">Read</span>
   </a>
 </article>
