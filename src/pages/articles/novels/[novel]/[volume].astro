@@ -19,7 +19,6 @@ const { novel, volume } = Astro.props;
     <header class="reading-header">
       <div class="eyebrow"><a href={novel.url}>{novel.title}</a></div>
       <h1>{volume.title}</h1>
-      {volume.summary && <p class="lede">{volume.summary}</p>}
     </header>
 
     <section class="article-list-section" aria-labelledby="chapters-title">
@@ -30,7 +29,7 @@ const { novel, volume } = Astro.props;
       {volume.chapters.length > 0 ? (
         <div class="article-list">
           {volume.chapters.map((chapter) => (
-            <ArticleCard title={chapter.title} url={chapter.url} summary={chapter.summary} date={chapter.date} label="Chapter" />
+            <ArticleCard title={chapter.title} url={chapter.url} date={chapter.date} label="章节" cover={chapter.cover} />
           ))}
         </div>
       ) : (
