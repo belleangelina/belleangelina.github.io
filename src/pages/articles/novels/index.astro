@@ -8,9 +8,7 @@ const novels = await getPublishedNovels();
 
 <BaseLayout title="长篇" description="长篇作品列表。">
   <section class="hero">
-    <div class="eyebrow">Novels</div>
     <h1>长篇</h1>
-    <p class="lede">按作品、卷和章组织的长篇内容。适合沿着目录进入，也适合回到某一卷继续读。</p>
   </section>
 
   <section class="section article-list-section" aria-labelledby="novels-title">
@@ -21,7 +19,7 @@ const novels = await getPublishedNovels();
     {novels.length > 0 ? (
       <div class="article-list">
         {novels.map((novel) => (
-          <ArticleCard title={novel.title} url={novel.url} summary={novel.summary} date={novel.date} label={`${novel.volumes.length} 卷`} />
+          <ArticleCard title={novel.title} url={novel.url} date={novel.date} label={`${novel.volumes.length} 卷`} cover={novel.cover} />
         ))}
       </div>
     ) : (
