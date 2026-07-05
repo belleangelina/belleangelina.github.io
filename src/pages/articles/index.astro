@@ -18,25 +18,42 @@ const labelFor = (kind: string) => {
 ---
 
 <BaseLayout title="文章" description="文章总览。">
-  <section class="hero">
-    <h1>文章</h1>
-  </section>
-
-  <section class="section" aria-labelledby="cats-title">
-    <div class="section-head">
-      <h2 id="cats-title">分类</h2>
-      <span class="meta">共 {articles.length} 条</span>
+  <section class="archive-hero" aria-labelledby="archive-title">
+    <div>
+      <p class="overline">Complete Index</p>
+      <h1 id="archive-title">文章目录</h1>
+      <p class="archive-lede">全部发布文字汇在这里：长篇、短篇、记录，按时间静静展开。</p>
     </div>
-    <div class="category-links">
-      <a href="/articles/novels/"><span>长篇</span><strong>{novels.length} 部</strong></a>
-      <a href="/articles/shorts/"><span>短篇</span><strong>{shorts.length} 篇</strong></a>
-      <a href="/articles/notes/"><span>记录</span><strong>{notes.length} 篇</strong></a>
+    <div class="archive-counter" aria-label="文章总数">
+      <strong>{articles.length}</strong>
+      <span>published</span>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="all-title">
-    <div class="section-head">
-      <h2 id="all-title">全部更新</h2>
+  <section class="archive-routes" aria-label="分类入口">
+    <a href="/articles/novels/">
+      <span>Novels</span>
+      <strong>长篇</strong>
+      <em>{novels.length} 部</em>
+    </a>
+    <a href="/articles/shorts/">
+      <span>Shorts</span>
+      <strong>短篇</strong>
+      <em>{shorts.length} 篇</em>
+    </a>
+    <a href="/articles/notes/">
+      <span>Notes</span>
+      <strong>记录</strong>
+      <em>{notes.length} 篇</em>
+    </a>
+  </section>
+
+  <section class="section archive-listing" aria-labelledby="all-title">
+    <div class="section-head section-head-large">
+      <div>
+        <p class="overline">Chronicle</p>
+        <h2 id="all-title">全部更新</h2>
+      </div>
       <span class="meta">按日期倒序</span>
     </div>
     {articles.length > 0 ? (
