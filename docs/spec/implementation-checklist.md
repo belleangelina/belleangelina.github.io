@@ -68,21 +68,23 @@ https://belleangelina.github.io/
 部署验证结果：
 
 - GitHub Actions workflow 已触发。
-- build job 未启动。
-- GitHub 页面提示：`The job was not started because your account is locked due to a billing issue.`
+- build job 曾因 GitHub account billing lock 未启动。
+- billing lock 解除后，build job 已成功。
+- deploy job 返回：`Deployment failed, try again later.`
 
-当前阻塞点：
+当前判断：
 
-- 这是 GitHub 账号 / billing 状态阻塞，不是站点代码构建失败。
-- 在 billing issue 解除前，GitHub Actions 不会运行 build job，因此无法完成 Pages 部署验证和公开网址闭环。
+- 站点代码已经通过 GitHub Actions build。
+- 当前失败点是 GitHub Pages deploy 阶段，不是 Astro 构建失败。
+- `Deployment failed, try again later.` 常见处理是重新触发部署。
 
 待完成：
 
-- 解除 GitHub billing/account lock。
-- 重新运行 GitHub Actions workflow。
+- 重新触发 GitHub Actions workflow。
 - 打开 `https://belleangelina.github.io/` 验证首页、短篇页、RSS 和 sitemap。
-- 若部署失败或页面异常，继续修复。
+- 若部署再次失败或页面异常，继续修复。
 
 ## 重新触发记录
 
 - 已在用户处理 billing 问题后提交一次小改动，用于重新触发 GitHub Pages workflow。
+- build 成功但 deploy 返回临时失败后，再次提交小改动用于重试 deploy。
