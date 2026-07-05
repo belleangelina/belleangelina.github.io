@@ -13,22 +13,40 @@ const [articles, novels, shorts, notes] = await Promise.all([
 
 <BaseLayout title="文章" description="文章总览。">
   <section class="hero">
-    <div class="eyebrow">Articles</div>
-    <h1>文章</h1>
-    <p class="lede">长篇、短篇和记录的总览。列表按日期倒序展示。</p>
+    <div class="eyebrow">Archive</div>
+    <h1>文章目录</h1>
+    <p class="lede">长篇、短篇和记录汇在这里。像翻目录一样进入，也可以按最近更新一路读下去。</p>
   </section>
 
   <section class="section" aria-labelledby="cats-title">
-    <h2 id="cats-title">分类</h2>
+    <div class="section-head">
+      <h2 id="cats-title">分类</h2>
+      <span class="meta">共 {articles.length} 条更新</span>
+    </div>
     <div class="grid">
-      <article class="card"><h3><a href="/articles/novels/">长篇</a></h3><p>{novels.length} 部作品</p></article>
-      <article class="card"><h3><a href="/articles/shorts/">短篇</a></h3><p>{shorts.length} 篇短篇</p></article>
-      <article class="card"><h3><a href="/articles/notes/">记录</a></h3><p>{notes.length} 篇记录</p></article>
+      <article class="card">
+        <div class="card-kicker">Novels</div>
+        <h3><a href="/articles/novels/">长篇</a></h3>
+        <p>{novels.length} 部作品</p>
+      </article>
+      <article class="card">
+        <div class="card-kicker">Shorts</div>
+        <h3><a href="/articles/shorts/">短篇</a></h3>
+        <p>{shorts.length} 篇短篇</p>
+      </article>
+      <article class="card">
+        <div class="card-kicker">Notes</div>
+        <h3><a href="/articles/notes/">记录</a></h3>
+        <p>{notes.length} 篇记录</p>
+      </article>
     </div>
   </section>
 
   <section class="section" aria-labelledby="all-title">
-    <h2 id="all-title">全部更新</h2>
+    <div class="section-head">
+      <h2 id="all-title">全部更新</h2>
+      <span class="meta">按日期倒序</span>
+    </div>
     {articles.length > 0 ? (
       <div class="article-list">
         {articles.map((article) => (
