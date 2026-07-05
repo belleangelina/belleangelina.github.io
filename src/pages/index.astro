@@ -1,38 +1,64 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { getRecentArticles } from '../lib/content';
+import { getRecentArticles, getPublishedNovels, getPublishedShorts, getPublishedNotes } from '../lib/content';
 
-const recent = await getRecentArticles(2);
+const [recent, novels, shorts, notes] = await Promise.all([
+  getRecentArticles(3),
+  getPublishedNovels(),
+  getPublishedShorts(),
+  getPublishedNotes()
+]);
+
+const total = novels.length + shorts.length + notes.length;
 ---
 
 <BaseLayout title="首页" description="Belle Angelina 的文章、小说和记录。">
-  <section class="home-hero" aria-labelledby="home-title">
-    <h1 id="home-title">一些记录</h1>
-    <div class="hero-actions">
-      <a class="button" href="/articles/">进入目录</a>
-      <a class="button-secondary" href="/articles/shorts/">读短篇</a>
+  <section class="home-gallery" aria-labelledby="home-title">
+    <div class="home-copy">
+      <p class="overline">Belle Angelina · Private Archive</p>
+      <h1 id="home-title">一些记录</h1>
+      <p class="home-lede">小说、短篇、日常文字与尚未归类的片段，被收进一个安静的私人展厅。</p>
+      <div class="hero-actions">
+        <a class="button" href="/articles/">进入目录</a>
+        <a class="button-secondary" href="/articles/shorts/">读短篇</a>
+      </div>
     </div>
+
+    <aside class="home-marquee" aria-label="站点概览">
+      <span class="marquee-label">Archive</span>
+      <strong>{total}</strong>
+      <span>pieces & collections</span>
+    </aside>
   </section>
 
-  <section class="entry-sections" aria-label="主要入口">
-    <a class="entry-section" href="/articles/novels/">
-      <span>长篇</span>
-      <strong>连续故事</strong>
+  <section class="collection-board" aria-label="主要入口">
+    <a class="collection-tile collection-tile-featured" href="/articles/novels/">
+      <span class="tile-index">01</span>
+      <span class="tile-label">Novel</span>
+      <strong>长篇</strong>
+      <em>{novels.length} 部连续故事</em>
     </a>
-    <a class="entry-section" href="/articles/shorts/">
-      <span>短篇</span>
-      <strong>独立片段</strong>
+    <a class="collection-tile" href="/articles/shorts/">
+      <span class="tile-index">02</span>
+      <span class="tile-label">Shorts</span>
+      <strong>短篇</strong>
+      <em>{shorts.length} 篇独立片段</em>
     </a>
-    <a class="entry-section" href="/articles/notes/">
-      <span>记录</span>
-      <strong>日常整理</strong>
+    <a class="collection-tile" href="/articles/notes/">
+      <span class="tile-index">03</span>
+      <span class="tile-label">Notes</span>
+      <strong>记录</strong>
+      <em>{notes.length} 篇日常整理</em>
     </a>
   </section>
 
-  <section class="section" aria-labelledby="recent-title">
-    <div class="section-head">
-      <h2 id="recent-title">最近更新</h2>
+  <section class="section recent-salon" aria-labelledby="recent-title">
+    <div class="section-head section-head-large">
+      <div>
+        <p class="overline">Recently Updated</p>
+        <h2 id="recent-title">最近更新</h2>
+      </div>
       <a href="/articles/">全部文章</a>
     </div>
     {recent.length > 0 ? (
