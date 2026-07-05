@@ -9,6 +9,7 @@ interface Props {
 
 const { title, url, date = '', label = '', cover = '' } = Astro.props;
 const meta = [label, date].filter(Boolean).join(' · ');
+const stamp = label || 'Entry';
 ---
 
 <article class="article-card">
@@ -21,10 +22,12 @@ const meta = [label, date].filter(Boolean).join(' · ');
           <span></span>
         </div>
       )}
+      <span class="article-cover-stamp">{stamp}</span>
     </div>
     <div class="article-card-body">
+      {meta && <p class="article-card-meta">{meta}</p>}
       <h3>{title}</h3>
-      {meta && <div class="meta article-card-meta">{meta}</div>}
+      <span class="article-card-cta">打开阅读</span>
     </div>
   </a>
 </article>
