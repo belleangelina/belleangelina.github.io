@@ -7,13 +7,24 @@ const shorts = await getPublishedShorts();
 ---
 
 <BaseLayout title="短篇" description="短篇列表。">
-  <section class="hero">
-    <h1>短篇</h1>
+  <section class="archive-hero category-hero" aria-labelledby="shorts-title">
+    <div>
+      <p class="overline">Fragments</p>
+      <h1 id="shorts-title">短篇</h1>
+      <p class="archive-lede">独立片段、短故事和单独发光的文字，适合一口气读完。</p>
+    </div>
+    <div class="archive-counter" aria-label="短篇数量">
+      <strong>{shorts.length}</strong>
+      <span>pieces</span>
+    </div>
   </section>
 
-  <section class="section article-list-section" aria-labelledby="shorts-title">
-    <div class="section-head">
-      <h2 id="shorts-title">短篇目录</h2>
+  <section class="section archive-listing" aria-labelledby="shorts-list-title">
+    <div class="section-head section-head-large">
+      <div>
+        <p class="overline">Cabinet</p>
+        <h2 id="shorts-list-title">短篇目录</h2>
+      </div>
       <span class="meta">{shorts.length} 篇</span>
     </div>
     {shorts.length > 0 ? (
