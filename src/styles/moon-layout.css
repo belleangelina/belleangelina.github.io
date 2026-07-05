@@ -1,0 +1,243 @@
+.site-shell {
+  position: relative;
+  z-index: 1;
+  width: min(var(--max-width), calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 60;
+  transform: translateY(-150%);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  padding: 0.45rem 0.85rem;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  text-decoration: none;
+  box-shadow: var(--shadow-small);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  padding: 1.1rem 0;
+  background: linear-gradient(to bottom, rgba(246, 241, 231, 0.88), rgba(246, 241, 231, 0.56), transparent);
+  backdrop-filter: blur(16px);
+}
+
+html[data-theme='dark'] .site-header {
+  background: linear-gradient(to bottom, rgba(16, 22, 19, 0.9), rgba(16, 22, 19, 0.58), transparent);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.site-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.72rem;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 780;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.brand-mark,
+.brand-sigil {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 38% 30%, rgba(255, 255, 255, 0.92), transparent 22%),
+    linear-gradient(135deg, var(--surface), var(--mist));
+  color: var(--sage);
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-small);
+}
+
+.brand-mark::before {
+  content: 'B';
+}
+
+.site-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 253, 247, 0.68);
+  padding: 0.25rem;
+  box-shadow: var(--shadow-small);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 720;
+}
+
+html[data-theme='dark'] .site-nav {
+  background: rgba(25, 31, 28, 0.72);
+}
+
+.site-nav a,
+.theme-toggle {
+  display: inline-flex;
+  min-height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--soft);
+  text-decoration: none;
+}
+
+.site-nav a {
+  padding: 0 0.88rem;
+}
+
+.theme-toggle {
+  width: 2.25rem;
+  padding: 0;
+  cursor: pointer;
+}
+
+.site-nav a:hover,
+.theme-toggle:hover {
+  background: var(--surface);
+  color: var(--sage);
+  box-shadow: 0 8px 22px rgba(54, 69, 62, 0.10);
+}
+
+html[data-theme='dark'] .site-nav a:hover,
+html[data-theme='dark'] .theme-toggle:hover {
+  background: rgba(244, 239, 229, 0.08);
+}
+
+.theme-icon {
+  display: grid;
+  width: 1rem;
+  height: 1rem;
+  place-items: center;
+}
+
+.theme-icon svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.55;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-icon-moon svg {
+  fill: currentColor;
+  stroke: none;
+}
+
+.theme-icon-sun {
+  display: none;
+}
+
+html[data-theme='dark'] .theme-icon-moon {
+  display: none;
+}
+
+html[data-theme='dark'] .theme-icon-sun {
+  display: grid;
+}
+
+main {
+  padding: clamp(2.8rem, 6vw, 5.8rem) 0 6.8rem;
+}
+
+.site-footer {
+  position: relative;
+  z-index: 1;
+  color: var(--muted);
+  padding: 1.8rem 0 2.6rem;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.2rem;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  html {
+    font-size: 16px;
+  }
+
+  .site-shell {
+    width: min(100% - 1rem, var(--max-width));
+  }
+
+  .site-header {
+    padding: 0.6rem 0;
+  }
+
+  .header-inner {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .site-brand,
+  .site-nav {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .site-nav a {
+    flex: 1;
+    padding: 0 0.45rem;
+  }
+
+  main {
+    padding: 1.8rem 0 4.4rem;
+  }
+
+  h1 {
+    font-size: clamp(3.2rem, 18vw, 5.35rem);
+  }
+
+  h2 {
+    font-size: clamp(2.25rem, 13vw, 4rem);
+  }
+
+  .footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
