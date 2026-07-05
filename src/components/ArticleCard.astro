@@ -8,10 +8,14 @@ interface Props {
 }
 
 const { title, url, summary = '', date = '', label = '' } = Astro.props;
+const meta = [label, date].filter(Boolean).join(' · ');
 ---
 
 <article class="article-card">
-  <h3><a href={url}>{title}</a></h3>
-  {(date || label) && <div class="meta">{[label, date].filter(Boolean).join(' · ')}</div>}
-  {summary && <p>{summary}</p>}
+  <a class="article-card-link" href={url}>
+    {meta && <div class="meta article-card-meta">{meta}</div>}
+    <h3>{title}</h3>
+    {summary && <p>{summary}</p>}
+    <span class="read-more">继续阅读</span>
+  </a>
 </article>
