@@ -82,3 +82,7 @@ https://belleangelina.github.io/
 - 重新运行 GitHub Actions workflow。
 - 打开 `https://belleangelina.github.io/` 验证首页、短篇页、RSS 和 sitemap。
 - 若部署失败或页面异常，继续修复。
+
+## 重新触发记录
+
+- 已在用户处理 billing 问题后提交一次小改动，用于重新触发 GitHub Pages workflow。
