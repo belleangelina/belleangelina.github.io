@@ -8,9 +8,7 @@ const shorts = await getPublishedShorts();
 
 <BaseLayout title="短篇" description="短篇列表。">
   <section class="hero">
-    <div class="eyebrow">Short Stories</div>
     <h1>短篇</h1>
-    <p class="lede">独立、完整、适合一次读完的文字。每一篇都像一扇短暂打开的窗。</p>
   </section>
 
   <section class="section article-list-section" aria-labelledby="shorts-title">
@@ -21,7 +19,7 @@ const shorts = await getPublishedShorts();
     {shorts.length > 0 ? (
       <div class="article-list">
         {shorts.map((article) => (
-          <ArticleCard title={article.title} url={article.url} summary={article.summary} date={article.date} label="Short" />
+          <ArticleCard title={article.title} url={article.url} date={article.date} label="短篇" cover={article.cover} />
         ))}
       </div>
     ) : (
