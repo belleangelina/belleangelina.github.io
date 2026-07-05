@@ -7,13 +7,24 @@ const notes = await getPublishedNotes();
 ---
 
 <BaseLayout title="记录" description="记录列表。">
-  <section class="hero">
-    <h1>记录</h1>
+  <section class="archive-hero category-hero" aria-labelledby="notes-title">
+    <div>
+      <p class="overline">Journal</p>
+      <h1 id="notes-title">记录</h1>
+      <p class="archive-lede">日常整理、临时想法与生活旁注，被收进更轻的一格。</p>
+    </div>
+    <div class="archive-counter" aria-label="记录数量">
+      <strong>{notes.length}</strong>
+      <span>notes</span>
+    </div>
   </section>
 
-  <section class="section article-list-section" aria-labelledby="notes-title">
-    <div class="section-head">
-      <h2 id="notes-title">记录目录</h2>
+  <section class="section archive-listing" aria-labelledby="notes-list-title">
+    <div class="section-head section-head-large">
+      <div>
+        <p class="overline">Ledger</p>
+        <h2 id="notes-list-title">记录目录</h2>
+      </div>
       <span class="meta">{notes.length} 篇</span>
     </div>
     {notes.length > 0 ? (
