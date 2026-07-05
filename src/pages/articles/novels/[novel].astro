@@ -14,26 +14,35 @@ const { novel } = Astro.props;
 ---
 
 <BaseLayout title={novel.title} description={novel.summary || novel.title}>
-  <section class="reading">
+  <section class="reading reading-wide">
     <header class="reading-header">
-      <div class="eyebrow">Novel</div>
+      <div class="eyebrow"><a href="/articles/novels/">Novel</a></div>
       <h1>{novel.title}</h1>
       {novel.date && <p class="meta">{novel.date}</p>}
       {novel.summary && <p class="lede">{novel.summary}</p>}
     </header>
 
-    {novel.volumes.length > 0 ? (
-      <div class="article-list">
-        {novel.volumes.map((volume) => (
-          <article class="article-card">
-            <h3><a href={volume.url}>{volume.title}</a></h3>
-            {volume.summary && <p>{volume.summary}</p>}
-            <p class="meta">{volume.chapters.length} 章</p>
-          </article>
-        ))}
+    <section class="article-list-section" aria-labelledby="volumes-title">
+      <div class="section-head">
+        <h2 id="volumes-title">卷目录</h2>
+        <span class="meta">{novel.volumes.length} 卷</span>
       </div>
-    ) : (
-      <p class="empty">这个作品暂时还没有已发布卷或章节。</p>
-    )}
+      {novel.volumes.length > 0 ? (
+        <div class="article-list">
+          {novel.volumes.map((volume) => (
+            <article class="article-card">
+              <a class="article-card-link" href={volume.url}>
+                <div class="meta article-card-meta">{volume.chapters.length} 章</div>
+                <h3>{volume.title}</h3>
+                {volume.summary && <p>{volume.summary}</p>}
+                <span class="read-more">进入这一卷</span>
+              </a>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p class="empty">这个作品暂时还没有已发布卷或章节。</p>
+      )}
+    </section>
   </section>
 </BaseLayout>
