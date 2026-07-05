@@ -9,36 +9,28 @@ const [articles, novels, shorts, notes] = await Promise.all([
   getPublishedShorts(),
   getPublishedNotes()
 ]);
+
+const labelFor = (kind: string) => {
+  if (kind === 'short') return '短篇';
+  if (kind === 'note') return '记录';
+  return '章节';
+};
 ---
 
 <BaseLayout title="文章" description="文章总览。">
   <section class="hero">
-    <div class="eyebrow">Archive</div>
-    <h1>文章目录</h1>
-    <p class="lede">长篇、短篇和记录汇在这里。像翻目录一样进入，也可以按最近更新一路读下去。</p>
+    <h1>文章</h1>
   </section>
 
   <section class="section" aria-labelledby="cats-title">
     <div class="section-head">
       <h2 id="cats-title">分类</h2>
-      <span class="meta">共 {articles.length} 条更新</span>
+      <span class="meta">共 {articles.length} 条</span>
     </div>
-    <div class="grid">
-      <article class="card">
-        <div class="card-kicker">Novels</div>
-        <h3><a href="/articles/novels/">长篇</a></h3>
-        <p>{novels.length} 部作品</p>
-      </article>
-      <article class="card">
-        <div class="card-kicker">Shorts</div>
-        <h3><a href="/articles/shorts/">短篇</a></h3>
-        <p>{shorts.length} 篇短篇</p>
-      </article>
-      <article class="card">
-        <div class="card-kicker">Notes</div>
-        <h3><a href="/articles/notes/">记录</a></h3>
-        <p>{notes.length} 篇记录</p>
-      </article>
+    <div class="category-links">
+      <a href="/articles/novels/"><span>长篇</span><strong>{novels.length} 部</strong></a>
+      <a href="/articles/shorts/"><span>短篇</span><strong>{shorts.length} 篇</strong></a>
+      <a href="/articles/notes/"><span>记录</span><strong>{notes.length} 篇</strong></a>
     </div>
   </section>
 
@@ -50,7 +42,7 @@ const [articles, novels, shorts, notes] = await Promise.all([
     {articles.length > 0 ? (
       <div class="article-list">
         {articles.map((article) => (
-          <ArticleCard title={article.title} url={article.url} summary={article.summary} date={article.date} />
+          <ArticleCard title={article.title} url={article.url} date={article.date} label={labelFor(article.kind)} cover={article.cover} />
         ))}
       </div>
     ) : (
