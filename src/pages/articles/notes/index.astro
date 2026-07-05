@@ -8,9 +8,7 @@ const notes = await getPublishedNotes();
 
 <BaseLayout title="记录" description="记录列表。">
   <section class="hero">
-    <div class="eyebrow">Notes</div>
     <h1>记录</h1>
-    <p class="lede">开发、部署、写作和日常片段。记录不是正文的附属，而是站点形成过程中的脚印。</p>
   </section>
 
   <section class="section article-list-section" aria-labelledby="notes-title">
@@ -21,7 +19,7 @@ const notes = await getPublishedNotes();
     {notes.length > 0 ? (
       <div class="article-list">
         {notes.map((article) => (
-          <ArticleCard title={article.title} url={article.url} summary={article.summary} date={article.date} label="Note" />
+          <ArticleCard title={article.title} url={article.url} date={article.date} label="记录" cover={article.cover} />
         ))}
       </div>
     ) : (
