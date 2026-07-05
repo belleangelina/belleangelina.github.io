@@ -12,10 +12,29 @@ const [novels, shorts, notes, recent] = await Promise.all([
 ---
 
 <BaseLayout title="首页" description="Belle Angelina 的文章、小说和记录。">
-  <section class="hero">
-    <div class="eyebrow">Writings</div>
-    <h1>文字、故事和记录。</h1>
-    <p class="lede">这里整理长篇、短篇和一些日常记录。页面保持安静，把空间留给阅读。</p>
+  <section class="hero hero-home">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Belle Angelina · Writings</div>
+        <h1>把故事安放在一页纸上。</h1>
+        <p class="lede">这里整理长篇、短篇和日常记录。页面尽量安静，让标题、段落和留白承担阅读的节奏。</p>
+        <div class="hero-actions">
+          <a class="button" href="/articles/">进入文章目录</a>
+          <a class="button-secondary" href="/articles/shorts/">读一篇短篇</a>
+        </div>
+        <div class="stat-grid" aria-label="内容统计">
+          <div class="stat"><strong>{novels.length}</strong><span>长篇作品</span></div>
+          <div class="stat"><strong>{shorts.length}</strong><span>短篇</span></div>
+          <div class="stat"><strong>{notes.length}</strong><span>记录</span></div>
+        </div>
+      </div>
+
+      <aside class="hero-note" aria-label="站点说明">
+        <p><strong>一个文学阅读站。</strong></p>
+        <p>它不急着展示所有内容，而是像目录、书页和私人杂志一样，把公开写作慢慢整理出来。</p>
+        <p>适合从一篇短篇开始，也适合顺着长篇的卷与章继续读下去。</p>
+      </aside>
+    </div>
   </section>
 
   <section class="section" aria-labelledby="entrances-title">
@@ -25,16 +44,19 @@ const [novels, shorts, notes, recent] = await Promise.all([
     </div>
     <div class="grid">
       <article class="card">
+        <div class="card-kicker">Novels</div>
         <h3><a href="/articles/novels/">长篇</a></h3>
-        <p>{novels.length} 部作品。按作品、卷、章连续阅读。</p>
+        <p>{novels.length} 部作品。按作品、卷、章连续阅读，适合慢慢进入一个完整世界。</p>
       </article>
       <article class="card">
+        <div class="card-kicker">Shorts</div>
         <h3><a href="/articles/shorts/">短篇</a></h3>
-        <p>{shorts.length} 篇短篇。适合一次读完的独立文字。</p>
+        <p>{shorts.length} 篇短篇。独立、完整，适合在一个安静的时段读完。</p>
       </article>
       <article class="card">
+        <div class="card-kicker">Notes</div>
         <h3><a href="/articles/notes/">记录</a></h3>
-        <p>{notes.length} 篇记录。包括开发、部署和写作相关笔记。</p>
+        <p>{notes.length} 篇记录。包括开发、部署、写作和其他零散的现场笔记。</p>
       </article>
     </div>
   </section>
