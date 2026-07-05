@@ -10,16 +10,22 @@ const notes = await getPublishedNotes();
   <section class="hero">
     <div class="eyebrow">Notes</div>
     <h1>记录</h1>
-    <p class="lede">开发、部署、写作和其他日常记录。</p>
+    <p class="lede">开发、部署、写作和日常片段。记录不是正文的附属，而是站点形成过程中的脚印。</p>
   </section>
 
-  {notes.length > 0 ? (
-    <div class="article-list">
-      {notes.map((article) => (
-        <ArticleCard title={article.title} url={article.url} summary={article.summary} date={article.date} />
-      ))}
+  <section class="section article-list-section" aria-labelledby="notes-title">
+    <div class="section-head">
+      <h2 id="notes-title">记录目录</h2>
+      <span class="meta">{notes.length} 篇</span>
     </div>
-  ) : (
-    <p class="empty">暂时还没有已发布记录。</p>
-  )}
+    {notes.length > 0 ? (
+      <div class="article-list">
+        {notes.map((article) => (
+          <ArticleCard title={article.title} url={article.url} summary={article.summary} date={article.date} label="Note" />
+        ))}
+      </div>
+    ) : (
+      <p class="empty">暂时还没有已发布记录。</p>
+    )}
+  </section>
 </BaseLayout>
