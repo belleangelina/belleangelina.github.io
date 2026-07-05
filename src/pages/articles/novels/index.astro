@@ -10,16 +10,22 @@ const novels = await getPublishedNovels();
   <section class="hero">
     <div class="eyebrow">Novels</div>
     <h1>长篇</h1>
-    <p class="lede">按作品、卷和章组织的长篇内容。</p>
+    <p class="lede">按作品、卷和章组织的长篇内容。适合沿着目录进入，也适合回到某一卷继续读。</p>
   </section>
 
-  {novels.length > 0 ? (
-    <div class="article-list">
-      {novels.map((novel) => (
-        <ArticleCard title={novel.title} url={novel.url} summary={novel.summary} date={novel.date} label={`${novel.volumes.length} 卷`} />
-      ))}
+  <section class="section article-list-section" aria-labelledby="novels-title">
+    <div class="section-head">
+      <h2 id="novels-title">长篇作品</h2>
+      <span class="meta">{novels.length} 部</span>
     </div>
-  ) : (
-    <p class="empty">暂时还没有已发布长篇作品。</p>
-  )}
+    {novels.length > 0 ? (
+      <div class="article-list">
+        {novels.map((novel) => (
+          <ArticleCard title={novel.title} url={novel.url} summary={novel.summary} date={novel.date} label={`${novel.volumes.length} 卷`} />
+        ))}
+      </div>
+    ) : (
+      <p class="empty">暂时还没有已发布长篇作品。</p>
+    )}
+  </section>
 </BaseLayout>
