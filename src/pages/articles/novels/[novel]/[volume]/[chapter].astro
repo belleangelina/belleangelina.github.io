@@ -39,8 +39,6 @@ const { novel, volume, chapter, previous, next } = Astro.props;
     <header class="reading-header">
       <div class="eyebrow"><a href={novel.url}>{novel.title}</a> / <a href={volume.url}>{volume.title}</a></div>
       <h1>{chapter.title}</h1>
-      {chapter.date && <p class="meta">{chapter.date}</p>}
-      {chapter.summary && <p class="lede">{chapter.summary}</p>}
     </header>
 
     <div class="prose" set:html={chapter.html} />
