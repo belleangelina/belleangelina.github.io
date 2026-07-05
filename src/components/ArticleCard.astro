@@ -2,20 +2,29 @@
 interface Props {
   title: string;
   url: string;
-  summary?: string;
   date?: string;
   label?: string;
+  cover?: string;
 }
 
-const { title, url, summary = '', date = '', label = '' } = Astro.props;
+const { title, url, date = '', label = '', cover = '' } = Astro.props;
 const meta = [label, date].filter(Boolean).join(' · ');
 ---
 
 <article class="article-card">
   <a class="article-card-link" href={url}>
-    {meta && <div class="meta article-card-meta">{meta}</div>}
-    <h3>{title}</h3>
-    {summary && <p>{summary}</p>}
-    <span class="read-more">继续阅读</span>
+    <div class="article-cover" aria-hidden="true">
+      {cover ? (
+        <img class="article-cover-image" src={cover} alt="" loading="lazy" />
+      ) : (
+        <div class="article-cover-placeholder">
+          <span></span>
+        </div>
+      )}
+    </div>
+    <div class="article-card-body">
+      <h3>{title}</h3>
+      {meta && <div class="meta article-card-meta">{meta}</div>}
+    </div>
   </a>
 </article>
