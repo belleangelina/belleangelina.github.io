@@ -8,26 +8,14 @@ interface Props {
 }
 
 const { title, url, date = '', label = '', cover = '' } = Astro.props;
-const meta = [label, date].filter(Boolean).join(' · ');
-const stamp = label || 'Entry';
+const meta = [label, date].filter(Boolean).join(' / ');
 ---
 
-<article class="article-card">
-  <a class="article-card-link" href={url}>
-    <div class="article-cover" aria-hidden="true">
-      {cover ? (
-        <img class="article-cover-image" src={cover} alt="" loading="lazy" />
-      ) : (
-        <div class="article-cover-placeholder">
-          <span></span>
-        </div>
-      )}
-      <span class="article-cover-stamp">{stamp}</span>
-    </div>
-    <div class="article-card-body">
-      {meta && <p class="article-card-meta">{meta}</p>}
-      <h3>{title}</h3>
-      <span class="article-card-cta">打开阅读</span>
-    </div>
+<article class="index-entry">
+  <a class="index-entry-link" href={url}>
+    <span class="index-entry-meta">{meta || 'Entry'}</span>
+    <span class="index-entry-title">{title}</span>
+    {cover && <img class="index-entry-image" src={cover} alt="" loading="lazy" />}
+    <span class="index-entry-action">Read</span>
   </a>
 </article>
