@@ -15,29 +15,28 @@ const total = novels.length + shorts.length + notes.length;
 
 <BaseLayout title="首页" description="Belle Angelina 的文章、小说和记录。">
   <section class="home-hero" aria-labelledby="home-title">
-    <div class="moon-scene" aria-hidden="true">
-      <span class="moon-orb"></span>
-      <span class="orbit orbit-one"></span>
-      <span class="orbit orbit-two"></span>
-      <span class="star star-one"></span>
-      <span class="star star-two"></span>
-      <span class="star star-three"></span>
-    </div>
-
     <div class="home-copy">
-      <p class="overline">Belle Angelina · Lunar Library</p>
-      <h1 id="home-title">把故事放进一场浅色的梦</h1>
-      <p class="home-lede">这里收藏小说、短篇与日常记录。页面只保留必要的入口、柔和的光和足够安静的留白，让文字自己发亮。</p>
+      <p class="overline">Belle Angelina · Moonlit Pages</p>
+      <h1 id="home-title">月雾里的一间文字小屋</h1>
+      <p class="home-lede">小说、短篇、记录都安静放在这里。色彩收轻，装饰留白，只让入口清楚、文字舒服、气质像一封慢慢展开的信。</p>
       <div class="hero-actions">
-        <a class="button" href="/articles/">浏览全部</a>
-        <a class="button-secondary" href="/articles/novels/">进入长篇</a>
+        <a class="button" href="/articles/">进入目录</a>
+        <a class="button-secondary" href="/articles/novels/">阅读长篇</a>
       </div>
     </div>
 
-    <aside class="home-marquee" aria-label="站点概览">
-      <span class="marquee-label">Collected</span>
-      <strong>{total}</strong>
-      <span>published pieces</span>
+    <aside class="moon-scene" aria-label="站点概览">
+      <div class="moon-card" aria-hidden="true">
+        <span class="moon-orb"></span>
+        <span class="paper-line paper-line-one"></span>
+        <span class="paper-line paper-line-two"></span>
+        <span class="paper-line paper-line-three"></span>
+      </div>
+      <div class="home-marquee">
+        <span class="marquee-label">Collected</span>
+        <strong>{total}</strong>
+        <span>published pieces</span>
+      </div>
     </aside>
   </section>
 
