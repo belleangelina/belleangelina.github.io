@@ -14,11 +14,17 @@ const total = novels.length + shorts.length + notes.length;
 ---
 
 <BaseLayout title="首页" description="Belle Angelina 的文章、小说和记录。">
-  <section class="home-gallery" aria-labelledby="home-title">
+  <section class="home-hero" aria-labelledby="home-title">
+    <div class="hero-ambient" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
     <div class="home-copy">
-      <p class="overline">Belle Angelina · Private Archive</p>
-      <h1 id="home-title">一些记录</h1>
-      <p class="home-lede">小说、短篇、日常文字与尚未归类的片段，被收进一个安静的私人展厅。</p>
+      <p class="overline">Belle Angelina · Dream Archive</p>
+      <h1 id="home-title">在月光里整理文字</h1>
+      <p class="home-lede">小说、短篇与日常记录，收进一个轻盈、安静、带一点微光的阅读空间。</p>
       <div class="hero-actions">
         <a class="button" href="/articles/">进入目录</a>
         <a class="button-secondary" href="/articles/shorts/">读短篇</a>
@@ -28,7 +34,7 @@ const total = novels.length + shorts.length + notes.length;
     <aside class="home-marquee" aria-label="站点概览">
       <span class="marquee-label">Archive</span>
       <strong>{total}</strong>
-      <span>pieces & collections</span>
+      <span>pieces collected</span>
     </aside>
   </section>
 
