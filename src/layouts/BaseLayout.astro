@@ -14,15 +14,11 @@ const currentPath = Astro.url.pathname;
 const navItems = [
     { href: '/', label: '首页' },
     { href: '/articles/', label: '文章' },
-    { href: '/articles/novels/', label: '长篇' },
-    { href: '/articles/shorts/', label: '短篇' },
-    { href: '/articles/notes/', label: '记录' },
     { href: '/about/', label: '关于' }
 ];
 
 function isActive(href: string) {
     if (href === '/') return currentPath === '/';
-    if (href === '/articles/') return currentPath === '/articles/';
     return currentPath.startsWith(href);
 }
 ---

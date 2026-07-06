@@ -53,11 +53,16 @@
 
 .prose
 {
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    background: var(--reading-surface);
+    padding: clamp(28px, 5vw, 48px);
     color: var(--ink-soft);
     font-family: var(--font-sans);
     font-size: 16px;
     font-weight: 300;
     line-height: 2;
+    box-shadow: var(--shadow-soft);
 }
 
 .prose p
@@ -231,6 +236,11 @@
     .reading
     {
         padding: 150px 5vw 86px;
+    }
+
+    .prose
+    {
+        padding: 26px 22px;
     }
 
     .chapter-nav

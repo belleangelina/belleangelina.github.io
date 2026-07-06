@@ -9,24 +9,17 @@ const novels = await getPublishedNovels();
 <BaseLayout title="长篇" description="长篇作品列表。">
   <section class="archive-hero category-hero" aria-labelledby="novels-title">
     <div>
-      <p class="overline">Long Form</p>
       <h1 id="novels-title">长篇</h1>
       <p class="archive-lede">连续故事与章节被整理成册，像展厅里较长的一面墙。</p>
     </div>
     <div class="archive-counter" aria-label="长篇数量">
       <strong>{novels.length}</strong>
-      <span>collections</span>
+      <span>部</span>
     </div>
   </section>
 
   <section class="section archive-listing" aria-labelledby="novels-list-title">
-    <div class="section-head section-head-large">
-      <div>
-        <p class="overline">Shelf</p>
-        <h2 id="novels-list-title">长篇作品</h2>
-      </div>
-      <span class="meta">{novels.length} 部</span>
-    </div>
+    <h2 id="novels-list-title" class="visually-hidden">长篇列表</h2>
     {novels.length > 0 ? (
       <div class="article-list">
         {novels.map((novel) => (

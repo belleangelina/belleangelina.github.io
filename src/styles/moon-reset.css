@@ -18,6 +18,7 @@
     --nav-bg: rgba(248, 245, 255, 0.80);
     --footer-bg: rgba(238, 244, 255, 0.72);
     --code-bg: rgba(124, 112, 221, 0.12);
+    --reading-surface: #fffaff;
     --font-serif: "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", Georgia, serif;
     --font-sans: "Inter", "Noto Serif SC", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
@@ -25,9 +26,9 @@
 :root[data-theme="dark"]
 {
     color-scheme: dark;
-    --bg-0: #181333;
-    --bg-1: #221b45;
-    --bg-2: #173245;
+    --bg-0: #15072f;
+    --bg-1: #271052;
+    --bg-2: #133b59;
     --ink: #f5f1ff;
     --ink-soft: #d0c8ec;
     --ink-mute: #9a91c4;
@@ -42,6 +43,7 @@
     --nav-bg: rgba(24, 19, 51, 0.82);
     --footer-bg: rgba(18, 14, 40, 0.62);
     --code-bg: rgba(151, 136, 255, 0.16);
+    --reading-surface: #211841;
 }
 
 *
@@ -76,9 +78,10 @@ body
 [data-theme="dark"] body
 {
     background:
-        radial-gradient(ellipse 80% 70% at 20% 0%, rgba(151, 136, 255, 0.16), transparent 66%),
-        radial-gradient(ellipse 78% 62% at 84% 18%, rgba(115, 206, 255, 0.10), transparent 68%),
-        linear-gradient(135deg, var(--bg-0) 0%, var(--bg-1) 50%, var(--bg-2) 100%);
+        radial-gradient(ellipse 56% 44% at 14% 18%, rgba(255, 122, 198, 0.30), transparent 64%),
+        radial-gradient(ellipse 48% 40% at 86% 22%, rgba(115, 206, 255, 0.25), transparent 62%),
+        radial-gradient(ellipse 68% 52% at 48% 92%, rgba(151, 136, 255, 0.30), transparent 64%),
+        linear-gradient(135deg, var(--bg-0) 0%, var(--bg-1) 52%, var(--bg-2) 100%);
 }
 
 body,
@@ -131,8 +134,19 @@ img
     z-index: 0;
     pointer-events: none;
     background:
-        linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.035), transparent),
-        radial-gradient(circle at 50% 120%, rgba(255, 122, 198, 0.08), transparent 55%);
+        linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.045), transparent),
+        radial-gradient(circle at 50% 115%, rgba(255, 122, 198, 0.12), transparent 58%);
+}
+
+.visually-hidden
+{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
 }
 
 main

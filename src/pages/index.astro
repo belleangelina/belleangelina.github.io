@@ -1,44 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { getRecentArticles, getPublishedNovels, getPublishedShorts, getPublishedNotes } from '../lib/content';
+import { getRecentArticles } from '../lib/content';
 
-const [recent, novels, shorts, notes] = await Promise.all([
-    getRecentArticles(3),
-    getPublishedNovels(),
-    getPublishedShorts(),
-    getPublishedNotes()
-]);
-
-const categories = [
-    {
-        href: '/articles/novels/',
-        label: 'Novels',
-        title: '长篇',
-        summary: '连续故事与章节被整理成册，适合按卷慢慢读。',
-        meta: `${novels.length} 部`
-    },
-    {
-        href: '/articles/shorts/',
-        label: 'Shorts',
-        title: '短篇',
-        summary: '独立片段和短故事，保留一些单独发光的时刻。',
-        meta: `${shorts.length} 篇`
-    },
-    {
-        href: '/articles/notes/',
-        label: 'Notes',
-        title: '记录',
-        summary: '日常整理、临时想法和生活旁注，被收进更轻的一格。',
-        meta: `${notes.length} 篇`
-    }
-];
+const recent = await getRecentArticles(2);
 ---
 
 <BaseLayout title="首页" description="Belle Angelina 的小说、短篇和记录。">
     <div class="page">
         <section class="hero">
-            <div class="hero__tag">Novels · Shorts · Notes</div>
             <h1 class="hero__title">Belle Angelina</h1>
             <p class="hero__subtitle">
                 <span data-typewriter></span><span class="typed-cursor"></span>
@@ -47,14 +17,13 @@ const categories = [
                 <a class="btn btn--primary" href="/articles/"><span>进入目录</span></a>
                 <a class="btn btn--ghost" href="/articles/shorts/">读短篇</a>
             </div>
-            <a class="hero__scroll" href="#recent">SCROLL</a>
+            <a class="hero__scroll" href="#recent">向下</a>
         </section>
 
         <section class="section" id="recent">
             <div class="section__head reveal">
-                <div class="section__label">Recent</div>
-                <h2 class="section__title">最近的三篇</h2>
-                <p class="section__desc">从长篇章节到短篇记录，按更新时间挑出最近的入口。</p>
+                <h2 class="section__title">最近记录</h2>
+                <p class="section__desc">只留两个最近入口，其他内容都放回各自目录。</p>
             </div>
 
             {recent.length > 0 ? (
@@ -72,30 +41,6 @@ const categories = [
             ) : (
                 <p class="empty">暂时还没有已发布内容。</p>
             )}
-        </section>
-
-        <section class="section">
-            <div class="section__head reveal">
-                <div class="section__label">Archive</div>
-                <h2 class="section__title">文字分类</h2>
-                <p class="section__desc">入口保持简单，内容各自成册，方便从不同路径继续阅读。</p>
-            </div>
-
-            <div class="articles-grid">
-                {categories.map((category) => (
-                    <article class="card card--category reveal">
-                        <a class="card__link" href={category.href}>
-                            <span class="card__tag">{category.label}</span>
-                            <h3 class="card__title">{category.title}</h3>
-                            <p class="card__excerpt">{category.summary}</p>
-                            <span class="card__meta">
-                                <span>{category.meta}</span>
-                                <span class="card__read">进入 →</span>
-                            </span>
-                        </a>
-                    </article>
-                ))}
-            </div>
         </section>
     </div>
 </BaseLayout>
