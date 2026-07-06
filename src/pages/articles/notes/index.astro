@@ -30,7 +30,7 @@ const notes = await getPublishedNotes();
     {notes.length > 0 ? (
       <div class="article-list">
         {notes.map((article) => (
-          <ArticleCard title={article.title} url={article.url} date={article.date} label="记录" cover={article.cover} />
+          <ArticleCard title={article.title} url={article.url} date={article.date} label="记录" summary={article.summary} />
         ))}
       </div>
     ) : (

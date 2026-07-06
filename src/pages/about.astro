@@ -3,17 +3,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="关于" description="关于 Belle Angelina 文章展示站。">
-  <section class="reading">
-    <header class="reading-header">
-      <div class="eyebrow">About</div>
-      <h1>关于</h1>
-      <p class="lede">这里是 Belle Angelina 的公开写作整理处：小说、短篇、记录，以及它们慢慢形成的路径。</p>
-    </header>
-
-    <div class="prose">
-      <p>网站内容来自公开仓库 <code>belleangelina/writings</code>，包括长篇、短篇和记录。</p>
-      <p>站点本身使用 Astro 构建并发布到 GitHub Pages。视觉上优先服务长文本阅读：安静、清楚、留白充足。</p>
-      <p>这里不是社交媒体时间线，而是一间可以反复回来、继续阅读的房间。</p>
-    </div>
-  </section>
+    <section class="about page">
+        <div class="about__avatar">B</div>
+        <h1 class="about__name">Belle Angelina</h1>
+        <div class="about__role">NOVELS · SHORTS · NOTES</div>
+        <div class="about__bio">
+            <p>这里是 Belle Angelina 的公开写作整理处：小说、短篇、记录，以及它们慢慢形成的路径。</p>
+            <p>网站内容来自公开仓库 <strong>belleangelina/writings</strong>，站点使用 Astro 构建并发布到 GitHub Pages。</p>
+            <p>这里不是社交媒体时间线，而是一间可以反复回来、继续阅读的房间。</p>
+        </div>
+        <div class="skills" aria-label="内容分类">
+            <a class="skill" href="/articles/novels/">长篇</a>
+            <a class="skill" href="/articles/shorts/">短篇</a>
+            <a class="skill" href="/articles/notes/">记录</a>
+            <a class="skill" href="/rss.xml">RSS</a>
+        </div>
+    </section>
 </BaseLayout>

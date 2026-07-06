@@ -29,7 +29,7 @@ const { novel, volume } = Astro.props;
       {volume.chapters.length > 0 ? (
         <div class="article-list">
           {volume.chapters.map((chapter) => (
-            <ArticleCard title={chapter.title} url={chapter.url} date={chapter.date} label="章节" cover={chapter.cover} />
+            <ArticleCard title={chapter.title} url={chapter.url} date={chapter.date} label="章节" summary={chapter.summary} />
           ))}
         </div>
       ) : (

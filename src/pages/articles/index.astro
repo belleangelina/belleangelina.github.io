@@ -59,7 +59,7 @@ const labelFor = (kind: string) => {
     {articles.length > 0 ? (
       <div class="article-list">
         {articles.map((article) => (
-          <ArticleCard title={article.title} url={article.url} date={article.date} label={labelFor(article.kind)} cover={article.cover} />
+          <ArticleCard title={article.title} url={article.url} date={article.date} label={labelFor(article.kind)} summary={article.summary} />
         ))}
       </div>
     ) : (

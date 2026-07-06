@@ -30,7 +30,7 @@ const novels = await getPublishedNovels();
     {novels.length > 0 ? (
       <div class="article-list">
         {novels.map((novel) => (
-          <ArticleCard title={novel.title} url={novel.url} date={novel.date} label={`${novel.volumes.length} 卷`} cover={novel.cover} />
+          <ArticleCard title={novel.title} url={novel.url} date={novel.date} label={`${novel.volumes.length} 卷`} summary={novel.summary} />
         ))}
       </div>
     ) : (

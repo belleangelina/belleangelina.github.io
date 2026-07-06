@@ -30,7 +30,7 @@ const shorts = await getPublishedShorts();
     {shorts.length > 0 ? (
       <div class="article-list">
         {shorts.map((article) => (
-          <ArticleCard title={article.title} url={article.url} date={article.date} label="短篇" cover={article.cover} />
+          <ArticleCard title={article.title} url={article.url} date={article.date} label="短篇" summary={article.summary} />
         ))}
       </div>
     ) : (
