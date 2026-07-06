@@ -1,9 +1,35 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { getRecentArticles } from '../lib/content';
+import { getRecentArticles, getPublishedNovels, getPublishedShorts, getPublishedNotes } from '../lib/content';
 
-const recent = await getRecentArticles(2);
+const [recent, novels, shorts, notes] = await Promise.all([
+    getRecentArticles(2),
+    getPublishedNovels(),
+    getPublishedShorts(),
+    getPublishedNotes()
+]);
+
+const categoryPanels = [
+    {
+        href: '/articles/novels/',
+        title: '长篇',
+        summary: '连续故事与章节被整理成册，适合按卷慢慢读。',
+        count: `${novels.length} 部`
+    },
+    {
+        href: '/articles/shorts/',
+        title: '短篇',
+        summary: '独立片段和短故事，保留一些单独发光的时刻。',
+        count: `${shorts.length} 篇`
+    },
+    {
+        href: '/articles/notes/',
+        title: '记录',
+        summary: '日常整理、临时想法和生活旁注，被收进更轻的一格。',
+        count: `${notes.length} 篇`
+    }
+];
 ---
 
 <BaseLayout title="首页" description="Belle Angelina 的小说、短篇和记录。">
@@ -19,6 +45,17 @@ const recent = await getRecentArticles(2);
             </div>
             <a class="hero__scroll" href="#recent">向下</a>
         </section>
+
+        <div class="category-panels" aria-label="内容分类">
+            {categoryPanels.map((panel) => (
+                <section class="category-panel reveal">
+                    <div class="category-panel__count">{panel.count}</div>
+                    <h2>{panel.title}</h2>
+                    <p>{panel.summary}</p>
+                    <a class="btn btn--ghost" href={panel.href}>进入{panel.title}</a>
+                </section>
+            ))}
+        </div>
 
         <section class="section" id="recent">
             <div class="section__head reveal">

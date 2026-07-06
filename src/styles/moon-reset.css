@@ -78,10 +78,10 @@ body
 [data-theme="dark"] body
 {
     background:
-        radial-gradient(ellipse 56% 44% at 14% 18%, rgba(255, 122, 198, 0.30), transparent 64%),
-        radial-gradient(ellipse 48% 40% at 86% 22%, rgba(115, 206, 255, 0.25), transparent 62%),
-        radial-gradient(ellipse 68% 52% at 48% 92%, rgba(151, 136, 255, 0.30), transparent 64%),
-        linear-gradient(135deg, var(--bg-0) 0%, var(--bg-1) 52%, var(--bg-2) 100%);
+        radial-gradient(ellipse 145% 90% at 4% 0%, rgba(255, 122, 198, 0.20), transparent 58%),
+        radial-gradient(ellipse 120% 86% at 100% 14%, rgba(115, 206, 255, 0.18), transparent 62%),
+        radial-gradient(ellipse 120% 80% at 46% 100%, rgba(151, 136, 255, 0.20), transparent 66%),
+        linear-gradient(115deg, #15072f 0%, #211044 38%, #182456 68%, #12344f 100%);
 }
 
 body,
@@ -135,7 +135,8 @@ img
     pointer-events: none;
     background:
         linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.045), transparent),
-        radial-gradient(circle at 50% 115%, rgba(255, 122, 198, 0.12), transparent 58%);
+        linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 42%, rgba(0, 0, 0, 0.10)),
+        radial-gradient(ellipse 95% 62% at 50% 48%, rgba(255, 122, 198, 0.07), transparent 65%);
 }
 
 .visually-hidden
