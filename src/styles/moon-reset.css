@@ -26,9 +26,9 @@
 :root[data-theme="dark"]
 {
     color-scheme: dark;
-    --bg-0: #15072f;
-    --bg-1: #271052;
-    --bg-2: #133b59;
+    --bg-0: #1a0a36;
+    --bg-1: #2b1558;
+    --bg-2: #17476c;
     --ink: #f5f1ff;
     --ink-soft: #d0c8ec;
     --ink-mute: #9a91c4;
@@ -78,10 +78,24 @@ body
 [data-theme="dark"] body
 {
     background:
-        radial-gradient(ellipse 145% 90% at 4% 0%, rgba(255, 122, 198, 0.20), transparent 58%),
-        radial-gradient(ellipse 120% 86% at 100% 14%, rgba(115, 206, 255, 0.18), transparent 62%),
-        radial-gradient(ellipse 120% 80% at 46% 100%, rgba(151, 136, 255, 0.20), transparent 66%),
-        linear-gradient(115deg, #15072f 0%, #211044 38%, #182456 68%, #12344f 100%);
+        radial-gradient(ellipse 190% 145% at -38% -28%, rgba(255, 122, 198, 0.34), rgba(174, 104, 255, 0.17) 35%, transparent 70%),
+        radial-gradient(ellipse 160% 128% at 130% -22%, rgba(103, 214, 255, 0.32), rgba(139, 126, 255, 0.16) 38%, transparent 72%),
+        radial-gradient(ellipse 152% 124% at 34% 120%, rgba(201, 98, 255, 0.27), rgba(255, 130, 203, 0.12) 44%, transparent 78%),
+        linear-gradient(112deg, transparent 5%, rgba(255, 122, 198, 0.18) 23%, rgba(151, 136, 255, 0.08) 45%, transparent 68%),
+        linear-gradient(64deg, transparent 18%, rgba(96, 220, 255, 0.14) 44%, rgba(255, 122, 198, 0.09) 64%, transparent 84%),
+        linear-gradient(145deg, rgba(255, 121, 205, 0.14) 0%, transparent 36%),
+        linear-gradient(28deg, rgba(95, 220, 255, 0.12) 0%, transparent 44%),
+        linear-gradient(118deg, #1a0a36 0%, #2b1558 33%, #25316b 66%, #17476c 100%);
+}
+
+[data-theme="dark"] .backdrop
+{
+    background:
+        radial-gradient(ellipse 140% 90% at 48% 0%, rgba(255, 255, 255, 0.075), transparent 62%),
+        radial-gradient(ellipse 120% 105% at 50% 72%, rgba(151, 136, 255, 0.14), transparent 70%),
+        linear-gradient(104deg, transparent 0%, rgba(255, 122, 198, 0.075) 28%, rgba(255, 255, 255, 0.058) 46%, rgba(115, 206, 255, 0.070) 63%, transparent 100%),
+        linear-gradient(154deg, transparent 8%, rgba(151, 136, 255, 0.070) 38%, rgba(255, 122, 198, 0.050) 58%, transparent 86%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.028), transparent 44%, rgba(8, 4, 28, 0.10));
 }
 
 body,
