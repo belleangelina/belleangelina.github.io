@@ -57,6 +57,7 @@ html
 {
     min-height: 100%;
     scroll-behavior: smooth;
+    background-color: var(--bg-0);
     background: var(--bg-0);
     color: var(--ink);
 }
@@ -64,7 +65,9 @@ html
 body
 {
     min-height: 100vh;
+    min-height: 100dvh;
     overflow-x: hidden;
+    background-color: var(--bg-0);
     background: var(--bg-0);
     color: var(--ink);
     font-family: var(--font-sans);
@@ -81,7 +84,7 @@ body
 .backdrop
 {
     position: fixed;
-    inset: 0;
+    inset: -18vh 0 -18vh;
     z-index: 0;
     pointer-events: none;
 }
@@ -220,6 +223,7 @@ main
     position: relative;
     z-index: 2;
     min-height: 100vh;
+    min-height: 100dvh;
 }
 
 .page
