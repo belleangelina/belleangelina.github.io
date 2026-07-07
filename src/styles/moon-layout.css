@@ -19,6 +19,11 @@
 
 .nav
 {
+    --nav-dark-alpha: 0;
+    --nav-dark-blur: 0px;
+    --nav-light-alpha: 0;
+    --nav-light-blur: 0px;
+    --nav-overlay-opacity: 0;
     position: fixed;
     top: 0;
     right: 0;
@@ -31,11 +36,11 @@
     gap: 24px;
     overflow: hidden;
     padding: 24px 6vw;
-    background: transparent;
+    background: rgba(248, 245, 255, var(--nav-light-alpha));
     box-shadow: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    transition: background 0.48s ease, backdrop-filter 0.48s ease;
+    -webkit-backdrop-filter: blur(var(--nav-light-blur));
+    backdrop-filter: blur(var(--nav-light-blur));
+    transition: none;
 }
 
 .nav::before
@@ -44,10 +49,18 @@
     inset: 0;
     z-index: 0;
     content: "";
-    background: transparent;
-    opacity: 0;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.055)),
+        linear-gradient(90deg, rgba(255, 122, 198, 0.040), transparent 38%, rgba(110, 200, 255, 0.036));
+    opacity: var(--nav-overlay-opacity);
     pointer-events: none;
-    transition: opacity 0.48s ease, background 0.48s ease;
+    transition: none;
+}
+
+.theme-ready .nav,
+.theme-ready .nav::before
+{
+    transition: none;
 }
 
 .nav > *
@@ -58,37 +71,13 @@
 
 [data-theme="dark"] .nav
 {
-    background: transparent;
+    background: rgba(12, 5, 34, var(--nav-dark-alpha));
     box-shadow: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    -webkit-backdrop-filter: blur(var(--nav-dark-blur));
+    backdrop-filter: blur(var(--nav-dark-blur));
 }
 
-.nav.scrolled
-{
-    background: rgba(248, 245, 255, 0.46);
-    box-shadow: none;
-    -webkit-backdrop-filter: blur(22px) saturate(170%) contrast(102%);
-    backdrop-filter: blur(22px) saturate(170%) contrast(102%);
-}
-
-.nav.scrolled::before
-{
-    background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.055)),
-        linear-gradient(90deg, rgba(255, 122, 198, 0.040), transparent 38%, rgba(110, 200, 255, 0.036));
-    opacity: 1;
-}
-
-[data-theme="dark"] .nav.scrolled
-{
-    background: transparent;
-    box-shadow: none;
-    -webkit-backdrop-filter: blur(14px);
-    backdrop-filter: blur(14px);
-}
-
-[data-theme="dark"] .nav.scrolled::before
+[data-theme="dark"] .nav::before
 {
     background: transparent;
     opacity: 0;

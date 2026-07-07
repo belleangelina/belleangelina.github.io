@@ -3,6 +3,8 @@
     position: relative;
     display: flex;
     min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -124,16 +126,16 @@
 .category-panel
 {
     display: flex;
-    min-height: 86vh;
+    min-height: 78vh;
     align-items: center;
     justify-content: center;
-    padding: 110px 6vw;
+    padding: 86px 6vw;
     scroll-margin-top: 0;
 }
 
 .category-panel + .category-panel
 {
-    margin-top: -6vh;
+    margin-top: -8vh;
 }
 
 .category-panel__inner
@@ -143,21 +145,6 @@
     grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.72fr);
     align-items: center;
     gap: clamp(34px, 7vw, 92px);
-}
-
-.category-panel:nth-child(2) .category-panel__inner
-{
-    grid-template-columns: minmax(320px, 0.72fr) minmax(0, 0.95fr);
-}
-
-.category-panel:nth-child(2) .category-panel__copy
-{
-    order: 2;
-}
-
-.category-panel:nth-child(2) .category-feature
-{
-    order: 1;
 }
 
 .category-panel__copy
@@ -375,25 +362,14 @@
 
     .category-panel
     {
-        min-height: 82vh;
-        padding: 96px 5vw;
+        min-height: 74vh;
+        padding: 76px 5vw;
     }
 
     .category-panel__inner
     {
         grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    .category-panel:nth-child(2) .category-panel__inner
-    {
-        grid-template-columns: 1fr;
-    }
-
-    .category-panel:nth-child(2) .category-panel__copy,
-    .category-panel:nth-child(2) .category-feature
-    {
-        order: initial;
+        gap: 24px;
     }
 
     .category-panel__copy
