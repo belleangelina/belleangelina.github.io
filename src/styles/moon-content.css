@@ -10,6 +10,7 @@
 {
     position: relative;
     min-height: 280px;
+    isolation: isolate;
     overflow: hidden;
     border: 1px solid var(--glass-border);
     border-radius: 24px;
@@ -23,6 +24,7 @@
 {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.038));
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 42px rgba(0, 0, 0, 0.10);
+    transition: background 0.72s ease, box-shadow 0.72s ease, border-color 0.72s ease;
 }
 
 .card::before,
@@ -30,6 +32,7 @@
 {
     position: absolute;
     inset: 0;
+    z-index: 1;
     padding: 1px;
     border-radius: 24px;
     content: "";
@@ -42,6 +45,26 @@
     mask-composite: exclude;
 }
 
+[data-theme="dark"] .card::before,
+[data-theme="dark"] .archive-routes a::before
+{
+    transition-duration: 0.72s;
+}
+
+[data-theme="dark"] .card::after,
+[data-theme="dark"] .archive-routes a::after
+{
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: 24px;
+    content: "";
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.030), rgba(255, 255, 255, 0.012));
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.72s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 .card:hover
 {
     border-color: rgba(151, 136, 255, 0.42);
@@ -51,9 +74,9 @@
 
 [data-theme="dark"] .card:hover
 {
-    border-color: rgba(255, 255, 255, 0.145);
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.090), rgba(255, 255, 255, 0.048));
-    box-shadow: 0 0 28px rgba(138, 123, 255, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.135);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.038));
+    box-shadow: 0 0 22px rgba(138, 123, 255, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 18px 42px rgba(0, 0, 0, 0.10);
 }
 
 .card:hover::before,
@@ -62,10 +85,22 @@
     opacity: 1;
 }
 
+[data-theme="dark"] .card:hover::before,
+[data-theme="dark"] .archive-routes a:hover::before
+{
+    opacity: 0.68;
+}
+
+[data-theme="dark"] .card:hover::after,
+[data-theme="dark"] .archive-routes a:hover::after
+{
+    opacity: 1;
+}
+
 .card__link
 {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     display: flex;
     width: 100%;
     min-height: inherit;
@@ -185,15 +220,15 @@
 
 [data-theme="dark"] .archive-routes a:hover
 {
-    border-color: rgba(255, 255, 255, 0.145);
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.090), rgba(255, 255, 255, 0.048));
-    box-shadow: 0 0 28px rgba(138, 123, 255, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.135);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.038));
+    box-shadow: 0 0 22px rgba(138, 123, 255, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 18px 42px rgba(0, 0, 0, 0.10);
 }
 
 .archive-routes span
 {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     color: var(--accent-3);
     font-size: 11px;
     letter-spacing: 0.2em;
@@ -203,7 +238,7 @@
 .archive-routes strong
 {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     margin-top: 12px;
     font-family: var(--font-serif);
     font-size: 32px;
@@ -213,7 +248,7 @@
 .archive-routes em
 {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     margin-top: 10px;
     color: var(--ink-mute);
     font-size: 13px;

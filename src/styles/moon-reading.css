@@ -223,6 +223,7 @@
 {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.038));
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 42px rgba(0, 0, 0, 0.10);
+    transition: border-color 0.72s ease, color 0.42s ease, background 0.72s ease, box-shadow 0.72s ease;
 }
 
 .chapter-nav a:hover
@@ -234,9 +235,9 @@
 
 [data-theme="dark"] .chapter-nav a:hover
 {
-    border-color: rgba(255, 255, 255, 0.145);
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.090), rgba(255, 255, 255, 0.048));
-    box-shadow: 0 0 28px rgba(138, 123, 255, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.135);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.038));
+    box-shadow: 0 0 22px rgba(138, 123, 255, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 18px 42px rgba(0, 0, 0, 0.10);
 }
 
 .chapter-nav span
