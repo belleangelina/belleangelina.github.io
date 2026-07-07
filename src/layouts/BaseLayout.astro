@@ -92,9 +92,6 @@ function isActive(href: string) {
                 const themeButton = document.querySelector('[data-theme-toggle]');
                 const themeColor = document.querySelector('[data-theme-color]');
                 const year = document.querySelector('[data-current-year]');
-                const mobileQuery = window.matchMedia('(max-width: 768px)');
-                const isReadingPage = Boolean(document.querySelector('.reading'));
-                let lastScrollY = window.scrollY;
 
                 function updateThemeLabel() {
                     if (!themeButton) return;
@@ -122,24 +119,7 @@ function isActive(href: string) {
                 function updateNav() {
                     if (!nav) return;
 
-                    const currentScrollY = window.scrollY;
-                    nav.classList.toggle('scrolled', currentScrollY > 30);
-
-                    if (!isReadingPage || !mobileQuery.matches) {
-                        nav.classList.remove('nav-hidden');
-                        lastScrollY = currentScrollY;
-                        return;
-                    }
-
-                    const delta = currentScrollY - lastScrollY;
-
-                    if (currentScrollY < 90 || delta < -8) {
-                        nav.classList.remove('nav-hidden');
-                    } else if (delta > 8) {
-                        nav.classList.add('nav-hidden');
-                    }
-
-                    lastScrollY = currentScrollY;
+                    nav.classList.toggle('scrolled', window.scrollY > 30);
                 }
 
                 function runTypewriter() {
@@ -199,7 +179,6 @@ function isActive(href: string) {
                 }
 
                 window.addEventListener('scroll', updateNav, { passive: true });
-                window.addEventListener('resize', updateNav);
                 updateNav();
                 updateThemeLabel();
                 root.classList.add('theme-ready');
