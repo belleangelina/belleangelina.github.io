@@ -4,10 +4,9 @@ interface Props {
     url: string;
     date?: string;
     label?: string;
-    summary?: string;
 }
 
-const { title, url, date = '', label = '', summary = '' } = Astro.props;
+const { title, url, date = '', label = '' } = Astro.props;
 const meta = [date, label].filter(Boolean).join(' · ');
 ---
 
@@ -15,7 +14,6 @@ const meta = [date, label].filter(Boolean).join(' · ');
     <a class="card__link" href={url}>
         <span class="card__tag">{label || 'Writing'}</span>
         <h3 class="card__title">{title}</h3>
-        <p class="card__excerpt">{summary || '这篇内容已经归档，适合在安静的时候继续读下去。'}</p>
         <span class="card__meta">
             <span>{meta || 'Belle Angelina'}</span>
             <span class="card__read">阅读 →</span>

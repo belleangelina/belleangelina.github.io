@@ -12,10 +12,6 @@ const shorts = await getPublishedShorts();
       <h1 id="shorts-title">短篇</h1>
       <p class="archive-lede">独立片段、短故事和单独发光的文字，适合一口气读完。</p>
     </div>
-    <div class="archive-counter" aria-label="短篇数量">
-      <strong>{shorts.length}</strong>
-      <span>篇</span>
-    </div>
   </section>
 
   <section class="section archive-listing" aria-labelledby="shorts-list-title">
@@ -23,7 +19,7 @@ const shorts = await getPublishedShorts();
     {shorts.length > 0 ? (
       <div class="article-list">
         {shorts.map((article) => (
-          <ArticleCard title={article.title} url={article.url} date={article.date} label="短篇" summary={article.summary} />
+          <ArticleCard title={article.title} url={article.url} date={article.date} label="短篇" />
         ))}
       </div>
     ) : (

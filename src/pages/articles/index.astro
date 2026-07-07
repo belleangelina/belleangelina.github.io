@@ -1,14 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
-import { getAllPublishedArticles, getPublishedNovels, getPublishedShorts, getPublishedNotes } from '../../lib/content';
+import { getAllPublishedArticles } from '../../lib/content';
 
-const [articles, novels, shorts, notes] = await Promise.all([
-  getAllPublishedArticles(),
-  getPublishedNovels(),
-  getPublishedShorts(),
-  getPublishedNotes()
-]);
+const articles = await getAllPublishedArticles();
 
 const labelFor = (kind: string) => {
   if (kind === 'short') return '短篇';
@@ -24,27 +19,23 @@ const labelFor = (kind: string) => {
       <h1 id="archive-title">文章目录</h1>
       <p class="archive-lede">全部发布文字汇在这里：长篇、短篇、记录，按时间静静展开。</p>
     </div>
-    <div class="archive-counter" aria-label="文章总数">
-      <strong>{articles.length}</strong>
-      <span>published</span>
-    </div>
   </section>
 
   <section class="archive-routes" aria-label="分类入口">
     <a href="/articles/novels/">
       <span>Novels</span>
       <strong>长篇</strong>
-      <em>{novels.length} 部</em>
+      <em>连续作品</em>
     </a>
     <a href="/articles/shorts/">
       <span>Shorts</span>
       <strong>短篇</strong>
-      <em>{shorts.length} 篇</em>
+      <em>独立短章</em>
     </a>
     <a href="/articles/notes/">
       <span>Notes</span>
       <strong>记录</strong>
-      <em>{notes.length} 篇</em>
+      <em>日常旁注</em>
     </a>
   </section>
 
@@ -59,7 +50,7 @@ const labelFor = (kind: string) => {
     {articles.length > 0 ? (
       <div class="article-list">
         {articles.map((article) => (
-          <ArticleCard title={article.title} url={article.url} date={article.date} label={labelFor(article.kind)} summary={article.summary} />
+          <ArticleCard title={article.title} url={article.url} date={article.date} label={labelFor(article.kind)} />
         ))}
       </div>
     ) : (

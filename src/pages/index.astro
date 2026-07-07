@@ -1,33 +1,28 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { getRecentArticles, getPublishedNovels, getPublishedShorts, getPublishedNotes } from '../lib/content';
+import { getRecentArticles } from '../lib/content';
 
-const [recent, novels, shorts, notes] = await Promise.all([
-    getRecentArticles(2),
-    getPublishedNovels(),
-    getPublishedShorts(),
-    getPublishedNotes()
-]);
+const recent = await getRecentArticles(2);
 
 const categoryPanels = [
     {
+        id: 'category-novels',
         href: '/articles/novels/',
         title: '长篇',
-        summary: '连续故事与章节被整理成册，适合按卷慢慢读。',
-        count: `${novels.length} 部`
+        summary: '连续故事与章节被整理成册，适合按卷慢慢读。'
     },
     {
+        id: 'category-shorts',
         href: '/articles/shorts/',
         title: '短篇',
-        summary: '独立片段和短故事，保留一些单独发光的时刻。',
-        count: `${shorts.length} 篇`
+        summary: '独立片段和短故事，保留一些单独发光的时刻。'
     },
     {
+        id: 'category-notes',
         href: '/articles/notes/',
         title: '记录',
-        summary: '日常整理、临时想法和生活旁注，被收进更轻的一格。',
-        count: `${notes.length} 篇`
+        summary: '日常整理、临时想法和生活旁注，被收进更轻的一格。'
     }
 ];
 ---
@@ -43,13 +38,14 @@ const categoryPanels = [
                 <a class="btn btn--primary" href="/articles/"><span>进入目录</span></a>
                 <a class="btn btn--ghost" href="/articles/shorts/">读短篇</a>
             </div>
-            <a class="hero__scroll" href="#recent">向下</a>
+            <a class="hero__scroll" href="#category-novels" aria-label="向下浏览">
+                <span aria-hidden="true">&gt;&gt;</span>
+            </a>
         </section>
 
         <div class="category-panels" aria-label="内容分类">
             {categoryPanels.map((panel) => (
-                <section class="category-panel reveal">
-                    <div class="category-panel__count">{panel.count}</div>
+                <section class="category-panel reveal" id={panel.id}>
                     <h2>{panel.title}</h2>
                     <p>{panel.summary}</p>
                     <a class="btn btn--ghost" href={panel.href}>进入{panel.title}</a>
@@ -71,7 +67,6 @@ const categoryPanels = [
                             url={article.url}
                             date={article.date}
                             label={article.kind === 'note' ? '记录' : article.kind === 'short' ? '短篇' : '章节'}
-                            summary={article.summary}
                         />
                     ))}
                 </div>

@@ -21,18 +21,17 @@ const { novel } = Astro.props;
       <h1>{novel.title}</h1>
     </header>
 
-        <section class="article-list-section" aria-labelledby="volumes-title">
-            <div class="section-head">
-                <h2 id="volumes-title">卷目录</h2>
-                <span class="meta">{novel.volumes.length} 卷</span>
-            </div>
-            {novel.volumes.length > 0 ? (
-                <div class="article-list">
-                  {novel.volumes.map((volume) => (
-                    <ArticleCard title={volume.title} url={volume.url} label={`${volume.chapters.length} 章`} summary={volume.summary} />
-                  ))}
-                </div>
-            ) : (
+    <section class="article-list-section" aria-labelledby="volumes-title">
+      <div class="section-head">
+        <h2 id="volumes-title">卷目录</h2>
+      </div>
+      {novel.volumes.length > 0 ? (
+        <div class="article-list">
+          {novel.volumes.map((volume) => (
+            <ArticleCard title={volume.title} url={volume.url} label="卷" />
+          ))}
+        </div>
+      ) : (
         <p class="empty">这个作品暂时还没有已发布卷或章节。</p>
       )}
     </section>

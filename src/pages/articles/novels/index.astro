@@ -12,10 +12,6 @@ const novels = await getPublishedNovels();
       <h1 id="novels-title">长篇</h1>
       <p class="archive-lede">连续故事与章节被整理成册，像展厅里较长的一面墙。</p>
     </div>
-    <div class="archive-counter" aria-label="长篇数量">
-      <strong>{novels.length}</strong>
-      <span>部</span>
-    </div>
   </section>
 
   <section class="section archive-listing" aria-labelledby="novels-list-title">
@@ -23,7 +19,7 @@ const novels = await getPublishedNovels();
     {novels.length > 0 ? (
       <div class="article-list">
         {novels.map((novel) => (
-          <ArticleCard title={novel.title} url={novel.url} date={novel.date} label={`${novel.volumes.length} 卷`} summary={novel.summary} />
+          <ArticleCard title={novel.title} url={novel.url} date={novel.date} label="长篇" />
         ))}
       </div>
     ) : (
