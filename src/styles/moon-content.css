@@ -24,7 +24,7 @@
 {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.038));
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 42px rgba(0, 0, 0, 0.10);
-    transition: background 0.72s ease, box-shadow 0.72s ease, border-color 0.72s ease;
+    transition: background 0.9s ease, box-shadow 0.9s ease, border-color 0.9s ease;
 }
 
 .card::before,
@@ -48,7 +48,7 @@
 [data-theme="dark"] .card::before,
 [data-theme="dark"] .archive-routes a::before
 {
-    transition-duration: 0.72s;
+    transition-duration: 0.9s;
 }
 
 [data-theme="dark"] .card::after,
@@ -59,10 +59,12 @@
     z-index: 0;
     border-radius: 24px;
     content: "";
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.030), rgba(255, 255, 255, 0.012));
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.074), rgba(255, 255, 255, 0.020) 46%, rgba(151, 136, 255, 0.060)),
+        linear-gradient(72deg, rgba(255, 122, 198, 0.052), transparent 42%, rgba(102, 215, 255, 0.046));
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.72s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: opacity 0.9s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .card:hover
@@ -74,9 +76,9 @@
 
 [data-theme="dark"] .card:hover
 {
-    border-color: rgba(255, 255, 255, 0.135);
+    border-color: rgba(255, 255, 255, 0.155);
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.038));
-    box-shadow: 0 0 22px rgba(138, 123, 255, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 18px 42px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 0 26px rgba(138, 123, 255, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 18px 42px rgba(0, 0, 0, 0.10);
 }
 
 .card:hover::before,
@@ -88,13 +90,13 @@
 [data-theme="dark"] .card:hover::before,
 [data-theme="dark"] .archive-routes a:hover::before
 {
-    opacity: 0.68;
+    opacity: 0.82;
 }
 
 [data-theme="dark"] .card:hover::after,
 [data-theme="dark"] .archive-routes a:hover::after
 {
-    opacity: 1;
+    opacity: 0.88;
 }
 
 .card__link
@@ -220,9 +222,9 @@
 
 [data-theme="dark"] .archive-routes a:hover
 {
-    border-color: rgba(255, 255, 255, 0.135);
+    border-color: rgba(255, 255, 255, 0.155);
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.038));
-    box-shadow: 0 0 22px rgba(138, 123, 255, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 18px 42px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 0 26px rgba(138, 123, 255, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 18px 42px rgba(0, 0, 0, 0.10);
 }
 
 .archive-routes span

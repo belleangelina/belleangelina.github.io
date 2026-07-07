@@ -204,9 +204,12 @@
 .chapter-nav a,
 .chapter-nav span
 {
+    position: relative;
     display: grid;
     min-height: 110px;
     place-items: center;
+    isolation: isolate;
+    overflow: hidden;
     border: 1px solid var(--glass-border);
     border-radius: 18px;
     background: var(--glass);
@@ -223,7 +226,23 @@
 {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.038));
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 42px rgba(0, 0, 0, 0.10);
-    transition: border-color 0.72s ease, color 0.42s ease, background 0.72s ease, box-shadow 0.72s ease;
+    transition: border-color 0.9s ease, color 0.42s ease, background 0.9s ease, box-shadow 0.9s ease;
+}
+
+[data-theme="dark"] .chapter-nav a::after,
+[data-theme="dark"] .chapter-nav span::after
+{
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: 18px;
+    content: "";
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.074), rgba(255, 255, 255, 0.020) 46%, rgba(151, 136, 255, 0.060)),
+        linear-gradient(72deg, rgba(255, 122, 198, 0.052), transparent 42%, rgba(102, 215, 255, 0.046));
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.9s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .chapter-nav a:hover
@@ -235,9 +254,14 @@
 
 [data-theme="dark"] .chapter-nav a:hover
 {
-    border-color: rgba(255, 255, 255, 0.135);
+    border-color: rgba(255, 255, 255, 0.155);
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.038));
-    box-shadow: 0 0 22px rgba(138, 123, 255, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 18px 42px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 0 26px rgba(138, 123, 255, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 18px 42px rgba(0, 0, 0, 0.10);
+}
+
+[data-theme="dark"] .chapter-nav a:hover::after
+{
+    opacity: 0.62;
 }
 
 .chapter-nav span
