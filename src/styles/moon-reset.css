@@ -26,9 +26,9 @@
 :root[data-theme="dark"]
 {
     color-scheme: dark;
-    --bg-0: #0a0420;
-    --bg-1: #1a0a3e;
-    --bg-2: #2d1b5e;
+    --bg-0: #070316;
+    --bg-1: #120727;
+    --bg-2: #171036;
     --ink: #f4f1ff;
     --ink-soft: #c8c0e8;
     --ink-mute: #8a82b8;
@@ -78,8 +78,9 @@ body
 [data-theme="dark"] body
 {
     background:
-        radial-gradient(ellipse 150% 120% at 50% 44%, rgba(138, 123, 255, 0.12), transparent 72%),
-        linear-gradient(118deg, #0a0420 0%, #12082d 34%, #141139 68%, #10243a 100%);
+        linear-gradient(145deg, rgba(255, 122, 198, 0.050), transparent 34%),
+        linear-gradient(24deg, rgba(110, 200, 255, 0.052), transparent 42%),
+        linear-gradient(118deg, #070316 0%, #100522 36%, #11132f 68%, #0a1b2f 100%);
 }
 
 .aurora
@@ -99,11 +100,10 @@ body
 {
     display: block;
     background:
-        radial-gradient(ellipse 116% 86% at 6% 18%, rgba(255, 122, 198, 0.22), rgba(138, 123, 255, 0.12) 44%, transparent 80%),
-        radial-gradient(ellipse 112% 86% at 98% 26%, rgba(110, 200, 255, 0.20), rgba(138, 123, 255, 0.11) 46%, transparent 80%),
-        radial-gradient(ellipse 124% 90% at 50% 102%, rgba(138, 123, 255, 0.22), rgba(255, 122, 198, 0.08) 50%, transparent 84%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.030), rgba(255, 255, 255, 0.014) 48%, rgba(255, 255, 255, 0.028));
-    opacity: 0.96;
+        linear-gradient(112deg, rgba(255, 122, 198, 0.17), rgba(138, 123, 255, 0.090) 34%, transparent 68%),
+        linear-gradient(246deg, rgba(110, 200, 255, 0.15), rgba(138, 123, 255, 0.080) 36%, transparent 70%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.020), transparent 48%, rgba(255, 122, 198, 0.035));
+    opacity: 0.86;
 }
 
 [data-theme="dark"] .backdrop

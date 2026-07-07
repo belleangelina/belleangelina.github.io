@@ -70,24 +70,6 @@
     animation: fade-up 1.1s 0.75s both;
 }
 
-.hero__scroll
-{
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    color: var(--ink-mute);
-    font-size: 22px;
-    letter-spacing: 0;
-    transform: translateX(-50%);
-    animation: scroll-cue 1.8s ease-in-out infinite, fade-up 1.1s 1s both;
-}
-
-.hero__scroll span
-{
-    display: block;
-    transform: rotate(90deg);
-}
-
 .section
 {
     width: min(1200px, 100%);
@@ -228,36 +210,6 @@
     50%
     {
         opacity: 0;
-    }
-}
-
-@keyframes float
-{
-    0%,
-    100%
-    {
-        transform: translate(-50%, 0);
-    }
-
-    50%
-    {
-        transform: translate(-50%, 8px);
-    }
-}
-
-@keyframes scroll-cue
-{
-    0%,
-    100%
-    {
-        transform: translate(-50%, 0);
-        opacity: 0.52;
-    }
-
-    50%
-    {
-        transform: translate(-50%, 8px);
-        opacity: 1;
     }
 }
 
