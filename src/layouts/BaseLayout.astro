@@ -49,7 +49,6 @@ function isActive(href: string) {
         </script>
     </head>
     <body>
-        <div id="starfield" aria-hidden="true"></div>
         <div class="aurora" aria-hidden="true"></div>
         <div class="backdrop" aria-hidden="true"></div>
         <a class="skip-link" href="#content">跳到正文</a>
@@ -93,34 +92,6 @@ function isActive(href: string) {
                 const nav = document.querySelector('[data-nav]');
                 const themeButton = document.querySelector('[data-theme-toggle]');
                 const year = document.querySelector('[data-current-year]');
-                const starLayer = document.getElementById('starfield');
-
-                function syncStars() {
-                    if (!starLayer) return;
-
-                    starLayer.textContent = '';
-                    if (root.dataset.theme !== 'dark') return;
-
-                    const count = window.innerWidth < 768 ? 28 : 50;
-                    const fragment = document.createDocumentFragment();
-
-                    for (let index = 0; index < count; index += 1) {
-                        const star = document.createElement('span');
-                        const size = (Math.random() * 2 + 1).toFixed(1);
-
-                        star.className = 'star';
-                        star.style.cssText =
-                            `left:${(Math.random() * 100).toFixed(2)}%;` +
-                            `top:${(Math.random() * 100).toFixed(2)}%;` +
-                            `width:${size}px;height:${size}px;` +
-                            `animation-delay:${(Math.random() * 4).toFixed(2)}s;` +
-                            `animation-duration:${(2.5 + Math.random() * 3).toFixed(2)}s;` +
-                            `--hue:${Math.random() < 0.3 ? 320 : Math.random() < 0.5 ? 260 : 210};`;
-                        fragment.appendChild(star);
-                    }
-
-                    starLayer.appendChild(fragment);
-                }
 
                 function updateThemeLabel() {
                     if (!themeButton) return;
@@ -142,7 +113,6 @@ function isActive(href: string) {
                     }
 
                     updateThemeLabel();
-                    syncStars();
                 });
 
                 function updateNav() {
@@ -208,7 +178,6 @@ function isActive(href: string) {
                 window.addEventListener('scroll', updateNav, { passive: true });
                 updateNav();
                 updateThemeLabel();
-                syncStars();
                 runTypewriter();
                 observeReveal();
 

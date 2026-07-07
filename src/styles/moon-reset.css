@@ -77,36 +77,17 @@ body
 
 [data-theme="dark"] body
 {
-    background: var(--bg-0);
+    background:
+        radial-gradient(ellipse 150% 120% at 50% 44%, rgba(138, 123, 255, 0.12), transparent 72%),
+        linear-gradient(118deg, #0a0420 0%, #12082d 34%, #141139 68%, #10243a 100%);
 }
 
-#starfield,
 .aurora
 {
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-}
-
-#starfield
-{
-    display: none;
-}
-
-[data-theme="dark"] #starfield
-{
-    display: block;
-}
-
-.star
-{
-    position: absolute;
-    border-radius: 50%;
-    background: hsl(var(--hue, 260), 90%, 80%);
-    box-shadow: 0 0 6px hsla(var(--hue, 260), 90%, 75%, 0.8);
-    animation: twinkle linear infinite;
-    will-change: opacity;
 }
 
 .aurora
@@ -118,10 +99,11 @@ body
 {
     display: block;
     background:
-        radial-gradient(ellipse 76% 58% at 6% 18%, rgba(255, 122, 198, 0.30), rgba(138, 123, 255, 0.12) 42%, transparent 72%),
-        radial-gradient(ellipse 68% 56% at 96% 28%, rgba(110, 200, 255, 0.24), rgba(138, 123, 255, 0.12) 44%, transparent 74%),
-        radial-gradient(ellipse 92% 70% at 50% 104%, rgba(138, 123, 255, 0.28), rgba(255, 122, 198, 0.08) 48%, transparent 78%);
-    opacity: 0.90;
+        radial-gradient(ellipse 116% 86% at 6% 18%, rgba(255, 122, 198, 0.22), rgba(138, 123, 255, 0.12) 44%, transparent 80%),
+        radial-gradient(ellipse 112% 86% at 98% 26%, rgba(110, 200, 255, 0.20), rgba(138, 123, 255, 0.11) 46%, transparent 80%),
+        radial-gradient(ellipse 124% 90% at 50% 102%, rgba(138, 123, 255, 0.22), rgba(255, 122, 198, 0.08) 50%, transparent 84%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.030), rgba(255, 255, 255, 0.014) 48%, rgba(255, 255, 255, 0.028));
+    opacity: 0.96;
 }
 
 [data-theme="dark"] .backdrop
@@ -182,20 +164,6 @@ img
         linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.045), transparent),
         linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 42%, rgba(0, 0, 0, 0.10)),
         radial-gradient(ellipse 95% 62% at 50% 48%, rgba(255, 122, 198, 0.07), transparent 65%);
-}
-
-@keyframes twinkle
-{
-    0%,
-    100%
-    {
-        opacity: 0.2;
-    }
-
-    50%
-    {
-        opacity: 0.9;
-    }
 }
 
 @keyframes aurora-drift
@@ -270,8 +238,7 @@ main
         transition-duration: 0.01ms !important;
     }
 
-    [data-theme="dark"] .aurora,
-    [data-theme="dark"] #starfield
+    [data-theme="dark"] .aurora
     {
         display: none;
     }
