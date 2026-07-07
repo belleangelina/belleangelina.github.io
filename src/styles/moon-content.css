@@ -14,10 +14,19 @@
     border: 1px solid var(--glass-border);
     border-radius: 24px;
     background: var(--glass);
+    cursor: pointer;
     transition: transform 0.42s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.42s ease, box-shadow 0.42s ease, border-color 0.42s ease;
 }
 
-.card::before
+[data-theme="dark"] .card,
+[data-theme="dark"] .archive-routes a
+{
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.038));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 42px rgba(0, 0, 0, 0.10);
+}
+
+.card::before,
+.archive-routes a::before
 {
     position: absolute;
     inset: 0;
@@ -33,7 +42,8 @@
     mask-composite: exclude;
 }
 
-.card::after
+.card::after,
+.archive-routes a::after
 {
     position: absolute;
     top: -50%;
@@ -47,7 +57,8 @@
     transition: opacity 0.42s ease;
 }
 
-[data-theme="dark"] .card::after
+[data-theme="dark"] .card::after,
+[data-theme="dark"] .archive-routes a::after
 {
     background: radial-gradient(circle at center, rgba(255, 122, 198, 0.18), transparent 40%);
 }
@@ -62,11 +73,15 @@
 
 [data-theme="dark"] .card:hover
 {
-    border-color: var(--glass-border);
+    border-color: rgba(255, 255, 255, 0.16);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.110), rgba(255, 255, 255, 0.058));
+    box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .card:hover::before,
-.card:hover::after
+.card:hover::after,
+.archive-routes a:hover::before,
+.archive-routes a:hover::after
 {
     opacity: 1;
 }
@@ -209,26 +224,38 @@
 
 .archive-routes a
 {
+    position: relative;
     display: flex;
     min-height: 190px;
     flex-direction: column;
     justify-content: flex-end;
+    isolation: isolate;
+    overflow: hidden;
     border: 1px solid var(--glass-border);
     border-radius: 24px;
     background: var(--glass);
     padding: 28px;
-    transition: transform 0.36s ease, background 0.36s ease, box-shadow 0.36s ease;
+    transition: transform 0.42s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.42s ease, box-shadow 0.42s ease, border-color 0.42s ease;
 }
 
 .archive-routes a:hover
 {
-    transform: translateY(-6px);
+    transform: translateY(-8px);
     background: var(--glass-strong);
     box-shadow: var(--shadow-glow);
 }
 
+[data-theme="dark"] .archive-routes a:hover
+{
+    border-color: rgba(255, 255, 255, 0.16);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.110), rgba(255, 255, 255, 0.058));
+    box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
 .archive-routes span
 {
+    position: relative;
+    z-index: 1;
     color: var(--accent-3);
     font-size: 11px;
     letter-spacing: 0.2em;
@@ -237,6 +264,8 @@
 
 .archive-routes strong
 {
+    position: relative;
+    z-index: 1;
     margin-top: 12px;
     font-family: var(--font-serif);
     font-size: 32px;
@@ -245,6 +274,8 @@
 
 .archive-routes em
 {
+    position: relative;
+    z-index: 1;
     margin-top: 10px;
     color: var(--ink-mute);
     font-size: 13px;
