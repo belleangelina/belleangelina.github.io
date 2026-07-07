@@ -29,7 +29,7 @@ function isActive(href: string) {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={description} />
-        <meta name="theme-color" content="#14112c" />
+        <meta name="theme-color" content="#f8f5ff" data-theme-color />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
@@ -40,10 +40,10 @@ function isActive(href: string) {
                 const root = document.documentElement;
 
                 try {
-                    const stored = localStorage.getItem('belle-theme');
-                    root.dataset.theme = stored === 'light' || stored === 'dark' ? stored : 'dark';
+                    const stored = localStorage.getItem('belle-theme-v2');
+                    root.dataset.theme = stored === 'light' || stored === 'dark' ? stored : 'light';
                 } catch (error) {
-                    root.dataset.theme = 'dark';
+                    root.dataset.theme = 'light';
                 }
             })();
         </script>
@@ -81,7 +81,6 @@ function isActive(href: string) {
 
         <footer class="footer">
             <div class="footer__inner">
-                <p class="footer__quote">"写下那些值得被重新遇见的时刻。"</p>
                 <p class="footer__meta">© <span data-current-year></span> Belle Angelina · Writings</p>
             </div>
         </footer>
@@ -91,7 +90,11 @@ function isActive(href: string) {
                 const root = document.documentElement;
                 const nav = document.querySelector('[data-nav]');
                 const themeButton = document.querySelector('[data-theme-toggle]');
+                const themeColor = document.querySelector('[data-theme-color]');
                 const year = document.querySelector('[data-current-year]');
+                const mobileQuery = window.matchMedia('(max-width: 768px)');
+                const isReadingPage = Boolean(document.querySelector('.reading'));
+                let lastScrollY = window.scrollY;
 
                 function updateThemeLabel() {
                     if (!themeButton) return;
@@ -100,6 +103,7 @@ function isActive(href: string) {
                     const label = isDark ? '切换浅色主题' : '切换暗色主题';
                     themeButton.setAttribute('aria-label', label);
                     themeButton.setAttribute('title', label);
+                    themeColor?.setAttribute('content', isDark ? '#070316' : '#f8f5ff');
                 }
 
                 themeButton?.addEventListener('click', () => {
@@ -107,7 +111,7 @@ function isActive(href: string) {
                     root.dataset.theme = nextTheme;
 
                     try {
-                        localStorage.setItem('belle-theme', nextTheme);
+                        localStorage.setItem('belle-theme-v2', nextTheme);
                     } catch (error) {
                         // 浏览器禁止本地存储时，主题仍在当前页面生效。
                     }
@@ -116,7 +120,26 @@ function isActive(href: string) {
                 });
 
                 function updateNav() {
-                    nav?.classList.toggle('scrolled', window.scrollY > 30);
+                    if (!nav) return;
+
+                    const currentScrollY = window.scrollY;
+                    nav.classList.toggle('scrolled', currentScrollY > 30);
+
+                    if (!isReadingPage || !mobileQuery.matches) {
+                        nav.classList.remove('nav-hidden');
+                        lastScrollY = currentScrollY;
+                        return;
+                    }
+
+                    const delta = currentScrollY - lastScrollY;
+
+                    if (currentScrollY < 90 || delta < -8) {
+                        nav.classList.remove('nav-hidden');
+                    } else if (delta > 8) {
+                        nav.classList.add('nav-hidden');
+                    }
+
+                    lastScrollY = currentScrollY;
                 }
 
                 function runTypewriter() {
@@ -176,8 +199,10 @@ function isActive(href: string) {
                 }
 
                 window.addEventListener('scroll', updateNav, { passive: true });
+                window.addEventListener('resize', updateNav);
                 updateNav();
                 updateThemeLabel();
+                root.classList.add('theme-ready');
                 runTypewriter();
                 observeReveal();
 

@@ -1,23 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ArticleCard from '../../components/ArticleCard.astro';
-import { getAllPublishedArticles } from '../../lib/content';
-
-const articles = await getAllPublishedArticles();
-
-const labelFor = (kind: string) => {
-  if (kind === 'short') return '短篇';
-  if (kind === 'note') return '记录';
-  return '章节';
-};
 ---
 
 <BaseLayout title="文章" description="文章总览。">
   <section class="archive-hero" aria-labelledby="archive-title">
     <div>
-      <p class="overline">Complete Index</p>
       <h1 id="archive-title">文章目录</h1>
-      <p class="archive-lede">全部发布文字汇在这里：长篇、短篇、记录，按时间静静展开。</p>
+      <p class="archive-lede">长篇、短篇和记录各自收好，选一个目录继续往下读。</p>
     </div>
   </section>
 
@@ -37,24 +26,5 @@ const labelFor = (kind: string) => {
       <strong>记录</strong>
       <em>日常旁注</em>
     </a>
-  </section>
-
-  <section class="section archive-listing" aria-labelledby="all-title">
-    <div class="section-head section-head-large">
-      <div>
-        <p class="overline">Chronicle</p>
-        <h2 id="all-title">全部更新</h2>
-      </div>
-      <span class="meta">按日期倒序</span>
-    </div>
-    {articles.length > 0 ? (
-      <div class="article-list">
-        {articles.map((article) => (
-          <ArticleCard title={article.title} url={article.url} date={article.date} label={labelFor(article.kind)} />
-        ))}
-      </div>
-    ) : (
-      <p class="empty">暂时还没有已发布内容。</p>
-    )}
   </section>
 </BaseLayout>

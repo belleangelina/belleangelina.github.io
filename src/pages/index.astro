@@ -1,28 +1,57 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ArticleCard from '../components/ArticleCard.astro';
-import { getRecentArticles } from '../lib/content';
+import { getPublishedNotes, getPublishedNovels, getPublishedShorts } from '../lib/content';
 
-const recent = await getRecentArticles(2);
+type HomeEntry = {
+    title: string;
+    url: string;
+    date: string;
+};
+
+const [novels, shorts, notes] = await Promise.all([
+    getPublishedNovels(),
+    getPublishedShorts(),
+    getPublishedNotes()
+]);
+
+function latestByDate<T extends HomeEntry>(items: T[]): T | null {
+    return [...items].sort((a, b) => {
+        const dateCompare = b.date.localeCompare(a.date);
+        if (dateCompare !== 0) return dateCompare;
+        return a.title.localeCompare(b.title);
+    })[0] ?? null;
+}
+
+const latestChapters = novels.flatMap((novel) => novel.volumes.flatMap((volume) => volume.chapters));
+const latestNovel = latestByDate(latestChapters.length > 0 ? latestChapters : novels);
 
 const categoryPanels = [
     {
         id: 'category-novels',
         href: '/articles/novels/',
         title: '长篇',
-        summary: '连续故事与章节被整理成册，适合按卷慢慢读。'
+        latestLabel: '最新长篇',
+        latest: latestNovel,
+        emptyTitle: '长篇整理中',
+        emptyMeta: '新的章节会放在这里'
     },
     {
         id: 'category-shorts',
         href: '/articles/shorts/',
         title: '短篇',
-        summary: '独立片段和短故事，保留一些单独发光的时刻。'
+        latestLabel: '最新短篇',
+        latest: latestByDate(shorts),
+        emptyTitle: '短篇整理中',
+        emptyMeta: '新的短篇会放在这里'
     },
     {
         id: 'category-notes',
         href: '/articles/notes/',
         title: '记录',
-        summary: '日常整理、临时想法和生活旁注，被收进更轻的一格。'
+        latestLabel: '最新记录',
+        latest: latestByDate(notes),
+        emptyTitle: '记录整理中',
+        emptyMeta: '新的记录会放在这里'
     }
 ];
 ---
@@ -36,40 +65,33 @@ const categoryPanels = [
             </p>
             <div class="hero__actions">
                 <a class="btn btn--primary" href="/articles/"><span>进入目录</span></a>
-                <a class="btn btn--ghost" href="/articles/shorts/">读短篇</a>
+                <a class="btn btn--ghost" href="/articles/">随便看看</a>
             </div>
         </section>
 
         <div class="category-panels" aria-label="内容分类">
-            {categoryPanels.map((panel) => (
-                <section class="category-panel reveal" id={panel.id}>
-                    <h2>{panel.title}</h2>
-                    <p>{panel.summary}</p>
-                    <a class="btn btn--ghost" href={panel.href}>进入{panel.title}</a>
-                </section>
-            ))}
+            {categoryPanels.map((panel) => {
+                const latest = panel.latest;
+                const cardMeta = latest ? [latest.date, panel.latestLabel].filter(Boolean).join(' · ') : panel.emptyMeta;
+
+                return (
+                    <section class="category-panel reveal" id={panel.id}>
+                        <div class="category-panel__inner">
+                            <div class="category-panel__copy">
+                                <h2>{panel.title}</h2>
+                                <a class="btn btn--ghost" href={panel.href}>目录</a>
+                            </div>
+
+                            <a class:list={['category-feature', { 'is-empty': !latest }]} href={latest?.url ?? panel.href}>
+                                <span class="category-feature__label">{latest ? panel.latestLabel : '暂未发布'}</span>
+                                <strong>{latest?.title ?? panel.emptyTitle}</strong>
+                                <span class="category-feature__meta">{cardMeta}</span>
+                                <span class="category-feature__read">{latest ? '阅读 →' : '去目录 →'}</span>
+                            </a>
+                        </div>
+                    </section>
+                );
+            })}
         </div>
-
-        <section class="section" id="recent">
-            <div class="section__head reveal">
-                <h2 class="section__title">最近记录</h2>
-                <p class="section__desc">只留两个最近入口，其他内容都放回各自目录。</p>
-            </div>
-
-            {recent.length > 0 ? (
-                <div class="articles-grid">
-                    {recent.map((article) => (
-                        <ArticleCard
-                            title={article.title}
-                            url={article.url}
-                            date={article.date}
-                            label={article.kind === 'note' ? '记录' : article.kind === 'short' ? '短篇' : '章节'}
-                        />
-                    ))}
-                </div>
-            ) : (
-                <p class="empty">暂时还没有已发布内容。</p>
-            )}
-        </section>
     </div>
 </BaseLayout>
