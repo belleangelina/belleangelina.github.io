@@ -29,7 +29,7 @@
     justify-content: space-between;
     gap: 24px;
     padding: 24px 6vw;
-    background: linear-gradient(180deg, rgba(24, 19, 51, 0.54), rgba(24, 19, 51, 0));
+    background: linear-gradient(180deg, rgba(10, 4, 32, 0.70), rgba(10, 4, 32, 0));
     transition: padding 0.32s ease, background 0.32s ease, border-color 0.32s ease;
 }
 
@@ -194,6 +194,11 @@
     box-shadow: 0 8px 30px rgba(255, 122, 198, 0.32);
 }
 
+[data-theme="dark"] .btn--primary
+{
+    box-shadow: 0 8px 30px rgba(255, 122, 198, 0.40);
+}
+
 .btn--primary::after
 {
     position: absolute;
@@ -208,6 +213,11 @@
 {
     transform: translateY(-3px);
     box-shadow: 0 12px 40px rgba(151, 136, 255, 0.44);
+}
+
+[data-theme="dark"] .btn--primary:hover
+{
+    box-shadow: 0 12px 40px rgba(138, 123, 255, 0.55);
 }
 
 .btn--primary:hover::after

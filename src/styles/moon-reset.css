@@ -26,24 +26,24 @@
 :root[data-theme="dark"]
 {
     color-scheme: dark;
-    --bg-0: #1a0a36;
-    --bg-1: #2b1558;
-    --bg-2: #17476c;
-    --ink: #f5f1ff;
-    --ink-soft: #d0c8ec;
-    --ink-mute: #9a91c4;
+    --bg-0: #0a0420;
+    --bg-1: #1a0a3e;
+    --bg-2: #2d1b5e;
+    --ink: #f4f1ff;
+    --ink-soft: #c8c0e8;
+    --ink-mute: #8a82b8;
     --accent-1: #ff7ac6;
-    --accent-2: #9788ff;
-    --accent-3: #73ceff;
-    --glass: rgba(255, 255, 255, 0.075);
-    --glass-border: rgba(255, 255, 255, 0.14);
-    --glass-strong: rgba(255, 255, 255, 0.12);
-    --shadow-glow: 0 18px 52px rgba(151, 136, 255, 0.24);
+    --accent-2: #8a7bff;
+    --accent-3: #6ec8ff;
+    --glass: rgba(255, 255, 255, 0.06);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-strong: rgba(255, 255, 255, 0.10);
+    --shadow-glow: 0 0 40px rgba(138, 123, 255, 0.25);
     --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.24);
-    --nav-bg: rgba(24, 19, 51, 0.82);
-    --footer-bg: rgba(18, 14, 40, 0.62);
-    --code-bg: rgba(151, 136, 255, 0.16);
-    --reading-surface: #211841;
+    --nav-bg: rgba(10, 4, 32, 0.75);
+    --footer-bg: rgba(10, 4, 32, 0.60);
+    --code-bg: rgba(138, 123, 255, 0.15);
+    --reading-surface: #12082d;
 }
 
 *
@@ -77,25 +77,56 @@ body
 
 [data-theme="dark"] body
 {
+    background: var(--bg-0);
+}
+
+#starfield,
+.aurora
+{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+#starfield
+{
+    display: none;
+}
+
+[data-theme="dark"] #starfield
+{
+    display: block;
+}
+
+.star
+{
+    position: absolute;
+    border-radius: 50%;
+    background: hsl(var(--hue, 260), 90%, 80%);
+    box-shadow: 0 0 6px hsla(var(--hue, 260), 90%, 75%, 0.8);
+    animation: twinkle linear infinite;
+    will-change: opacity;
+}
+
+.aurora
+{
+    display: none;
+}
+
+[data-theme="dark"] .aurora
+{
+    display: block;
     background:
-        radial-gradient(ellipse 190% 145% at -38% -28%, rgba(255, 122, 198, 0.34), rgba(174, 104, 255, 0.17) 35%, transparent 70%),
-        radial-gradient(ellipse 160% 128% at 130% -22%, rgba(103, 214, 255, 0.32), rgba(139, 126, 255, 0.16) 38%, transparent 72%),
-        radial-gradient(ellipse 152% 124% at 34% 120%, rgba(201, 98, 255, 0.27), rgba(255, 130, 203, 0.12) 44%, transparent 78%),
-        linear-gradient(112deg, transparent 5%, rgba(255, 122, 198, 0.18) 23%, rgba(151, 136, 255, 0.08) 45%, transparent 68%),
-        linear-gradient(64deg, transparent 18%, rgba(96, 220, 255, 0.14) 44%, rgba(255, 122, 198, 0.09) 64%, transparent 84%),
-        linear-gradient(145deg, rgba(255, 121, 205, 0.14) 0%, transparent 36%),
-        linear-gradient(28deg, rgba(95, 220, 255, 0.12) 0%, transparent 44%),
-        linear-gradient(118deg, #1a0a36 0%, #2b1558 33%, #25316b 66%, #17476c 100%);
+        radial-gradient(ellipse 50% 40% at 15% 20%, rgba(255, 122, 198, 0.28), transparent 60%),
+        radial-gradient(ellipse 45% 35% at 85% 30%, rgba(110, 200, 255, 0.22), transparent 60%),
+        radial-gradient(ellipse 60% 50% at 50% 90%, rgba(138, 123, 255, 0.28), transparent 60%);
+    opacity: 0.85;
 }
 
 [data-theme="dark"] .backdrop
 {
-    background:
-        radial-gradient(ellipse 140% 90% at 48% 0%, rgba(255, 255, 255, 0.075), transparent 62%),
-        radial-gradient(ellipse 120% 105% at 50% 72%, rgba(151, 136, 255, 0.14), transparent 70%),
-        linear-gradient(104deg, transparent 0%, rgba(255, 122, 198, 0.075) 28%, rgba(255, 255, 255, 0.058) 46%, rgba(115, 206, 255, 0.070) 63%, transparent 100%),
-        linear-gradient(154deg, transparent 8%, rgba(151, 136, 255, 0.070) 38%, rgba(255, 122, 198, 0.050) 58%, transparent 86%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.028), transparent 44%, rgba(8, 4, 28, 0.10));
+    display: none;
 }
 
 body,
@@ -153,6 +184,38 @@ img
         radial-gradient(ellipse 95% 62% at 50% 48%, rgba(255, 122, 198, 0.07), transparent 65%);
 }
 
+@keyframes twinkle
+{
+    0%,
+    100%
+    {
+        opacity: 0.2;
+    }
+
+    50%
+    {
+        opacity: 0.9;
+    }
+}
+
+@keyframes aurora-drift
+{
+    0%
+    {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+
+    50%
+    {
+        transform: translate(3%, -2%) rotate(2deg) scale(1.05);
+    }
+
+    100%
+    {
+        transform: translate(-2%, 3%) rotate(-2deg) scale(1.02);
+    }
+}
+
 .visually-hidden
 {
     position: absolute;
@@ -205,5 +268,11 @@ main
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+
+    [data-theme="dark"] .aurora,
+    [data-theme="dark"] #starfield
+    {
+        display: none;
     }
 }

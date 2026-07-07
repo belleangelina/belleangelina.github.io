@@ -47,12 +47,22 @@
     transition: opacity 0.42s ease;
 }
 
+[data-theme="dark"] .card::after
+{
+    background: radial-gradient(circle at center, rgba(255, 122, 198, 0.18), transparent 40%);
+}
+
 .card:hover
 {
     transform: translateY(-8px);
     border-color: rgba(151, 136, 255, 0.42);
     background: var(--glass-strong);
     box-shadow: var(--shadow-glow);
+}
+
+[data-theme="dark"] .card:hover
+{
+    border-color: var(--glass-border);
 }
 
 .card:hover::before,
@@ -310,6 +320,12 @@
     animation: pulse-glow 4s ease-in-out infinite;
 }
 
+[data-theme="dark"] .about__avatar
+{
+    box-shadow: 0 0 50px rgba(255, 122, 198, 0.50);
+    animation-name: pulse-glow-dark;
+}
+
 .about__name
 {
     margin: 0 0 8px;
@@ -390,6 +406,20 @@
     50%
     {
         box-shadow: 0 0 70px rgba(151, 136, 255, 0.46);
+    }
+}
+
+@keyframes pulse-glow-dark
+{
+    0%,
+    100%
+    {
+        box-shadow: 0 0 50px rgba(255, 122, 198, 0.50);
+    }
+
+    50%
+    {
+        box-shadow: 0 0 80px rgba(138, 123, 255, 0.70);
     }
 }
 
