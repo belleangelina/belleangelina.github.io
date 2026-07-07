@@ -19,6 +19,13 @@
     --footer-bg: rgba(238, 244, 255, 0.72);
     --code-bg: rgba(124, 112, 221, 0.12);
     --reading-surface: #fffaff;
+    --page-bg:
+        radial-gradient(ellipse 80% 60% at 16% 8%, rgba(124, 112, 221, 0.12), transparent 62%),
+        radial-gradient(ellipse 70% 52% at 86% 20%, rgba(67, 143, 197, 0.10), transparent 64%),
+        linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.045), transparent),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 42%, rgba(0, 0, 0, 0.10)),
+        radial-gradient(ellipse 95% 62% at 50% 48%, rgba(255, 122, 198, 0.07), transparent 65%),
+        linear-gradient(135deg, var(--bg-0), var(--bg-1) 52%, var(--bg-2));
     --font-serif: "Cormorant Garamond", "Noto Serif SC", "Songti SC", "STSong", Georgia, serif;
     --font-sans: "Inter", "Noto Serif SC", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
@@ -44,6 +51,13 @@
     --footer-bg: rgba(10, 4, 32, 0.60);
     --code-bg: rgba(138, 123, 255, 0.15);
     --reading-surface: #12082d;
+    --page-bg:
+        linear-gradient(145deg, rgba(255, 122, 198, 0.050), transparent 34%),
+        linear-gradient(24deg, rgba(110, 200, 255, 0.052), transparent 42%),
+        linear-gradient(112deg, rgba(255, 122, 198, 0.17), rgba(138, 123, 255, 0.090) 34%, transparent 68%),
+        linear-gradient(246deg, rgba(110, 200, 255, 0.15), rgba(138, 123, 255, 0.080) 36%, transparent 70%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.020), transparent 48%, rgba(255, 122, 198, 0.035)),
+        linear-gradient(118deg, #070316 0%, #100522 36%, #11132f 68%, #0a1b2f 100%);
 }
 
 *
@@ -56,19 +70,26 @@
 html
 {
     min-height: 100%;
+    overscroll-behavior-y: none;
     scroll-behavior: smooth;
     background-color: var(--bg-0);
-    background: var(--bg-0);
+    background-image: var(--page-bg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     color: var(--ink);
 }
 
 body
 {
     min-height: 100vh;
+    min-height: 100svh;
     min-height: 100dvh;
+    overscroll-behavior-y: none;
     overflow-x: hidden;
     background-color: var(--bg-0);
-    background: var(--bg-0);
+    background-image: var(--page-bg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     color: var(--ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -77,14 +98,15 @@ body
 
 [data-theme="dark"] body
 {
-    background: var(--bg-0);
+    background-color: var(--bg-0);
+    background-image: var(--page-bg);
 }
 
 .aurora,
 .backdrop
 {
     position: fixed;
-    inset: -18vh 0 -18vh;
+    inset: -32vh 0 -32vh;
     z-index: 0;
     pointer-events: none;
 }
@@ -96,13 +118,7 @@ body
 
 [data-theme="dark"] .aurora
 {
-    background:
-        linear-gradient(145deg, rgba(255, 122, 198, 0.050), transparent 34%),
-        linear-gradient(24deg, rgba(110, 200, 255, 0.052), transparent 42%),
-        linear-gradient(112deg, rgba(255, 122, 198, 0.17), rgba(138, 123, 255, 0.090) 34%, transparent 68%),
-        linear-gradient(246deg, rgba(110, 200, 255, 0.15), rgba(138, 123, 255, 0.080) 36%, transparent 70%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.020), transparent 48%, rgba(255, 122, 198, 0.035)),
-        linear-gradient(118deg, #070316 0%, #100522 36%, #11132f 68%, #0a1b2f 100%);
+    background: var(--page-bg);
     opacity: 0.92;
 }
 
@@ -157,13 +173,7 @@ img
 .backdrop
 {
     opacity: 1;
-    background:
-        radial-gradient(ellipse 80% 60% at 16% 8%, rgba(124, 112, 221, 0.12), transparent 62%),
-        radial-gradient(ellipse 70% 52% at 86% 20%, rgba(67, 143, 197, 0.10), transparent 64%),
-        linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.045), transparent),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 42%, rgba(0, 0, 0, 0.10)),
-        radial-gradient(ellipse 95% 62% at 50% 48%, rgba(255, 122, 198, 0.07), transparent 65%),
-        linear-gradient(135deg, var(--bg-0), var(--bg-1) 52%, var(--bg-2));
+    background: var(--page-bg);
 }
 
 .theme-ready body
@@ -223,6 +233,7 @@ main
     position: relative;
     z-index: 2;
     min-height: 100vh;
+    min-height: 100svh;
     min-height: 100dvh;
 }
 
