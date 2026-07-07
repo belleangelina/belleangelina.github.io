@@ -227,7 +227,6 @@
 
 .chapter-nav a:hover
 {
-    transform: translateY(-3px);
     border-color: var(--accent-3);
     background: var(--glass-strong);
     color: var(--ink);

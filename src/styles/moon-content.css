@@ -42,30 +42,8 @@
     mask-composite: exclude;
 }
 
-.card::after,
-.archive-routes a::after
-{
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    content: "";
-    background: radial-gradient(circle at center, rgba(255, 122, 198, 0.14), transparent 42%);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.42s ease;
-}
-
-[data-theme="dark"] .card::after,
-[data-theme="dark"] .archive-routes a::after
-{
-    background: radial-gradient(circle at center, rgba(255, 122, 198, 0.18), transparent 40%);
-}
-
 .card:hover
 {
-    transform: translateY(-8px);
     border-color: rgba(151, 136, 255, 0.42);
     background: var(--glass-strong);
     box-shadow: var(--shadow-glow);
@@ -79,9 +57,7 @@
 }
 
 .card:hover::before,
-.card:hover::after,
-.archive-routes a:hover::before,
-.archive-routes a:hover::after
+.archive-routes a:hover::before
 {
     opacity: 1;
 }
@@ -240,7 +216,6 @@
 
 .archive-routes a:hover
 {
-    transform: translateY(-8px);
     background: var(--glass-strong);
     box-shadow: var(--shadow-glow);
 }
