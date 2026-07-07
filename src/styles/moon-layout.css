@@ -58,10 +58,10 @@
 
 [data-theme="dark"] .nav
 {
-    background: rgba(12, 5, 34, 0.08);
+    background: transparent;
     box-shadow: none;
-    -webkit-backdrop-filter: blur(14px) saturate(135%) contrast(100%);
-    backdrop-filter: blur(14px) saturate(135%) contrast(100%);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
 }
 
 .nav.scrolled
@@ -82,7 +82,7 @@
 
 [data-theme="dark"] .nav.scrolled
 {
-    background: rgba(12, 5, 34, 0.10);
+    background: rgba(12, 5, 34, 0.12);
     box-shadow: none;
     -webkit-backdrop-filter: blur(14px) saturate(135%) contrast(100%);
     backdrop-filter: blur(14px) saturate(135%) contrast(100%);
