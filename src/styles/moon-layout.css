@@ -58,8 +58,10 @@
 
 [data-theme="dark"] .nav
 {
-    background: transparent;
+    background: rgba(12, 5, 34, 0.08);
     box-shadow: none;
+    -webkit-backdrop-filter: blur(14px) saturate(135%) contrast(100%);
+    backdrop-filter: blur(14px) saturate(135%) contrast(100%);
 }
 
 .nav.scrolled
@@ -80,16 +82,16 @@
 
 [data-theme="dark"] .nav.scrolled
 {
-    background: rgba(12, 5, 34, 0.50);
+    background: rgba(12, 5, 34, 0.10);
     box-shadow: none;
+    -webkit-backdrop-filter: blur(14px) saturate(135%) contrast(100%);
+    backdrop-filter: blur(14px) saturate(135%) contrast(100%);
 }
 
 [data-theme="dark"] .nav.scrolled::before
 {
-    background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.060), rgba(255, 255, 255, 0.012)),
-        linear-gradient(90deg, rgba(255, 122, 198, 0.052), transparent 38%, rgba(110, 200, 255, 0.042));
-    opacity: 1;
+    background: transparent;
+    opacity: 0;
 }
 
 .nav__logo

@@ -79,7 +79,7 @@ const categoryPanels = [
                         <div class="category-panel__inner">
                             <div class="category-panel__copy">
                                 <h2>{panel.title}</h2>
-                                <a class="btn btn--ghost" href={panel.href}>目录</a>
+                                <a class="btn btn--primary" href={panel.href}><span>目录</span></a>
                             </div>
 
                             <a class:list={['category-feature', { 'is-empty': !latest }]} href={latest?.url ?? panel.href}>

@@ -162,7 +162,13 @@
 
 .category-panel__copy
 {
-    text-align: left;
+    display: inline-flex;
+    width: max-content;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-self: start;
+    text-align: center;
 }
 
 .category-panel h2
