@@ -145,6 +145,21 @@
     gap: clamp(34px, 7vw, 92px);
 }
 
+.category-panel:nth-child(2) .category-panel__inner
+{
+    grid-template-columns: minmax(320px, 0.72fr) minmax(0, 0.95fr);
+}
+
+.category-panel:nth-child(2) .category-panel__copy
+{
+    order: 2;
+}
+
+.category-panel:nth-child(2) .category-feature
+{
+    order: 1;
+}
+
 .category-panel__copy
 {
     text-align: left;
@@ -362,6 +377,17 @@
     {
         grid-template-columns: 1fr;
         gap: 30px;
+    }
+
+    .category-panel:nth-child(2) .category-panel__inner
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .category-panel:nth-child(2) .category-panel__copy,
+    .category-panel:nth-child(2) .category-feature
+    {
+        order: initial;
     }
 
     .category-panel__copy
