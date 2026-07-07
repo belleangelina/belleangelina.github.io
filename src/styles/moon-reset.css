@@ -118,10 +118,10 @@ body
 {
     display: block;
     background:
-        radial-gradient(ellipse 50% 40% at 15% 20%, rgba(255, 122, 198, 0.28), transparent 60%),
-        radial-gradient(ellipse 45% 35% at 85% 30%, rgba(110, 200, 255, 0.22), transparent 60%),
-        radial-gradient(ellipse 60% 50% at 50% 90%, rgba(138, 123, 255, 0.28), transparent 60%);
-    opacity: 0.85;
+        radial-gradient(ellipse 76% 58% at 6% 18%, rgba(255, 122, 198, 0.30), rgba(138, 123, 255, 0.12) 42%, transparent 72%),
+        radial-gradient(ellipse 68% 56% at 96% 28%, rgba(110, 200, 255, 0.24), rgba(138, 123, 255, 0.12) 44%, transparent 74%),
+        radial-gradient(ellipse 92% 70% at 50% 104%, rgba(138, 123, 255, 0.28), rgba(255, 122, 198, 0.08) 48%, transparent 78%);
+    opacity: 0.90;
 }
 
 [data-theme="dark"] .backdrop
