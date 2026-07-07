@@ -275,11 +275,6 @@
     font-weight: 500;
 }
 
-.category-feature.is-empty
-{
-    border-style: dashed;
-}
-
 @keyframes shimmer
 {
     0%,
