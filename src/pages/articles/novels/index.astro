@@ -9,21 +9,21 @@ const novels = await getPublishedNovels();
 <BaseLayout title="长篇" description="长篇作品列表。">
   <section class="archive-hero category-hero" aria-labelledby="novels-title">
     <div>
-      <h1 id="novels-title">长篇</h1>
-      <p class="archive-lede">连续故事与章节被整理成册，像展厅里较长的一面墙。</p>
+      <h1 id="novels-title" class="reveal reveal--delay-1">长篇</h1>
+      <p class="archive-lede reveal reveal--delay-2">连续故事与章节被整理成册，像展厅里较长的一面墙。</p>
     </div>
   </section>
 
   <section class="section archive-listing" aria-labelledby="novels-list-title">
     <h2 id="novels-list-title" class="visually-hidden">长篇列表</h2>
     {novels.length > 0 ? (
-      <div class="article-list">
+      <div class="article-list reveal reveal--delay-3">
         {novels.map((novel) => (
           <ArticleCard title={novel.title} url={novel.url} date={novel.date} label="长篇" />
         ))}
       </div>
     ) : (
-      <p class="empty">暂时还没有已发布长篇作品。</p>
+      <p class="empty reveal reveal--delay-3">暂时还没有已发布长篇作品。</p>
     )}
   </section>
 </BaseLayout>

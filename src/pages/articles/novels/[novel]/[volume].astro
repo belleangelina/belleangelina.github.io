@@ -22,17 +22,17 @@ const { novel, volume } = Astro.props;
     </header>
 
     <section class="article-list-section" aria-labelledby="chapters-title">
-      <div class="section-head">
+      <div class="section-head reveal reveal--delay-2">
         <h2 id="chapters-title">章节目录</h2>
       </div>
       {volume.chapters.length > 0 ? (
-        <div class="article-list">
+        <div class="article-list reveal reveal--delay-3">
           {volume.chapters.map((chapter) => (
             <ArticleCard title={chapter.title} url={chapter.url} date={chapter.date} label="章节" />
           ))}
         </div>
       ) : (
-        <p class="empty">这一卷暂时还没有已发布章节。</p>
+        <p class="empty reveal reveal--delay-3">这一卷暂时还没有已发布章节。</p>
       )}
     </section>
   </section>

@@ -9,21 +9,21 @@ const shorts = await getPublishedShorts();
 <BaseLayout title="短篇" description="短篇列表。">
   <section class="archive-hero category-hero" aria-labelledby="shorts-title">
     <div>
-      <h1 id="shorts-title">短篇</h1>
-      <p class="archive-lede">独立片段、短故事和单独发光的文字，适合一口气读完。</p>
+      <h1 id="shorts-title" class="reveal reveal--delay-1">短篇</h1>
+      <p class="archive-lede reveal reveal--delay-2">独立片段、短故事和单独发光的文字，适合一口气读完。</p>
     </div>
   </section>
 
   <section class="section archive-listing" aria-labelledby="shorts-list-title">
     <h2 id="shorts-list-title" class="visually-hidden">短篇列表</h2>
     {shorts.length > 0 ? (
-      <div class="article-list">
+      <div class="article-list reveal reveal--delay-3">
         {shorts.map((article) => (
           <ArticleCard title={article.title} url={article.url} date={article.date} label="短篇" />
         ))}
       </div>
     ) : (
-      <p class="empty">暂时还没有已发布短篇。</p>
+      <p class="empty reveal reveal--delay-3">暂时还没有已发布短篇。</p>
     )}
   </section>
 </BaseLayout>

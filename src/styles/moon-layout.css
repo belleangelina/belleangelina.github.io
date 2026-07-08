@@ -310,24 +310,17 @@
     transform: translateY(0);
 }
 
-.category-panel.reveal,
-.article-list > .reveal:nth-child(3n+1),
-.articles-grid > .reveal:nth-child(3n+1),
-.archive-routes > .reveal:nth-child(3n+1)
+.reveal--delay-1
 {
     --reveal-delay: var(--motion-delay-1);
 }
 
-.article-list > .reveal:nth-child(3n+2),
-.articles-grid > .reveal:nth-child(3n+2),
-.archive-routes > .reveal:nth-child(3n+2)
+.reveal--delay-2
 {
     --reveal-delay: var(--motion-delay-2);
 }
 
-.article-list > .reveal:nth-child(3n+3),
-.articles-grid > .reveal:nth-child(3n+3),
-.archive-routes > .reveal:nth-child(3n+3)
+.reveal--delay-3
 {
     --reveal-delay: var(--motion-delay-3);
 }

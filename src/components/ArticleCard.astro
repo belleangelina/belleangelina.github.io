@@ -10,7 +10,7 @@ const { title, url, date = '', label = '' } = Astro.props;
 const meta = [date, label].filter(Boolean).join(' · ');
 ---
 
-<article class="card reveal">
+<article class="card">
     <a class="card__link" href={url}>
         <span class="card__tag">{label || 'Writing'}</span>
         <h3 class="card__title">{title}</h3>

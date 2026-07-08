@@ -5,23 +5,23 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 <BaseLayout title="文章" description="文章总览。">
   <section class="archive-hero" aria-labelledby="archive-title">
     <div>
-      <h1 id="archive-title">文章目录</h1>
-      <p class="archive-lede">长篇、短篇和记录各自收好，选一个目录继续往下读。</p>
+      <h1 id="archive-title" class="reveal reveal--delay-1">文章目录</h1>
+      <p class="archive-lede reveal reveal--delay-2">长篇、短篇和记录各自收好，选一个目录继续往下读。</p>
     </div>
   </section>
 
-  <section class="archive-routes" aria-label="分类入口">
-    <a class="reveal" href="/articles/novels/">
+  <section class="archive-routes reveal reveal--delay-3" aria-label="分类入口">
+    <a href="/articles/novels/">
       <span>Novels</span>
       <strong>长篇</strong>
       <em>连续作品</em>
     </a>
-    <a class="reveal" href="/articles/shorts/">
+    <a href="/articles/shorts/">
       <span>Shorts</span>
       <strong>短篇</strong>
       <em>独立短章</em>
     </a>
-    <a class="reveal" href="/articles/notes/">
+    <a href="/articles/notes/">
       <span>Notes</span>
       <strong>记录</strong>
       <em>日常旁注</em>
