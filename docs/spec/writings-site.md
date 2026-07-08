@@ -26,7 +26,7 @@
 
 首页当前包含：
 
-- 站名 Hero。
+- 首页第一屏主标题显示站名。
 - 打字机短文案。
 - `进入目录` 和 `随便看看` 两个按钮。
 - 长篇、短篇、记录三个分类分段。
@@ -147,6 +147,61 @@ belleangelina.github.io GitHub Actions 拉取 writings 内容
 ```
 
 站点仓库保留 `workflow_dispatch` 手动触发入口，用于自动触发失败、调试部署或临时重建站点。跨仓库触发使用内容仓库 secret `SITE_REPO_DISPATCH_TOKEN`。
+
+## GitHub 配置
+
+站点仓库 `belleangelina/belleangelina.github.io`：
+
+1. 在 `Settings -> Pages -> Build and deployment -> Source` 中选择 `GitHub Actions`。
+2. 保留 `.github/workflows/deploy.yml`。当前 workflow 已支持：
+   - `push` 到站点仓库 `main` 时构建部署。
+   - 收到 `repository_dispatch` 且 `event_type` 为 `content-updated` 时构建部署。
+   - 手动 `workflow_dispatch` 触发。
+   - 构建时 checkout `belleangelina/writings` 到 `writings-content`。
+
+内容仓库 `belleangelina/writings`：
+
+1. 创建一个 fine-grained personal access token。
+2. `Repository access` 只选择 `belleangelina.github.io`。
+3. `Repository permissions` 至少给目标站点仓库 `Contents: Read and write`。`repository_dispatch` 是发给站点仓库的 API 请求，所以 token 权限作用在 `belleangelina.github.io`，不是 `writings`。
+4. 在 `belleangelina/writings -> Settings -> Secrets and variables -> Actions -> Secrets` 新增仓库 secret：
+
+```text
+SITE_REPO_DISPATCH_TOKEN=<上一步创建的 token>
+```
+
+5. 在 `belleangelina/writings` 增加 workflow，例如 `.github/workflows/notify-site.yml`：
+
+```yaml
+name: Notify site
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger site rebuild
+        env:
+          SITE_REPO_DISPATCH_TOKEN: ${{ secrets.SITE_REPO_DISPATCH_TOKEN }}
+        run: |
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${SITE_REPO_DISPATCH_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2026-03-10" \
+            https://api.github.com/repos/belleangelina/belleangelina.github.io/dispatches \
+            -d '{"event_type":"content-updated"}'
+```
+
+验证方式：
+
+1. 向 `belleangelina/writings/main` push 一次文章改动。
+2. 打开 `belleangelina/writings -> Actions`，确认 `Notify site` 成功。
+3. 打开 `belleangelina.github.io -> Actions`，确认 `Deploy site` 被 `repository_dispatch` 触发。
+4. 部署完成后打开 `https://belleangelina.github.io/` 验证页面内容。
 
 ## 文档同步规则
 
