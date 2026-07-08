@@ -1,90 +1,47 @@
-# 实现闭环清单
+# 当前工作状态
 
-本文件用于记录站点实现与部署验证状态，避免实现过程只依赖聊天上下文。
+本文件只记录当前仓库继续工作所必需的信息。历史设计讨论和已失效规格不再保留，具体实现以代码为准。
 
-## 当前目标
+## 项目概况
 
-实现一个可部署到 GitHub Pages 的 Astro 静态文章展示站。
+- 站点仓库：`belleangelina/belleangelina.github.io`
+- 技术栈：Astro 静态站点
+- 发布目标：GitHub Pages，`https://belleangelina.github.io/`
+- 内容源：`belleangelina/writings`
+- 本地默认内容目录：`writings-content`
+- 当前站名：`天然未来派的摸鱼小屋`
 
-目标网址：
+## 当前实现
 
-```text
-https://belleangelina.github.io/
+- 顶部导航：左侧菱形标识 + 站名，右侧 `首页 / 文章 / 关于 / 主题切换`。
+- 窄屏处理：视口宽度不超过 `768px` 时隐藏顶部栏站名文字，只保留菱形标识。
+- 首页：站名 Hero、打字机文案、`进入目录` 和 `随便看看` 按钮、长篇 / 短篇 / 记录三个分类分段。
+- 首页打字机文案当前临时与 `web/` 示例一致。
+- 文章总览页 `/articles/` 只展示分类入口。
+- 长篇、短篇、记录列表页使用 `ArticleCard`。
+- 阅读页保留独立路由；长篇章节页保留上一章 / 返回目录 / 下一章导航。
+- 主题切换使用 `localStorage` 的 `belle-theme-v2`，默认浅色。
+- 构建生成 `rss.xml` 和 `sitemap.xml`。
+
+## 内容规则
+
+- 只读取 Markdown `.md`。
+- 只有 `status: published` 的内容会上站。
+- 短篇和记录按 `date` 倒序。
+- 长篇作品按 `date` 倒序。
+- 长篇内部卷按 `volume` 升序，章节按 `chapter` 升序。
+- 内容资源路径会重写到 `/content/...`。
+
+## 常用命令
+
+```bash
+npm run dev
+npm run build
+npm run preview
 ```
 
-## 当前约束
+## 最近验证
 
-- 内容源：`belleangelina/writings`
-- 站点仓库：`belleangelina/belleangelina.github.io`
-- V1 只支持 Markdown `.md`
-- V1 支持长篇、短篇、记录
-- V1 必须适配移动端
-- V1 支持浅色 / 暗色模式
-- V1 生成 `rss.xml` 和 `sitemap.xml`
-- 暂不要求跨仓库自动触发完全跑通，fine-grained PAT 后续再配置
+2026-07-08 本地执行 `npm run build` 通过。
 
-## 实现计划
-
-1. 初始化 Astro 项目文件。
-2. 实现内容读取模块。
-3. 实现基础布局、样式、暗色模式和响应式布局。
-4. 实现首页、文章总览页、分类列表页和阅读页。
-5. 实现长篇作品 / 卷 / 章页面和章节导航。
-6. 实现 `rss.xml` 和 `sitemap.xml`。
-7. 配置 GitHub Pages 部署 workflow。
-8. 通过公开网址验证页面、链接和移动端基础布局。
-9. 修复明显 bug。
-
-## 当前状态
-
-- [x] 设计文档已收束
-- [x] `writings/README.md` 已更新
-- [x] `short-stories/RainyGirl.md` 已迁移到 `shorts/RainyGirl.md`
-- [x] Astro 项目文件完整
-- [x] 内容读取模块完成
-- [x] 页面路由完成
-- [x] 移动端样式完成
-- [x] RSS / sitemap 完成
-- [x] GitHub Pages workflow 完成
-- [ ] 公开网址验证完成
-
-## 最新验证记录
-
-已完成第一轮站点实现并写入 `belleangelina.github.io`：
-
-- Astro 基础配置
-- 内容读取模块
-- 首页、关于页、文章总览页
-- 长篇、短篇、记录列表页
-- 短篇和记录阅读页
-- 长篇作品、卷、章节页
-- 章节上一章 / 返回目录 / 下一章导航
-- 响应式移动端基础样式
-- 浅色 / 暗色模式切换
-- `rss.xml`
-- `sitemap.xml`
-- GitHub Pages deploy workflow
-
-部署验证结果：
-
-- GitHub Actions workflow 已触发。
-- build job 曾因 GitHub account billing lock 未启动。
-- billing lock 解除后，build job 已成功。
-- deploy job 返回：`Deployment failed, try again later.`
-
-当前判断：
-
-- 站点代码已经通过 GitHub Actions build。
-- 当前失败点是 GitHub Pages deploy 阶段，不是 Astro 构建失败。
-- `Deployment failed, try again later.` 常见处理是重新触发部署。
-
-待完成：
-
-- 重新触发 GitHub Actions workflow。
-- 打开 `https://belleangelina.github.io/` 验证首页、短篇页、RSS 和 sitemap。
-- 若部署再次失败或页面异常，继续修复。
-
-## 重新触发记录
-
-- 已在用户处理 billing 问题后提交一次小改动，用于重新触发 GitHub Pages workflow。
-- build 成功但 deploy 返回临时失败后，再次提交小改动用于重试 deploy。
+本地提示 `writings-content` 不存在，因此内容资源复制跳过；这是当前本地环境状态，不是构建错误。

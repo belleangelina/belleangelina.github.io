@@ -324,6 +324,11 @@
         gap: 8px;
     }
 
+    .nav__logo-text
+    {
+        display: none;
+    }
+
     .nav__menu
     {
         flex: 1;

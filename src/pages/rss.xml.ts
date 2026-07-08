@@ -30,7 +30,7 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>Belle Angelina</title>
+    <title>天然未来派的摸鱼小屋</title>
     <link>${siteUrl('/')}</link>
     <description>个人文章、小说和记录。</description>
     <language>zh-CN</language>
