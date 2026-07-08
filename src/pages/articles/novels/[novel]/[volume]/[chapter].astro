@@ -34,7 +34,7 @@ export async function getStaticPaths() {
 const { novel, volume, chapter, previous, next } = Astro.props;
 ---
 
-<BaseLayout title={chapter.title} description={chapter.summary || chapter.title}>
+<BaseLayout title={chapter.title} description={chapter.summary || chapter.title} readingEntry={{ title: chapter.title, url: chapter.url }}>
   <article class="reading">
     <header class="reading-header">
       <div class="eyebrow"><a href={novel.url}>{novel.title}</a> / <a href={volume.url}>{volume.title}</a></div>

@@ -4,11 +4,16 @@ import '../styles/global.css';
 interface Props {
     title?: string;
     description?: string;
+    readingEntry?: {
+        title: string;
+        url: string;
+    };
 }
 
 const siteName = '天然未来派的摸鱼小屋';
 const title = Astro.props.title ? `${Astro.props.title} · ${siteName}` : siteName;
 const description = Astro.props.description ?? `${siteName} 的小说、短篇和记录。`;
+const readingEntry = Astro.props.readingEntry;
 const currentPath = Astro.url.pathname;
 
 const navItems = [
@@ -84,6 +89,80 @@ function isActive(href: string) {
                 <p class="footer__meta">© <span data-current-year></span> {siteName} · Writings</p>
             </div>
         </footer>
+
+        {readingEntry && (
+            <script define:vars={{ readingEntry }}>
+                (() => {
+                    const storageKey = 'belle-last-reading-v1';
+                    const shouldRestore = new URLSearchParams(window.location.search).get('continue') === '1';
+
+                    function getMaxScroll() {
+                        return Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+                    }
+
+                    function saveReading() {
+                        const maxScroll = getMaxScroll();
+                        const scrollY = Math.min(Math.max(Math.round(window.scrollY), 0), maxScroll);
+                        const progress = maxScroll > 0 ? scrollY / maxScroll : 0;
+
+                        try {
+                            localStorage.setItem(storageKey, JSON.stringify({
+                                title: readingEntry.title,
+                                url: readingEntry.url,
+                                scrollY,
+                                progress,
+                                savedAt: new Date().toISOString()
+                            }));
+                        } catch (error) {
+                            // 浏览器禁止本地存储时，不记录继续阅读位置。
+                        }
+                    }
+
+                    function restoreReading() {
+                        if (!shouldRestore) return;
+
+                        try {
+                            const stored = JSON.parse(localStorage.getItem(storageKey) || 'null');
+                            if (!stored || stored.url !== readingEntry.url || typeof stored.scrollY !== 'number') return;
+
+                            const targetY = Math.min(Math.max(stored.scrollY, 0), getMaxScroll());
+                            window.scrollTo(0, targetY);
+                            window.history.replaceState(null, '', `${window.location.pathname}${window.location.hash}`);
+                        } catch (error) {
+                            // 本地阅读记录不可用时，从正文顶部开始阅读。
+                        }
+                    }
+
+                    let ticking = false;
+
+                    function queueSaveReading() {
+                        if (ticking) return;
+
+                        ticking = true;
+                        window.requestAnimationFrame(() => {
+                            ticking = false;
+                            saveReading();
+                        });
+                    }
+
+                    window.addEventListener('scroll', queueSaveReading, { passive: true });
+                    window.addEventListener('pagehide', saveReading);
+                    document.addEventListener('visibilitychange', () => {
+                        if (document.visibilityState === 'hidden') saveReading();
+                    });
+
+                    if (shouldRestore) {
+                        window.requestAnimationFrame(restoreReading);
+                        window.addEventListener('load', () => {
+                            restoreReading();
+                            window.requestAnimationFrame(saveReading);
+                        }, { once: true });
+                    } else {
+                        window.requestAnimationFrame(saveReading);
+                    }
+                })();
+            </script>
+        )}
 
         <script is:inline>
             (() => {

@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 ---
 
-<BaseLayout title={article.title} description={article.summary || article.title}>
+<BaseLayout title={article.title} description={article.summary || article.title} readingEntry={{ title: article.title, url: article.url }}>
   <article class="reading">
     <header class="reading-header">
       <div class="eyebrow"><a href="/articles/notes/">记录</a></div>

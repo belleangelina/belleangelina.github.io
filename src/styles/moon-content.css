@@ -204,7 +204,7 @@
     display: flex;
     min-height: 190px;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     isolation: isolate;
     overflow: hidden;
     border: 1px solid var(--glass-border);

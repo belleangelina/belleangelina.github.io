@@ -24,6 +24,16 @@ function latestByDate<T extends HomeEntry>(items: T[]): T | null {
 
 const latestChapters = novels.flatMap((novel) => novel.volumes.flatMap((volume) => volume.chapters));
 const latestNovel = latestByDate(latestChapters.length > 0 ? latestChapters : novels);
+const firstNovelChapters: HomeEntry[] = [];
+
+novels.forEach((novel) => {
+    const firstChapter = novel.volumes.flatMap((volume) => volume.chapters)[0];
+    if (firstChapter) firstNovelChapters.push(firstChapter);
+});
+
+const randomReadingTargets = [...firstNovelChapters, ...shorts, ...notes].map((item) => item.url);
+const knownReadingTargets = [...latestChapters, ...shorts, ...notes].map((item) => item.url);
+const randomReadingFallback = randomReadingTargets[0] ?? '/articles/';
 
 const categoryPanels = [
     {
@@ -65,7 +75,13 @@ const categoryPanels = [
             </p>
             <div class="hero__actions">
                 <a class="btn btn--primary" href="/articles/"><span>进入目录</span></a>
-                <a class="btn btn--ghost" href="/articles/">随便看看</a>
+                <a
+                    class="btn btn--ghost"
+                    href={randomReadingFallback}
+                    data-random-reading
+                    data-random-reading-targets={JSON.stringify(randomReadingTargets)}
+                    data-known-reading-targets={JSON.stringify(knownReadingTargets)}
+                >随便看看</a>
             </div>
         </section>
 
@@ -94,4 +110,43 @@ const categoryPanels = [
             })}
         </div>
     </div>
+
+    <script is:inline>
+        (() => {
+            const button = document.querySelector('[data-random-reading]');
+            if (!button) return;
+
+            const lastReadingKey = 'belle-last-reading-v1';
+            const randomTargets = JSON.parse(button.dataset.randomReadingTargets || '[]');
+            const knownTargets = new Set(JSON.parse(button.dataset.knownReadingTargets || '[]'));
+
+            function withContinueParam(url) {
+                return `${url}${url.includes('?') ? '&' : '?'}continue=1`;
+            }
+
+            try {
+                const stored = JSON.parse(localStorage.getItem(lastReadingKey) || 'null');
+
+                if (stored && typeof stored.url === 'string' && knownTargets.has(stored.url)) {
+                    button.textContent = '继续阅读';
+                    button.href = withContinueParam(stored.url);
+                    button.dataset.continueReading = 'true';
+
+                    if (typeof stored.title === 'string' && stored.title) {
+                        button.setAttribute('aria-label', `继续阅读：${stored.title}`);
+                    }
+                }
+            } catch (error) {
+                // 本地阅读记录不可用时保持随机阅读入口。
+            }
+
+            button.addEventListener('click', (event) => {
+                if (button.dataset.continueReading === 'true' || randomTargets.length === 0) return;
+
+                event.preventDefault();
+                const index = Math.floor(Math.random() * randomTargets.length);
+                window.location.assign(randomTargets[index]);
+            });
+        })();
+    </script>
 </BaseLayout>
