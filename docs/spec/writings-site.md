@@ -176,6 +176,7 @@ SITE_REPO_DISPATCH_TOKEN=<上一步创建的 token>
 name: Notify site
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
 
@@ -187,7 +188,7 @@ jobs:
         env:
           SITE_REPO_DISPATCH_TOKEN: ${{ secrets.SITE_REPO_DISPATCH_TOKEN }}
         run: |
-          curl -L \
+          curl --fail-with-body -L \
             -X POST \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${SITE_REPO_DISPATCH_TOKEN}" \
@@ -202,6 +203,13 @@ jobs:
 2. 打开 `belleangelina/writings -> Actions`，确认 `Notify site` 成功。
 3. 打开 `belleangelina.github.io -> Actions`，确认 `Deploy site` 被 `repository_dispatch` 触发。
 4. 部署完成后打开 `https://belleangelina.github.io/` 验证页面内容。
+
+排查顺序：
+
+1. 如果 `writings -> Actions` 没有 `Notify site` 运行记录，说明内容仓库 workflow 没有被触发。检查 `.github/workflows/notify-site.yml` 是否已经在 `writings/main`，以及 push 是否真的推到了 `main`。
+2. 如果 `Notify site` 失败，先看 `Trigger site rebuild` 日志里的 HTTP 状态。常见原因是 `SITE_REPO_DISPATCH_TOKEN` secret 名称不一致、token 过期、token 没有选择 `belleangelina.github.io`，或 `Contents` 权限不是 `Read and write`。
+3. 如果 `Notify site` 成功但 `belleangelina.github.io -> Actions` 没有新运行，检查发送的 `event_type` 是否正好是 `content-updated`，因为站点仓库 workflow 只监听这个类型。
+4. 可以在 `writings -> Actions -> Notify site -> Run workflow` 手动触发一次，单独验证 dispatch 配置。
 
 ## 文档同步规则
 
