@@ -102,6 +102,20 @@ body
     text-rendering: optimizeLegibility;
 }
 
+@media (min-width: 769px)
+{
+    :root
+    {
+        --ink-soft: #4f486b;
+        --ink-mute: #746e8e;
+    }
+
+    body
+    {
+        -webkit-font-smoothing: auto;
+    }
+}
+
 [data-theme="dark"] body
 {
     background-color: var(--bg-0);

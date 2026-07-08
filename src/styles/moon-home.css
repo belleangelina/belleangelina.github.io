@@ -390,3 +390,29 @@
         min-height: 230px;
     }
 }
+
+@media (min-width: 769px)
+{
+    .hero__tag,
+    .section__label,
+    .category-feature__label
+    {
+        font-size: 13px;
+        letter-spacing: 0.22em;
+    }
+
+    .section__desc
+    {
+        font-size: 16px;
+    }
+
+    .category-feature__meta
+    {
+        font-size: 14px;
+    }
+
+    .category-feature__read
+    {
+        font-size: 15px;
+    }
+}

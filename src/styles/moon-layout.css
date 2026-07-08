@@ -373,6 +373,22 @@
     }
 }
 
+@media (min-width: 769px)
+{
+    .nav__menu a,
+    .theme-toggle
+    {
+        font-size: 15px;
+        letter-spacing: 0.08em;
+    }
+
+    .footer__meta
+    {
+        font-size: 13px;
+        letter-spacing: 0.08em;
+    }
+}
+
 @media (max-width: 430px)
 {
     .nav

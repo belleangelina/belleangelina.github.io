@@ -443,6 +443,47 @@
     }
 }
 
+@media (min-width: 769px)
+{
+    .card__tag,
+    .archive-routes span
+    {
+        font-size: 12px;
+        letter-spacing: 0.16em;
+    }
+
+    .card__meta,
+    .section-head .meta,
+    .meta
+    {
+        font-size: 13px;
+        letter-spacing: 0.08em;
+    }
+
+    .archive-lede,
+    .lede
+    {
+        font-size: 16px;
+    }
+
+    .archive-routes em,
+    .skill
+    {
+        font-size: 14px;
+    }
+
+    .about__role
+    {
+        font-size: 15px;
+        letter-spacing: 0.16em;
+    }
+
+    .about__bio
+    {
+        font-size: 17px;
+    }
+}
+
 @media (max-width: 768px)
 {
     .articles-grid,

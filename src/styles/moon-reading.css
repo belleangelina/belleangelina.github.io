@@ -274,6 +274,28 @@
     opacity: 0.68;
 }
 
+@media (min-width: 769px)
+{
+    .eyebrow
+    {
+        font-size: 12px;
+        letter-spacing: 0.22em;
+    }
+
+    .prose
+    {
+        font-size: 18px;
+        font-weight: 450;
+        line-height: 2.05;
+    }
+
+    .chapter-nav a,
+    .chapter-nav span
+    {
+        font-size: 15px;
+    }
+}
+
 @media (max-width: 768px)
 {
     .reading
@@ -284,6 +306,9 @@
     .prose
     {
         padding: 26px 22px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 2;
     }
 
     .chapter-nav
