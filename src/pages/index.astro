@@ -94,7 +94,9 @@ const categoryPanels = [
                     <section class="category-panel" id={panel.id}>
                         <div class="category-panel__inner">
                             <div class="category-panel__copy">
-                                <h2 class="reveal reveal--delay-1">{panel.title}</h2>
+                                <h2 class="reveal reveal--delay-1">
+                                    <a href={panel.href}>{panel.title}</a>
+                                </h2>
                                 <a class="btn btn--primary reveal reveal--delay-2" href={panel.href}><span>目录</span></a>
                             </div>
 

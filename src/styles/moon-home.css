@@ -171,6 +171,22 @@
     line-height: 1.04;
 }
 
+.category-panel h2 a
+{
+    display: inline-block;
+    background: inherit;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.category-panel h2 a:focus-visible
+{
+    border-radius: 8px;
+    outline: 2px solid var(--accent-3);
+    outline-offset: 8px;
+}
+
 .category-panel .btn
 {
     margin-top: 34px;
