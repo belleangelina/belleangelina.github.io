@@ -6,8 +6,6 @@
 
 当前内容以小说为主，包括长篇和短篇；同时也会包含开发调试经验、记录。后续可能扩展更多文章类型。
 
-说明：内容仓库原名为 `writings-public`，现已改名为 `writings`。本文档后续统一使用新仓库名 `belleangelina/writings`。
-
 ## 2. 仓库分工
 
 采用双仓库方案。
@@ -582,34 +580,3 @@ V1 采用“完整但克制”的范围，并保持纯静态实现。
 之后每当设计达成新的明确结论，应同步更新本文件，保持实现前的设计依据清晰可追踪。
 
 ## 20. 决策记录
-
-- 内容仓库已从 `belleangelina/writings-public` 改名为 `belleangelina/writings`。
-- 采用双仓库方案：内容仓库 `writings`，站点仓库 `belleangelina.github.io`。
-- 站点仓库使用 public，可发布为 GitHub Pages 个人主站。
-- 技术栈选择 Astro。
-- GitHub Pages 仅托管静态网站，V1 按纯静态站点设计。
-- 内容文件 V1 只支持 Markdown `.md`，暂不支持 MDX `.mdx`。
-- 内容更新后自动触发网站重新构建和部署。
-- 自动部署采用 `writings` push 后触发 `belleangelina.github.io` 的 `repository_dispatch`；站点仓库同时保留 `workflow_dispatch` 手动触发备用。
-- 跨仓库触发使用 fine-grained PAT，作为 secret 存入 `writings`，推荐名称为 `SITE_REPO_DISPATCH_TOKEN`。
-- `writings/README.md` 已更新为内容仓库规范说明。
-- 旧短篇 `short-stories/RainyGirl.md` 已迁移到 `shorts/RainyGirl.md`，并补充 V1 frontmatter；未改变原文件名。
-- 首页作为入口页，不作为完整文章列表页。
-- 站点名称已改为 `天然未来派的摸鱼小屋`。
-- 站点视觉采用参考 `web/` 示例的渐变、玻璃感和轻动效风格。
-- V1 必须适配移动端，采用响应式布局。
-- 文章列表页按 `date` 倒序；长篇内部按 `volume` / `chapter` 升序。
-- 文章顶层分类为：长篇 / 短篇 / 记录。
-- 记录暂不做子分类。
-- V1 暂不使用 `tags` 字段，也不做标签列表页或标签详情页。
-- 内容仓库目录需要整理，并在 README 中写清楚结构和规范。
-- 使用 frontmatter 元数据。
-- `status` 只支持 `published` / `draft`，仅 `published` 上站。
-- 长篇按作品 / 卷 / 章建模。
-- 长篇卷用目录，章用 `.md` 单文件。
-- 短篇和记录用 `.md` 单文件，资源放同名目录。
-- slug 由目录名 / 文件名决定，不额外写 `slug` 字段。
-- 支持可选封面图和 Markdown 正文插图。
-- 长篇章节页需要上一章 / 返回目录 / 下一章导航，并支持跨卷衔接。
-- V1 支持浅色 / 暗色模式，默认使用浅色并允许用户切换。
-- V1 包含静态生成的 `sitemap.xml` 和 `rss.xml`。
