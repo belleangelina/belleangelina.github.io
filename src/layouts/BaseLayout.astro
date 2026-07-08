@@ -244,23 +244,40 @@ function isActive(href: string) {
                 }
 
                 function observeReveal() {
-                    const items = document.querySelectorAll('.reveal, [data-reveal]');
+                    const groups = document.querySelectorAll('[data-reveal-group]');
+                    const items = document.querySelectorAll('.reveal:not([data-reveal-child]), [data-reveal]:not([data-reveal-child])');
+
+                    function revealItem(item) {
+                        item.classList.add('in', 'is-visible');
+                    }
+
+                    function revealGroup(group) {
+                        const children = group.querySelectorAll('.reveal, [data-reveal]');
+                        children.forEach(revealItem);
+                    }
 
                     if (!('IntersectionObserver' in window)) {
-                        items.forEach((item) => item.classList.add('in', 'is-visible'));
+                        items.forEach(revealItem);
+                        groups.forEach(revealGroup);
                         return;
                     }
 
                     const observer = new IntersectionObserver((entries) => {
                         entries.forEach((entry) => {
                             if (entry.isIntersecting) {
-                                entry.target.classList.add('in', 'is-visible');
+                                if (entry.target.hasAttribute('data-reveal-group')) {
+                                    revealGroup(entry.target);
+                                } else {
+                                    revealItem(entry.target);
+                                }
+
                                 observer.unobserve(entry.target);
                             }
                         });
                     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
                     items.forEach((item) => observer.observe(item));
+                    groups.forEach((group) => observer.observe(group));
                 }
 
                 window.addEventListener('scroll', updateNav, { passive: true });
