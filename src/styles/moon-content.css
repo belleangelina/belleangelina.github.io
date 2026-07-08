@@ -186,7 +186,7 @@
     margin: 18px auto 0;
     color: var(--ink-mute);
     font-size: 15px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.8;
 }
 
@@ -365,7 +365,7 @@
 {
     color: var(--ink-soft);
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 2;
 }
 

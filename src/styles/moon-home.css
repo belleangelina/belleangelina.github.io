@@ -50,7 +50,7 @@
     margin: 0 0 48px;
     color: var(--ink-soft);
     font-size: clamp(16px, 1.6vw, 20px);
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.8;
     animation: fade-up var(--motion-duration) var(--motion-ease) var(--motion-delay-2) both;
 }
@@ -116,7 +116,7 @@
     margin: 16px auto 0;
     color: var(--ink-mute);
     font-size: 15px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.8;
 }
 
@@ -311,7 +311,7 @@
     to
     {
         opacity: 1;
-        transform: translateY(0);
+        transform: none;
     }
 }
 
@@ -326,7 +326,7 @@
     to
     {
         opacity: 1;
-        transform: translateY(0);
+        transform: none;
     }
 }
 
