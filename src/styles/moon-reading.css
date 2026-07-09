@@ -66,6 +66,11 @@
     box-shadow: var(--shadow-soft);
 }
 
+[data-theme="dark"] .prose
+{
+    color: #d5cfef;
+}
+
 .prose p
 {
     margin-bottom: 24px;
