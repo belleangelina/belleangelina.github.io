@@ -355,8 +355,18 @@
     .nav__menu a,
     .theme-toggle
     {
-        font-size: 14px;
+        font-size: 15px;
         letter-spacing: 0.06em;
+    }
+
+    .btn
+    {
+        font-size: 17px;
+    }
+
+    .footer__meta
+    {
+        font-size: 15px;
     }
 
     .theme-toggle
@@ -392,10 +402,21 @@
 @media (min-width: 769px) and (max-resolution: 1.49dppx)
 {
     .nav__menu a,
-    .theme-toggle,
+    .theme-toggle
+    {
+        font-size: 15px;
+        font-weight: 500;
+    }
+
     .footer__meta
     {
+        font-size: 13px;
         font-weight: 500;
+    }
+
+    .btn
+    {
+        font-size: 15px;
     }
 }
 

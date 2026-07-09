@@ -303,6 +303,27 @@
 
 @media (min-width: 769px) and (max-resolution: 1.49dppx)
 {
+    .eyebrow
+    {
+        font-size: 12px;
+    }
+
+    .prose
+    {
+        font-size: 17px;
+    }
+
+    .prose code
+    {
+        font-size: 15px;
+    }
+
+    .chapter-nav a,
+    .chapter-nav span
+    {
+        font-size: 15px;
+    }
+
     .eyebrow,
     .prose,
     .chapter-nav a,
@@ -322,9 +343,25 @@
     .prose
     {
         padding: 26px 22px;
-        font-size: 18px;
+        font-size: 19px;
         font-weight: 400;
         line-height: 2;
+    }
+
+    .eyebrow
+    {
+        font-size: 14px;
+    }
+
+    .prose code
+    {
+        font-size: 17px;
+    }
+
+    .chapter-nav a,
+    .chapter-nav span
+    {
+        font-size: 17px;
     }
 
     .chapter-nav

@@ -488,6 +488,47 @@
 @media (min-width: 769px) and (max-resolution: 1.49dppx)
 {
     .card__tag,
+    .archive-routes span
+    {
+        font-size: 12px;
+    }
+
+    .card__meta,
+    .section-head .meta,
+    .meta
+    {
+        font-size: 13px;
+    }
+
+    .archive-lede,
+    .lede
+    {
+        font-size: 16px;
+    }
+
+    .archive-routes em,
+    .skill
+    {
+        font-size: 14px;
+    }
+
+    .empty,
+    .empty-state
+    {
+        font-size: 17px;
+    }
+
+    .about__role
+    {
+        font-size: 15px;
+    }
+
+    .about__bio
+    {
+        font-size: 17px;
+    }
+
+    .card__tag,
     .card__meta,
     .card__read,
     .archive-lede,
@@ -512,6 +553,47 @@
     .article-list
     {
         grid-template-columns: 1fr;
+    }
+
+    .card__tag,
+    .archive-routes span
+    {
+        font-size: 14px;
+    }
+
+    .card__meta,
+    .section-head .meta,
+    .meta
+    {
+        font-size: 15px;
+    }
+
+    .archive-lede,
+    .lede
+    {
+        font-size: 18px;
+    }
+
+    .archive-routes em,
+    .skill
+    {
+        font-size: 16px;
+    }
+
+    .empty,
+    .empty-state
+    {
+        font-size: 19px;
+    }
+
+    .about__role
+    {
+        font-size: 17px;
+    }
+
+    .about__bio
+    {
+        font-size: 19px;
     }
 
     .archive-hero

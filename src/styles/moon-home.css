@@ -353,9 +353,35 @@
 
     .hero__tag
     {
-        font-size: 13px;
+        font-size: 14px;
         letter-spacing: 0.24em;
         padding: 6px 14px;
+    }
+
+    .hero__subtitle
+    {
+        font-size: clamp(19px, 1.6vw, 23px);
+    }
+
+    .section__label,
+    .category-feature__label
+    {
+        font-size: 15px;
+    }
+
+    .section__desc
+    {
+        font-size: 18px;
+    }
+
+    .category-feature__meta
+    {
+        font-size: 16px;
+    }
+
+    .category-feature__read
+    {
+        font-size: 17px;
     }
 
     .section
@@ -424,6 +450,37 @@
 
 @media (min-width: 769px) and (max-resolution: 1.49dppx)
 {
+    .hero__tag
+    {
+        font-size: 14px;
+    }
+
+    .hero__subtitle
+    {
+        font-size: clamp(17px, 1.6vw, 21px);
+    }
+
+    .section__label,
+    .category-feature__label
+    {
+        font-size: 13px;
+    }
+
+    .section__desc
+    {
+        font-size: 16px;
+    }
+
+    .category-feature__meta
+    {
+        font-size: 14px;
+    }
+
+    .category-feature__read
+    {
+        font-size: 15px;
+    }
+
     .hero__tag,
     .hero__subtitle,
     .section__label,
