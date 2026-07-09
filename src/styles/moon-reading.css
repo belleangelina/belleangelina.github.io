@@ -22,7 +22,7 @@
 {
     margin-bottom: 16px;
     color: var(--accent-3);
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
 }
@@ -60,7 +60,7 @@
     padding: clamp(28px, 5vw, 48px);
     color: var(--ink-soft);
     font-family: var(--font-sans);
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 400;
     line-height: 2;
     box-shadow: var(--shadow-soft);
@@ -127,7 +127,7 @@
     padding: 2px 8px;
     color: var(--accent-1);
     font-family: "JetBrains Mono", Consolas, monospace;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .prose pre
@@ -220,7 +220,7 @@
     background: var(--glass);
     padding: 18px;
     color: var(--ink-soft);
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.7;
     text-align: center;
     transition: border-color 0.28s ease, color 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
@@ -278,21 +278,37 @@
 {
     .eyebrow
     {
-        font-size: 12px;
+        font-size: 13px;
         letter-spacing: 0.22em;
     }
 
     .prose
     {
-        font-size: 18px;
-        font-weight: 450;
+        font-size: 20px;
+        font-weight: 400;
         line-height: 2.05;
+    }
+
+    .prose code
+    {
+        font-size: 16px;
     }
 
     .chapter-nav a,
     .chapter-nav span
     {
-        font-size: 15px;
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 769px) and (max-resolution: 1.49dppx)
+{
+    .eyebrow,
+    .prose,
+    .chapter-nav a,
+    .chapter-nav span
+    {
+        font-weight: 500;
     }
 }
 
@@ -306,7 +322,7 @@
     .prose
     {
         padding: 26px 22px;
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 400;
         line-height: 2;
     }
