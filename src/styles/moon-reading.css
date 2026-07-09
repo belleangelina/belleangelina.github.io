@@ -285,7 +285,7 @@
     .prose
     {
         font-size: 20px;
-        font-weight: 500;
+        font-weight: 450;
         line-height: 2.05;
     }
 
@@ -334,7 +334,7 @@
 
     .prose
     {
-        font-weight: 600;
+        font-weight: 550;
     }
 }
 
