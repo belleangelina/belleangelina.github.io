@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import ArticleCard from '../../../components/ArticleCard.astro';
 import { getPublishedNovels } from '../../../lib/content';
 
 export async function getStaticPaths() {
@@ -12,28 +11,67 @@ export async function getStaticPaths() {
 }
 
 const { novel } = Astro.props;
+const chapters = novel.volumes.flatMap((volume) => volume.chapters);
+const firstChapter = chapters[0];
 ---
 
 <BaseLayout title={novel.title} description={novel.summary || novel.title}>
-  <section class="reading reading-wide">
-    <header class="reading-header">
-      <div class="eyebrow"><a href="/articles/novels/">长篇</a></div>
-      <h1>{novel.title}</h1>
-    </header>
+    <section class="reading reading-wide novel-detail">
+        <header class="reading-header novel-hero">
+            <div class="eyebrow"><a href="/articles/novels/">长篇</a></div>
+            <h1>{novel.title}</h1>
+            {novel.summary && <p class="novel-summary">{novel.summary}</p>}
+            <div class="novel-actions">
+                {firstChapter ? (
+                    <a class="btn btn--primary" href={firstChapter.url}><span>开始阅读</span></a>
+                ) : (
+                    <span class="novel-empty-action">暂未发布章节</span>
+                )}
+                <span>{novel.volumes.length} 卷 · {chapters.length} 章</span>
+            </div>
+        </header>
 
-    <section class="article-list-section" aria-labelledby="volumes-title">
-      <div class="section-head reveal reveal--delay-2">
-        <h2 id="volumes-title">卷目录</h2>
-      </div>
-      {novel.volumes.length > 0 ? (
-        <div class="article-list reveal reveal--delay-3">
-          {novel.volumes.map((volume) => (
-            <ArticleCard title={volume.title} url={volume.url} label="卷" />
-          ))}
-        </div>
-      ) : (
-        <p class="empty reveal reveal--delay-3">这个作品暂时还没有已发布卷或章节。</p>
-      )}
+        <section class="novel-toc reveal reveal--delay-2" aria-labelledby="novel-toc-title">
+            <div class="section-head">
+                <h2 id="novel-toc-title">目录</h2>
+                <span class="meta">Volumes & Chapters</span>
+            </div>
+
+            {novel.volumes.length > 0 ? (
+                <div class="novel-volume-list">
+                    {novel.volumes.map((volume) => (
+                        <section class="novel-volume">
+                            <header class="novel-volume__header">
+                                <div>
+                                    <span class="novel-volume__label">卷 {volume.volume}</span>
+                                    <h3>{volume.title}</h3>
+                                </div>
+                                <a href={volume.url}>本卷</a>
+                            </header>
+
+                            {volume.summary && <p class="novel-volume__summary">{volume.summary}</p>}
+
+                            {volume.chapters.length > 0 ? (
+                                <ol class="novel-chapter-list">
+                                    {volume.chapters.map((chapter) => (
+                                        <li>
+                                            <a href={chapter.url}>
+                                                <span class="novel-chapter-list__order">第 {chapter.order} 章</span>
+                                                <span class="novel-chapter-list__title">{chapter.title}</span>
+                                                {chapter.date && <time datetime={chapter.date}>{chapter.date}</time>}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ol>
+                            ) : (
+                                <p class="novel-volume__empty">这一卷暂时还没有已发布章节。</p>
+                            )}
+                        </section>
+                    ))}
+                </div>
+            ) : (
+                <p class="empty">这个作品暂时还没有已发布卷或章节。</p>
+            )}
+        </section>
     </section>
-  </section>
 </BaseLayout>

@@ -52,6 +52,178 @@
     padding-bottom: 0.08em;
 }
 
+.novel-hero
+{
+    margin-bottom: 40px;
+}
+
+.novel-summary
+{
+    max-width: 680px;
+    margin-top: 22px;
+    color: var(--ink-soft);
+    font-size: 18px;
+    line-height: 1.9;
+}
+
+.novel-actions
+{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px 22px;
+    margin-top: 30px;
+    color: var(--ink-mute);
+    font-size: 15px;
+    letter-spacing: 0.08em;
+}
+
+.novel-empty-action
+{
+    border: 1px solid var(--glass-border);
+    border-radius: 999px;
+    background: var(--glass);
+    padding: 13px 22px;
+    color: var(--ink-mute);
+}
+
+.novel-toc
+{
+    padding-top: 8px;
+}
+
+.novel-volume-list
+{
+    display: grid;
+    gap: 24px;
+}
+
+.novel-volume
+{
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    background: var(--glass);
+    padding: clamp(24px, 4vw, 36px);
+    box-shadow: var(--shadow-soft);
+}
+
+.novel-volume::before
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 3px;
+    content: "";
+    background: linear-gradient(180deg, var(--accent-1), var(--accent-3));
+    opacity: 0.76;
+}
+
+.novel-volume__header
+{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.novel-volume__label
+{
+    display: block;
+    margin-bottom: 8px;
+    color: var(--accent-3);
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.novel-volume h3
+{
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--font-serif);
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.novel-volume__header a
+{
+    flex: 0 0 auto;
+    margin-top: 4px;
+    color: var(--ink-mute);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    transition: color 0.28s ease;
+}
+
+.novel-volume__header a:hover
+{
+    color: var(--accent-1);
+}
+
+.novel-volume__summary,
+.novel-volume__empty
+{
+    margin-top: 16px;
+    color: var(--ink-mute);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.novel-chapter-list
+{
+    display: grid;
+    gap: 10px;
+    margin-top: 22px;
+    list-style: none;
+}
+
+.novel-chapter-list a
+{
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 18px;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    padding: 14px 16px;
+    color: var(--ink-soft);
+    transition: border-color 0.28s ease, background 0.28s ease, color 0.28s ease, transform 0.28s ease;
+}
+
+.novel-chapter-list a:hover
+{
+    border-color: var(--glass-border);
+    background: var(--glass-strong);
+    color: var(--ink);
+    transform: translateX(4px);
+}
+
+.novel-chapter-list__order
+{
+    color: var(--accent-3);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+}
+
+.novel-chapter-list__title
+{
+    overflow: hidden;
+    color: var(--ink);
+    font-size: 17px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.novel-chapter-list time
+{
+    color: var(--ink-mute);
+    font-size: 13px;
+}
+
 .prose
 {
     border: 1px solid var(--glass-border);
@@ -368,14 +540,51 @@
         font-size: 17px;
     }
 
+    .novel-summary
+    {
+        font-size: 18px;
+    }
+
+    .novel-volume__header
+    {
+        display: grid;
+        gap: 10px;
+    }
+
+    .novel-volume__header a
+    {
+        justify-self: start;
+        margin-top: 0;
+    }
+
+    .novel-chapter-list a
+    {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .novel-chapter-list__title
+    {
+        white-space: normal;
+    }
+
+    .novel-chapter-list time
+    {
+        display: none;
+    }
+
     .chapter-nav a,
     .chapter-nav span
     {
-        font-size: 17px;
+        min-height: 72px;
+        padding: 14px 12px;
+        font-size: 14px;
+        line-height: 1.45;
     }
 
     .chapter-nav
     {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        gap: 8px;
     }
 }
