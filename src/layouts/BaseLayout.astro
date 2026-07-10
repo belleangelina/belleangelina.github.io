@@ -171,6 +171,7 @@ function isActive(href: string) {
                 const themeButton = document.querySelector('[data-theme-toggle]');
                 const themeColor = document.querySelector('[data-theme-color]');
                 const year = document.querySelector('[data-current-year]');
+                let themeSwitchTimer = 0;
 
                 function updateThemeLabel() {
                     if (!themeButton) return;
@@ -184,6 +185,12 @@ function isActive(href: string) {
 
                 themeButton?.addEventListener('click', () => {
                     const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+                    root.classList.add('theme-switching');
+                    window.clearTimeout(themeSwitchTimer);
+                    themeSwitchTimer = window.setTimeout(() => {
+                        root.classList.remove('theme-switching');
+                    }, 900);
+
                     root.dataset.theme = nextTheme;
 
                     try {

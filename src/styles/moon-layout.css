@@ -176,6 +176,7 @@
 
 .theme-icon
 {
+    position: absolute;
     width: 18px;
     height: 18px;
     fill: none;
@@ -183,23 +184,55 @@
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 1.6;
+    transition: opacity 0.42s ease, transform 0.42s ease;
 }
 
 .theme-icon-moon
 {
-    display: none;
     fill: currentColor;
+    opacity: 0;
     stroke: none;
+    transform: rotate(-40deg) scale(0.72);
+}
+
+.theme-icon-sun
+{
+    opacity: 1;
+    transform: rotate(0) scale(1);
 }
 
 [data-theme="light"] .theme-icon-sun
 {
-    display: none;
+    opacity: 0;
+    transform: rotate(42deg) scale(0.72);
 }
 
 [data-theme="light"] .theme-icon-moon
 {
-    display: block;
+    opacity: 1;
+    transform: rotate(0) scale(1);
+}
+
+[data-theme="dark"] .theme-icon-sun
+{
+    opacity: 1;
+    transform: rotate(0) scale(1);
+}
+
+[data-theme="dark"] .theme-icon-moon
+{
+    opacity: 0;
+    transform: rotate(-42deg) scale(0.72);
+}
+
+.theme-switching .nav
+{
+    transition: background var(--theme-duration) var(--theme-ease), -webkit-backdrop-filter var(--theme-duration) var(--theme-ease), backdrop-filter var(--theme-duration) var(--theme-ease);
+}
+
+.theme-switching .nav::before
+{
+    transition: opacity var(--theme-duration) var(--theme-ease), background var(--theme-duration) var(--theme-ease);
 }
 
 .btn
