@@ -27,38 +27,34 @@ const firstChapter = chapters[0];
                 ) : (
                     <span class="novel-empty-action">暂未发布章节</span>
                 )}
-                <span>{novel.volumes.length} 卷 · {chapters.length} 章</span>
+                <span class="novel-meta">{novel.volumes.length} 卷 <i aria-hidden="true">·</i> {chapters.length} 章</span>
             </div>
         </header>
 
         <section class="novel-toc reveal reveal--delay-2" aria-labelledby="novel-toc-title">
-            <div class="section-head">
+            <header class="novel-toc__header">
                 <h2 id="novel-toc-title">目录</h2>
-                <span class="meta">Volumes & Chapters</span>
-            </div>
+                <span>共 {chapters.length} 章</span>
+            </header>
 
             {novel.volumes.length > 0 ? (
                 <div class="novel-volume-list">
                     {novel.volumes.map((volume) => (
                         <section class="novel-volume">
                             <header class="novel-volume__header">
-                                <div>
-                                    <span class="novel-volume__label">卷 {volume.volume}</span>
-                                    <h3>{volume.title}</h3>
-                                </div>
-                                <a href={volume.url}>本卷</a>
+                                <span class="novel-volume__label">卷 {String(volume.volume).padStart(2, '0')}</span>
+                                <h3><a href={volume.url}>{volume.title}</a></h3>
+                                {volume.summary && <p class="novel-volume__summary">{volume.summary}</p>}
                             </header>
-
-                            {volume.summary && <p class="novel-volume__summary">{volume.summary}</p>}
 
                             {volume.chapters.length > 0 ? (
                                 <ol class="novel-chapter-list">
                                     {volume.chapters.map((chapter) => (
                                         <li>
                                             <a href={chapter.url}>
-                                                <span class="novel-chapter-list__order">第 {chapter.order} 章</span>
+                                                <span class="novel-chapter-list__order">{String(chapter.order).padStart(2, '0')}</span>
                                                 <span class="novel-chapter-list__title">{chapter.title}</span>
-                                                {chapter.date && <time datetime={chapter.date}>{chapter.date}</time>}
+                                                <span class="novel-chapter-list__arrow" aria-hidden="true">→</span>
                                             </a>
                                         </li>
                                     ))}

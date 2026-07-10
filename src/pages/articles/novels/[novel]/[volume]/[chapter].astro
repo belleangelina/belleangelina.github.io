@@ -44,9 +44,32 @@ const { novel, volume, chapter, previous, next } = Astro.props;
     <div class="prose" set:html={chapter.html} />
 
     <nav class="chapter-nav" aria-label="章节导航">
-      {previous ? <a href={previous.url}>← 上一章<br />{previous.title}</a> : <span>没有上一章</span>}
-      <a href={novel.url}>返回目录</a>
-      {next ? <a href={next.url}>下一章 →<br />{next.title}</a> : <span>没有下一章</span>}
+      {previous ? (
+        <a class="chapter-nav__item chapter-nav__item--previous" href={previous.url}>
+          <span>← 上一章</span>
+          <strong>{previous.title}</strong>
+        </a>
+      ) : (
+        <span class="chapter-nav__item chapter-nav__item--previous chapter-nav__item--disabled">
+          <span>上一章</span>
+          <strong>已经是第一章</strong>
+        </span>
+      )}
+      <a class="chapter-nav__item chapter-nav__item--toc" href={novel.url}>
+        <span>目录</span>
+        <strong>返回目录</strong>
+      </a>
+      {next ? (
+        <a class="chapter-nav__item chapter-nav__item--next" href={next.url}>
+          <span>下一章 →</span>
+          <strong>{next.title}</strong>
+        </a>
+      ) : (
+        <span class="chapter-nav__item chapter-nav__item--next chapter-nav__item--disabled">
+          <span>下一章</span>
+          <strong>已经是最后一章</strong>
+        </span>
+      )}
     </nav>
   </article>
 </BaseLayout>
