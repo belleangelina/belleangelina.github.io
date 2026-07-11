@@ -128,15 +128,16 @@
 
 .novel-volume-list
 {
-    border-bottom: 1px solid var(--glass-border);
+    overflow: hidden;
+    margin-top: 22px;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    background: var(--glass);
+    box-shadow: var(--shadow-soft);
 }
 
 .novel-volume
 {
-    display: grid;
-    grid-template-columns: minmax(180px, 0.72fr) minmax(0, 2fr);
-    gap: clamp(32px, 5vw, 64px);
-    padding: 38px 0;
     border-bottom: 1px solid var(--glass-border);
 }
 
@@ -145,44 +146,142 @@
     border-bottom: 0;
 }
 
+.novel-volume__summary-row
+{
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto 20px;
+    align-items: center;
+    gap: 18px;
+    min-height: 78px;
+    padding: 16px 22px;
+    cursor: pointer;
+    list-style: none;
+    transition: background 0.28s ease, color 0.28s ease;
+}
+
+.novel-volume__summary-row::-webkit-details-marker
+{
+    display: none;
+}
+
+.novel-volume__summary-row::marker
+{
+    content: "";
+}
+
+.novel-volume__summary-row:hover,
+.novel-volume[open] > .novel-volume__summary-row
+{
+    background: var(--glass-strong);
+}
+
+.novel-volume[open] > .novel-volume__summary-row
+{
+    border-bottom: 1px solid var(--glass-border);
+}
+
 .novel-volume__label
 {
-    display: block;
-    margin-bottom: 10px;
     color: var(--accent-3);
     font-size: 12px;
+    font-variant-numeric: tabular-nums;
     letter-spacing: 0.18em;
     text-transform: uppercase;
 }
 
-.novel-volume h3
+.novel-volume__title
 {
-    margin: 0;
+    overflow: hidden;
     color: var(--ink);
     font-family: var(--font-serif);
-    font-size: clamp(22px, 2.6vw, 30px);
+    font-size: clamp(20px, 2.4vw, 26px);
     font-weight: 600;
     line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.novel-volume h3 a
+.novel-volume__count
 {
-    color: inherit;
-    transition: color 0.28s ease;
+    color: var(--ink-mute);
+    font-size: 13px;
+    white-space: nowrap;
 }
 
-.novel-volume h3 a:hover
+.novel-volume__toggle
 {
-    color: var(--accent-1);
+    position: relative;
+    width: 20px;
+    height: 20px;
+    color: var(--accent-3);
+}
+
+.novel-volume__toggle::before,
+.novel-volume__toggle::after
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 1px;
+    content: "";
+    background: currentColor;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+.novel-volume__toggle::after
+{
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.novel-volume[open] .novel-volume__toggle::after
+{
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(180deg);
+}
+
+.novel-volume__body
+{
+    display: grid;
+    grid-template-columns: minmax(160px, 0.62fr) minmax(0, 2fr);
+    gap: clamp(28px, 4vw, 52px);
+    padding: 10px 22px 24px;
+    animation: novel-volume-open 0.32s ease both;
+}
+
+.novel-volume:not([open]) > .novel-volume__body
+{
+    display: none;
+}
+
+.novel-volume__body--chapters-only > *
+{
+    grid-column: 1 / -1;
 }
 
 .novel-volume__summary,
 .novel-volume__empty
 {
-    margin-top: 12px;
+    margin-top: 14px;
     color: var(--ink-mute);
     font-size: 14px;
     line-height: 1.75;
+}
+
+@keyframes novel-volume-open
+{
+    from
+    {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .novel-chapter-list
@@ -620,17 +719,35 @@
         font-size: 32px;
     }
 
-    .novel-volume
+    .novel-volume__summary-row
+    {
+        grid-template-columns: auto minmax(0, 1fr) auto 18px;
+        gap: 10px;
+        min-height: 70px;
+        padding: 14px 16px;
+    }
+
+    .novel-volume__title
+    {
+        font-size: 19px;
+    }
+
+    .novel-volume__count
+    {
+        font-size: 12px;
+    }
+
+    .novel-volume__body
     {
         grid-template-columns: 1fr;
-        gap: 18px;
-        padding: 28px 0;
+        gap: 10px;
+        padding: 0 16px 18px;
     }
 
     .novel-volume__summary,
     .novel-volume__empty
     {
-        margin-top: 8px;
+        margin-top: 14px;
     }
 
     .novel-chapter-list

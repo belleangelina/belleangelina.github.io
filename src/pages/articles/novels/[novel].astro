@@ -38,31 +38,44 @@ const firstChapter = chapters[0];
             </header>
 
             {novel.volumes.length > 0 ? (
-                <div class="novel-volume-list">
-                    {novel.volumes.map((volume) => (
-                        <section class="novel-volume">
-                            <header class="novel-volume__header">
+                <div class="novel-volume-list" data-novel-volumes>
+                    {novel.volumes.map((volume, volumeIndex) => (
+                        <details
+                            class="novel-volume"
+                            data-volume-url={volume.url}
+                            name="novel-volumes"
+                            open={volumeIndex === 0}
+                        >
+                            <summary class="novel-volume__summary-row">
                                 <span class="novel-volume__label">卷 {String(volume.volume).padStart(2, '0')}</span>
-                                <h3><a href={volume.url}>{volume.title}</a></h3>
-                                {volume.summary && <p class="novel-volume__summary">{volume.summary}</p>}
-                            </header>
+                                <span class="novel-volume__title">{volume.title}</span>
+                                <span class="novel-volume__count">{volume.chapters.length} 章</span>
+                                <span class="novel-volume__toggle" aria-hidden="true"></span>
+                            </summary>
 
-                            {volume.chapters.length > 0 ? (
-                                <ol class="novel-chapter-list">
-                                    {volume.chapters.map((chapter) => (
-                                        <li>
-                                            <a href={chapter.url}>
-                                                <span class="novel-chapter-list__order">{String(chapter.order).padStart(2, '0')}</span>
-                                                <span class="novel-chapter-list__title">{chapter.title}</span>
-                                                <span class="novel-chapter-list__arrow" aria-hidden="true">→</span>
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ol>
-                            ) : (
-                                <p class="novel-volume__empty">这一卷暂时还没有已发布章节。</p>
-                            )}
-                        </section>
+                            <div class:list={{
+                                'novel-volume__body': true,
+                                'novel-volume__body--chapters-only': !volume.summary
+                            }}>
+                                {volume.summary && <p class="novel-volume__summary">{volume.summary}</p>}
+
+                                {volume.chapters.length > 0 ? (
+                                    <ol class="novel-chapter-list">
+                                        {volume.chapters.map((chapter) => (
+                                            <li>
+                                                <a href={chapter.url}>
+                                                    <span class="novel-chapter-list__order">{String(chapter.order).padStart(2, '0')}</span>
+                                                    <span class="novel-chapter-list__title">{chapter.title}</span>
+                                                    <span class="novel-chapter-list__arrow" aria-hidden="true">→</span>
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ol>
+                                ) : (
+                                    <p class="novel-volume__empty">这一卷暂时还没有已发布章节。</p>
+                                )}
+                            </div>
+                        </details>
                     ))}
                 </div>
             ) : (
@@ -70,4 +83,28 @@ const firstChapter = chapters[0];
             )}
         </section>
     </section>
+
+    <script is:inline>
+        (() => {
+            const volumeList = document.querySelector('[data-novel-volumes]');
+            if (!volumeList) return;
+
+            const volumes = Array.from(volumeList.querySelectorAll('details[data-volume-url]'));
+            let activeVolume = volumes[0];
+
+            try {
+                const stored = JSON.parse(localStorage.getItem('belle-last-reading-v1') || 'null');
+
+                if (stored && typeof stored.url === 'string') {
+                    activeVolume = volumes.find((volume) => stored.url.startsWith(volume.dataset.volumeUrl || '')) || activeVolume;
+                }
+            } catch (error) {
+                // 阅读记录不可用时，保留第一卷为默认展开项。
+            }
+
+            volumes.forEach((volume) => {
+                volume.open = volume === activeVolume;
+            });
+        })();
+    </script>
 </BaseLayout>
