@@ -129,6 +129,7 @@
 .novel-volume-list
 {
     overflow: hidden;
+    overflow-anchor: none;
     margin-top: 22px;
     border: 1px solid var(--glass-border);
     border-radius: 8px;
@@ -254,6 +255,17 @@
 .novel-volume[data-animating="true"] .novel-volume__panel
 {
     will-change: height, opacity;
+}
+
+.novel-scroll-reserve
+{
+    height: 0;
+    pointer-events: none;
+}
+
+.js .novel-scroll-reserve
+{
+    transition: height 0.46s var(--motion-ease);
 }
 
 .novel-volume__body

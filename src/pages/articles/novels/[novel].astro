@@ -89,6 +89,8 @@ const firstChapter = chapters[0];
                 <p class="empty">这个作品暂时还没有已发布卷或章节。</p>
             )}
         </section>
+
+        <div class="novel-scroll-reserve" data-novel-scroll-reserve aria-hidden="true"></div>
     </section>
 
     <script is:inline>
@@ -98,7 +100,38 @@ const firstChapter = chapters[0];
 
             const volumes = Array.from(volumeList.querySelectorAll('details[data-volume-url]'));
             const readingButton = document.querySelector('[data-novel-reading]');
+            const scrollReserve = document.querySelector('[data-novel-scroll-reserve]');
+            let scrollReserveHeight = 0;
             let activeVolume = volumes[0];
+
+            const setScrollReserve = (height) => {
+                if (!scrollReserve) return;
+
+                const nextHeight = Math.max(0, Math.ceil(height));
+                if (nextHeight === scrollReserveHeight) return;
+
+                scrollReserveHeight = nextHeight;
+                scrollReserve.style.height = nextHeight > 0 ? `${nextHeight}px` : '';
+            };
+
+            const getNaturalPageHeight = () => {
+                const renderedReserveHeight = scrollReserve
+                    ? scrollReserve.getBoundingClientRect().height
+                    : 0;
+
+                return document.documentElement.scrollHeight - renderedReserveHeight;
+            };
+
+            const syncScrollReserve = () => {
+                const naturalPageHeight = getNaturalPageHeight();
+                const viewportBottom = window.scrollY + window.innerHeight;
+                setScrollReserve(viewportBottom - naturalPageHeight);
+            };
+
+            const prepareScrollReserve = (naturalPageHeight, heightChange) => {
+                const viewportBottom = window.scrollY + window.innerHeight;
+                setScrollReserve(viewportBottom - (naturalPageHeight + heightChange));
+            };
 
             try {
                 const stored = JSON.parse(localStorage.getItem('belle-last-reading-v1') || 'null');
@@ -132,9 +165,20 @@ const firstChapter = chapters[0];
                     if (volume.dataset.animating === 'true') return;
 
                     const shouldOpen = !volume.open;
+                    const naturalPageHeight = getNaturalPageHeight();
 
                     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                        if (!shouldOpen) {
+                            prepareScrollReserve(naturalPageHeight, -panel.getBoundingClientRect().height);
+                        }
+
                         volume.open = shouldOpen;
+
+                        if (shouldOpen) {
+                            prepareScrollReserve(naturalPageHeight, panel.getBoundingClientRect().height);
+                        }
+
+                        window.requestAnimationFrame(syncScrollReserve);
                         return;
                     }
 
@@ -163,16 +207,21 @@ const firstChapter = chapters[0];
                         delete volume.dataset.animating;
                         panel.style.height = '';
                         panel.style.opacity = '';
+                        syncScrollReserve();
                     };
 
                     panel.addEventListener('transitionend', finish);
 
                     window.requestAnimationFrame(() => {
+                        prepareScrollReserve(naturalPageHeight, shouldOpen ? endHeight : -startHeight);
                         panel.style.height = `${endHeight}px`;
                         panel.style.opacity = shouldOpen ? '1' : '0';
                     });
                 });
             });
+
+            window.addEventListener('scroll', syncScrollReserve, { passive: true });
+            window.addEventListener('resize', syncScrollReserve);
         })();
     </script>
 </BaseLayout>
