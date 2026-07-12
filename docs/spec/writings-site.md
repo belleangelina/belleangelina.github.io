@@ -23,6 +23,9 @@
 - 窄屏处理：视口宽度不超过 `768px` 时隐藏顶部栏站名文字，只保留菱形标识。
 - 主题模式：默认浅色；用户选择保存在 `localStorage` 的 `belle-theme-v2`，取值为 `light` 或 `dark`。
 - 本地阅读记录：正文页把最后阅读的正文、滚动位置和保存时间保存在 `localStorage` 的 `belle-last-reading-v1`，只在同一浏览器内有效。
+- 长篇详情：所有卷位于同一个折叠目录中；默认展开第一卷，有本书阅读记录时展开记录所在卷，并将入口改为继续阅读。
+- 页面发现：每个 HTML 页面输出 canonical、Open Graph 和 Twitter 元数据；站点同时提供 `robots.txt`、`sitemap.xml`、`rss.xml` 和 SVG favicon。
+- 可访问性：主导航使用 `aria-current` 标识当前页面，键盘焦点统一可见，并支持 `prefers-reduced-motion`。
 - 构建产物：静态 HTML/CSS/JS，同时生成 `rss.xml` 和 `sitemap.xml`。
 
 首页当前包含：
@@ -129,11 +132,17 @@ summary: 第一章简介。
 
 ```bash
 npm run dev
+npm run check
 npm run build
 npm run preview
+npm run verify
 ```
 
+`npm run verify` 依次执行 Astro 类型检查、静态构建和 `scripts/verify-build.mjs`。产物审计会检查页面 canonical、描述、单一 `h1`、重复 `id`、内部链接、图片 `alt`、sitemap、RSS self link、robots 和 favicon。
+
 构建前会执行 `scripts/copy-content-assets.mjs`，把内容仓库资源复制到站点可访问路径。若本地没有 `writings-content`，脚本会跳过复制。
+
+依赖使用精确版本并提交 `package-lock.json`。本地和 GitHub Actions 均使用 Node.js 22 或更高版本；GitHub Actions 使用 `npm ci` 按锁文件安装。
 
 发布流程：
 
@@ -152,6 +161,8 @@ belleangelina.github.io GitHub Actions 拉取 writings 内容
 ```
 
 站点仓库保留 `workflow_dispatch` 手动触发入口，用于自动触发失败、调试部署或临时重建站点。跨仓库触发使用内容仓库 secret `SITE_REPO_DISPATCH_TOKEN`。
+
+除部署 workflow 外，`.github/workflows/ci.yml` 会在 `agent/**` 分支 push、Pull Request 和手动触发时运行完整 `npm run verify`，但不会部署页面。
 
 ## GitHub 配置
 
