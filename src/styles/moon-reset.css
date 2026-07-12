@@ -6,21 +6,21 @@
     --bg-2: #fbedf7;
     --ink: #211b38;
     --ink-soft: #5f587c;
-    --ink-mute: #8c86a7;
-    --accent-1: #c85f9e;
+    --ink-mute: #706a8a;
+    --accent-1: #a94881;
     --accent-2: #7c70dd;
-    --accent-3: #438fc5;
+    --accent-3: #2f75a5;
     --glass: rgba(255, 255, 255, 0.62);
     --glass-border: rgba(67, 58, 118, 0.14);
     --glass-strong: rgba(255, 255, 255, 0.78);
     --shadow-glow: 0 18px 48px rgba(124, 112, 221, 0.18);
     --shadow-soft: 0 12px 34px rgba(61, 54, 103, 0.12);
     --motion-rise: 30px;
-    --motion-duration: 1.1s;
+    --motion-duration: 0.72s;
     --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-    --motion-delay-1: 0.35s;
-    --motion-delay-2: 0.55s;
-    --motion-delay-3: 0.75s;
+    --motion-delay-1: 0.08s;
+    --motion-delay-2: 0.16s;
+    --motion-delay-3: 0.24s;
     --theme-duration: 0.82s;
     --theme-ease: cubic-bezier(0.22, 1, 0.36, 1);
     --nav-bg: rgba(248, 245, 255, 0.92);
@@ -111,7 +111,7 @@ body
     :root
     {
         --ink-soft: #4f486b;
-        --ink-mute: #746e8e;
+        --ink-mute: #706a8a;
     }
 
     body
@@ -173,6 +173,12 @@ a
 {
     color: inherit;
     text-decoration: none;
+}
+
+:where(a, button, summary):focus-visible
+{
+    outline: 2px solid var(--accent-3);
+    outline-offset: 4px;
 }
 
 img,

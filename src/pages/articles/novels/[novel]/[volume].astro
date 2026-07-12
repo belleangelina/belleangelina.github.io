@@ -14,7 +14,13 @@ export async function getStaticPaths() {
 const { novel, volume } = Astro.props;
 ---
 
-<BaseLayout title={volume.title} description={volume.summary || `${novel.title} ${volume.title}`}>
+<BaseLayout
+  title={volume.title}
+  description={volume.summary || `${novel.title} ${volume.title}`}
+  image={volume.cover || novel.cover}
+  contentType="article"
+  publishedTime={volume.date || novel.date}
+>
   <section class="reading reading-wide">
     <header class="reading-header">
       <div class="eyebrow"><a href={novel.url}>{novel.title}</a></div>

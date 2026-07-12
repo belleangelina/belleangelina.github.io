@@ -23,7 +23,8 @@ function latestByDate<T extends HomeEntry>(items: T[]): T | null {
 }
 
 const latestChapters = novels.flatMap((novel) => novel.volumes.flatMap((volume) => volume.chapters));
-const latestNovel = latestByDate(latestChapters.length > 0 ? latestChapters : novels);
+const novelCandidates: HomeEntry[] = latestChapters.length > 0 ? latestChapters : novels;
+const latestNovel = latestByDate(novelCandidates);
 const firstNovelChapters: HomeEntry[] = [];
 
 novels.forEach((novel) => {
@@ -71,7 +72,8 @@ const categoryPanels = [
         <section class="hero">
             <h1 class="hero__title">天然未来派的摸鱼小屋</h1>
             <p class="hero__subtitle">
-                <span data-typewriter></span><span class="typed-cursor"></span>
+                <span class="visually-hidden">一个写代码的人，顺便记点东西。</span>
+                <span data-typewriter aria-hidden="true">一个写代码的人,顺便记点东西。</span><span class="typed-cursor" aria-hidden="true"></span>
             </p>
             <div class="hero__actions">
                 <a class="btn btn--primary" href="/articles/"><span>进入目录</span></a>

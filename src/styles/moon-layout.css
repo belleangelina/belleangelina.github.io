@@ -256,7 +256,7 @@
 .btn--primary
 {
     background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
-    color: #fff;
+    color: #160f32;
     box-shadow: 0 8px 30px rgba(255, 122, 198, 0.32);
 }
 
@@ -329,15 +329,22 @@
 .reveal,
 [data-reveal]
 {
+    opacity: 1;
+    transform: none;
+}
+
+.js .reveal,
+.js [data-reveal]
+{
     opacity: 0;
     transform: translateY(var(--motion-rise));
     transition: opacity var(--motion-duration) var(--motion-ease), transform var(--motion-duration) var(--motion-ease);
     transition-delay: var(--reveal-delay, 0s);
 }
 
-.reveal.in,
-[data-reveal].in,
-[data-reveal].is-visible
+.js .reveal.in,
+.js [data-reveal].in,
+.js [data-reveal].is-visible
 {
     opacity: 1;
     transform: none;

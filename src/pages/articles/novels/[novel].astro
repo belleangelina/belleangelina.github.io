@@ -15,7 +15,13 @@ const chapters = novel.volumes.flatMap((volume) => volume.chapters);
 const firstChapter = chapters[0];
 ---
 
-<BaseLayout title={novel.title} description={novel.summary || novel.title}>
+<BaseLayout
+    title={novel.title}
+    description={novel.summary || novel.title}
+    image={novel.cover}
+    contentType="article"
+    publishedTime={novel.date}
+>
     <section class="reading reading-wide novel-detail">
         <header class="reading-header novel-hero">
             <div class="eyebrow"><a href="/articles/novels/">长篇</a></div>
@@ -23,7 +29,7 @@ const firstChapter = chapters[0];
             {novel.summary && <p class="novel-summary">{novel.summary}</p>}
             <div class="novel-actions">
                 {firstChapter ? (
-                    <a class="btn btn--primary" href={firstChapter.url}><span>开始阅读</span></a>
+                    <a class="btn btn--primary" href={firstChapter.url} data-novel-reading><span>开始阅读</span></a>
                 ) : (
                     <span class="novel-empty-action">暂未发布章节</span>
                 )}
@@ -90,13 +96,24 @@ const firstChapter = chapters[0];
             if (!volumeList) return;
 
             const volumes = Array.from(volumeList.querySelectorAll('details[data-volume-url]'));
+            const readingButton = document.querySelector('[data-novel-reading]');
             let activeVolume = volumes[0];
 
             try {
                 const stored = JSON.parse(localStorage.getItem('belle-last-reading-v1') || 'null');
 
                 if (stored && typeof stored.url === 'string') {
-                    activeVolume = volumes.find((volume) => stored.url.startsWith(volume.dataset.volumeUrl || '')) || activeVolume;
+                    const recordedVolume = volumes.find((volume) => stored.url.startsWith(volume.dataset.volumeUrl || ''));
+
+                    if (recordedVolume) {
+                        activeVolume = recordedVolume;
+
+                        if (readingButton) {
+                            readingButton.href = `${stored.url}${stored.url.includes('?') ? '&' : '?'}continue=1`;
+                            readingButton.querySelector('span').textContent = '继续阅读';
+                            readingButton.setAttribute('aria-label', typeof stored.title === 'string' && stored.title ? `继续阅读：${stored.title}` : '继续阅读');
+                        }
+                    }
                 }
             } catch (error) {
                 // 阅读记录不可用时，保留第一卷为默认展开项。

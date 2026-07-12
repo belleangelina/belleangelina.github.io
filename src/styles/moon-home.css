@@ -2,9 +2,9 @@
 {
     position: relative;
     display: flex;
-    min-height: 100vh;
-    min-height: 100svh;
-    min-height: 100dvh;
+    min-height: 92vh;
+    min-height: 92svh;
+    min-height: 92dvh;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -35,7 +35,7 @@
     background-clip: text;
     color: transparent;
     font-family: var(--font-serif);
-    font-size: clamp(54px, 9vw, 122px);
+    font-size: clamp(52px, 7.6vw, 112px);
     font-weight: 500;
     line-height: 1.12;
     letter-spacing: 0.02em;
