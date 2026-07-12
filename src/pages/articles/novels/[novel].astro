@@ -49,7 +49,6 @@ const firstChapter = chapters[0];
                         <details
                             class="novel-volume"
                             data-volume-url={volume.url}
-                            name="novel-volumes"
                             open={volumeIndex === 0}
                         >
                             <summary class="novel-volume__summary-row">
@@ -59,27 +58,29 @@ const firstChapter = chapters[0];
                                 <span class="novel-volume__toggle" aria-hidden="true"></span>
                             </summary>
 
-                            <div class:list={{
-                                'novel-volume__body': true,
-                                'novel-volume__body--chapters-only': !volume.summary
-                            }}>
-                                {volume.summary && <p class="novel-volume__summary">{volume.summary}</p>}
+                            <div class="novel-volume__panel">
+                                <div class:list={{
+                                    'novel-volume__body': true,
+                                    'novel-volume__body--chapters-only': !volume.summary
+                                }}>
+                                    {volume.summary && <p class="novel-volume__summary">{volume.summary}</p>}
 
-                                {volume.chapters.length > 0 ? (
-                                    <ol class="novel-chapter-list">
-                                        {volume.chapters.map((chapter) => (
-                                            <li>
-                                                <a href={chapter.url}>
-                                                    <span class="novel-chapter-list__order">{String(chapter.order).padStart(2, '0')}</span>
-                                                    <span class="novel-chapter-list__title">{chapter.title}</span>
-                                                    <span class="novel-chapter-list__arrow" aria-hidden="true">→</span>
-                                                </a>
-                                            </li>
-                                        ))}
-                                    </ol>
-                                ) : (
-                                    <p class="novel-volume__empty">这一卷暂时还没有已发布章节。</p>
-                                )}
+                                    {volume.chapters.length > 0 ? (
+                                        <ol class="novel-chapter-list">
+                                            {volume.chapters.map((chapter) => (
+                                                <li>
+                                                    <a href={chapter.url}>
+                                                        <span class="novel-chapter-list__order">{String(chapter.order).padStart(2, '0')}</span>
+                                                        <span class="novel-chapter-list__title">{chapter.title}</span>
+                                                        <span class="novel-chapter-list__arrow" aria-hidden="true">→</span>
+                                                    </a>
+                                                </li>
+                                            ))}
+                                        </ol>
+                                    ) : (
+                                        <p class="novel-volume__empty">这一卷暂时还没有已发布章节。</p>
+                                    )}
+                                </div>
                             </div>
                         </details>
                     ))}
@@ -121,6 +122,56 @@ const firstChapter = chapters[0];
 
             volumes.forEach((volume) => {
                 volume.open = volume === activeVolume;
+
+                const summary = volume.querySelector('summary');
+                const panel = volume.querySelector('.novel-volume__panel');
+                if (!summary || !panel) return;
+
+                summary.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    if (volume.dataset.animating === 'true') return;
+
+                    const shouldOpen = !volume.open;
+
+                    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                        volume.open = shouldOpen;
+                        return;
+                    }
+
+                    volume.dataset.animating = 'true';
+
+                    if (shouldOpen) {
+                        volume.open = true;
+                    }
+
+                    const startHeight = shouldOpen ? 0 : panel.getBoundingClientRect().height;
+                    const endHeight = shouldOpen ? panel.scrollHeight : 0;
+
+                    panel.style.height = `${startHeight}px`;
+                    panel.style.opacity = shouldOpen ? '0' : '1';
+                    panel.getBoundingClientRect();
+
+                    const finish = (transitionEvent) => {
+                        if (transitionEvent.target !== panel || transitionEvent.propertyName !== 'height') return;
+
+                        panel.removeEventListener('transitionend', finish);
+
+                        if (!shouldOpen) {
+                            volume.open = false;
+                        }
+
+                        delete volume.dataset.animating;
+                        panel.style.height = '';
+                        panel.style.opacity = '';
+                    };
+
+                    panel.addEventListener('transitionend', finish);
+
+                    window.requestAnimationFrame(() => {
+                        panel.style.height = `${endHeight}px`;
+                        panel.style.opacity = shouldOpen ? '1' : '0';
+                    });
+                });
             });
         })();
     </script>

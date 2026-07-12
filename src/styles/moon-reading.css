@@ -241,18 +241,27 @@
     transform: translate(-50%, -50%) rotate(180deg);
 }
 
+.novel-volume__panel
+{
+    overflow: hidden;
+}
+
+.js .novel-volume__panel
+{
+    transition: height 0.46s var(--motion-ease), opacity 0.28s ease;
+}
+
+.novel-volume[data-animating="true"] .novel-volume__panel
+{
+    will-change: height, opacity;
+}
+
 .novel-volume__body
 {
     display: grid;
     grid-template-columns: minmax(160px, 0.62fr) minmax(0, 2fr);
     gap: clamp(28px, 4vw, 52px);
     padding: 10px 22px 24px;
-    animation: novel-volume-open 0.32s ease both;
-}
-
-.novel-volume:not([open]) > .novel-volume__body
-{
-    display: none;
 }
 
 .novel-volume__body--chapters-only > *
@@ -267,21 +276,6 @@
     color: var(--ink-mute);
     font-size: 14px;
     line-height: 1.75;
-}
-
-@keyframes novel-volume-open
-{
-    from
-    {
-        opacity: 0;
-        transform: translateY(-6px);
-    }
-
-    to
-    {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .novel-chapter-list

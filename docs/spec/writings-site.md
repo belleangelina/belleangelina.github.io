@@ -23,7 +23,7 @@
 - 窄屏处理：视口宽度不超过 `768px` 时隐藏顶部栏站名文字，只保留菱形标识。
 - 主题模式：默认浅色；用户选择保存在 `localStorage` 的 `belle-theme-v2`，取值为 `light` 或 `dark`。
 - 本地阅读记录：正文页把最后阅读的正文、滚动位置和保存时间保存在 `localStorage` 的 `belle-last-reading-v1`，只在同一浏览器内有效。
-- 长篇详情：所有卷位于同一个折叠目录中；默认展开第一卷，有本书阅读记录时展开记录所在卷，并将入口改为继续阅读。
+- 长篇详情：所有卷位于同一个折叠目录中；默认展开第一卷，有本书阅读记录时展开记录所在卷，并将入口改为继续阅读。各卷可独立平滑展开，展开时上方内容和视口位置保持不动。
 - 页面发现：每个 HTML 页面输出 canonical、Open Graph 和 Twitter 元数据；站点同时提供 `robots.txt`、`sitemap.xml`、`rss.xml` 和 SVG favicon。
 - 可访问性：主导航使用 `aria-current` 标识当前页面，键盘焦点统一可见，并支持 `prefers-reduced-motion`。
 - 构建产物：静态 HTML/CSS/JS，同时生成 `rss.xml` 和 `sitemap.xml`。
