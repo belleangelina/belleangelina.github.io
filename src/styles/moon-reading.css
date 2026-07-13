@@ -516,7 +516,7 @@
     overflow: hidden;
     border: 1px solid var(--glass-border);
     border-radius: 8px;
-    background: var(--glass);
+    background: linear-gradient(145deg, var(--card-bg-start), var(--card-bg-end));
     padding: 18px 20px;
     color: var(--ink-soft);
     transition: border-color 0.28s ease, color 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
@@ -564,12 +564,11 @@
 
 [data-theme="dark"] .chapter-nav__item
 {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.038));
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 42px rgba(0, 0, 0, 0.10);
     transition: border-color 0.9s ease, color 0.42s ease, background 0.9s ease, box-shadow 0.9s ease;
 }
 
-[data-theme="dark"] .chapter-nav__item::after
+.chapter-nav__item::after
 {
     position: absolute;
     inset: 0;
@@ -587,14 +586,13 @@
 .chapter-nav a:hover
 {
     border-color: var(--accent-3);
-    background: var(--glass-strong);
+    background: linear-gradient(145deg, var(--card-bg-strong-start), var(--card-bg-strong-end));
     color: var(--ink);
 }
 
 [data-theme="dark"] .chapter-nav a:hover
 {
     border-color: rgba(255, 255, 255, 0.155);
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.038));
     box-shadow: 0 0 26px rgba(138, 123, 255, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 18px 42px rgba(0, 0, 0, 0.10);
 }
 

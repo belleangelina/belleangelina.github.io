@@ -1,3 +1,31 @@
+@property --card-bg-start
+{
+    syntax: "<color>";
+    inherits: true;
+    initial-value: rgba(255, 255, 255, 0.62);
+}
+
+@property --card-bg-end
+{
+    syntax: "<color>";
+    inherits: true;
+    initial-value: rgba(255, 255, 255, 0.62);
+}
+
+@property --card-bg-strong-start
+{
+    syntax: "<color>";
+    inherits: true;
+    initial-value: rgba(255, 255, 255, 0.78);
+}
+
+@property --card-bg-strong-end
+{
+    syntax: "<color>";
+    inherits: true;
+    initial-value: rgba(255, 255, 255, 0.78);
+}
+
 :root
 {
     color-scheme: light;
@@ -13,6 +41,10 @@
     --glass: rgba(255, 255, 255, 0.62);
     --glass-border: rgba(67, 58, 118, 0.14);
     --glass-strong: rgba(255, 255, 255, 0.78);
+    --card-bg-start: rgba(255, 255, 255, 0.62);
+    --card-bg-end: rgba(255, 255, 255, 0.62);
+    --card-bg-strong-start: rgba(255, 255, 255, 0.78);
+    --card-bg-strong-end: rgba(255, 255, 255, 0.78);
     --shadow-glow: 0 18px 48px rgba(124, 112, 221, 0.18);
     --shadow-soft: 0 12px 34px rgba(61, 54, 103, 0.12);
     --motion-rise: 30px;
@@ -22,7 +54,7 @@
     --motion-delay-2: 0.55s;
     --motion-delay-3: 0.75s;
     --theme-duration: 0.82s;
-    --theme-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --theme-ease: cubic-bezier(0.45, 0, 0.55, 1);
     --nav-bg: rgba(248, 245, 255, 0.92);
     --footer-bg: rgba(238, 244, 255, 0.72);
     --code-bg: rgba(124, 112, 221, 0.12);
@@ -61,6 +93,10 @@
     --glass: rgba(255, 255, 255, 0.06);
     --glass-border: rgba(255, 255, 255, 0.12);
     --glass-strong: rgba(255, 255, 255, 0.10);
+    --card-bg-start: rgba(255, 255, 255, 0.075);
+    --card-bg-end: rgba(255, 255, 255, 0.038);
+    --card-bg-strong-start: rgba(255, 255, 255, 0.075);
+    --card-bg-strong-end: rgba(255, 255, 255, 0.038);
     --shadow-glow: 0 0 40px rgba(138, 123, 255, 0.25);
     --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.24);
     --nav-bg: rgba(12, 5, 34, 0.88);
@@ -136,18 +172,19 @@ body
 
 .aurora
 {
+    z-index: 1;
     background: var(--page-bg-dark);
     opacity: 0;
+}
+
+.backdrop
+{
+    z-index: 0;
 }
 
 [data-theme="dark"] .aurora
 {
     opacity: 1;
-}
-
-[data-theme="dark"] .backdrop
-{
-    opacity: 0;
 }
 
 body,
@@ -205,14 +242,23 @@ img
     background: var(--page-bg-light);
 }
 
-.theme-ready,
+.theme-ready
+{
+    transition:
+        background-color var(--theme-duration) var(--theme-ease),
+        color var(--theme-duration) var(--theme-ease),
+        --card-bg-start var(--theme-duration) var(--theme-ease),
+        --card-bg-end var(--theme-duration) var(--theme-ease),
+        --card-bg-strong-start var(--theme-duration) var(--theme-ease),
+        --card-bg-strong-end var(--theme-duration) var(--theme-ease);
+}
+
 .theme-ready body
 {
     transition: background-color var(--theme-duration) var(--theme-ease), color var(--theme-duration) var(--theme-ease);
 }
 
-.theme-ready .aurora,
-.theme-ready .backdrop
+.theme-ready .aurora
 {
     transition: opacity var(--theme-duration) var(--theme-ease);
 }
@@ -303,8 +349,4 @@ main
         transition-duration: 0.01ms !important;
     }
 
-    [data-theme="dark"] .aurora
-    {
-        opacity: 0;
-    }
 }
