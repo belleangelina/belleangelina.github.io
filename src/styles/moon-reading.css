@@ -132,7 +132,7 @@
     overflow-anchor: none;
     margin-top: 22px;
     border: 1px solid var(--glass-border);
-    border-radius: 8px;
+    border-radius: 24px;
     background: var(--glass);
     box-shadow: var(--shadow-soft);
 }
@@ -270,18 +270,9 @@
 
 .novel-volume__body
 {
-    display: grid;
-    grid-template-columns: minmax(160px, 0.62fr) minmax(0, 2fr);
-    gap: clamp(28px, 4vw, 52px);
-    padding: 10px 22px 24px;
+    padding: 12px 22px 24px;
 }
 
-.novel-volume__body--chapters-only > *
-{
-    grid-column: 1 / -1;
-}
-
-.novel-volume__summary,
 .novel-volume__empty
 {
     margin-top: 14px;
@@ -293,8 +284,8 @@
 .novel-chapter-list
 {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0 32px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 24px;
     list-style: none;
 }
 
@@ -745,12 +736,9 @@
 
     .novel-volume__body
     {
-        grid-template-columns: 1fr;
-        gap: 10px;
-        padding: 0 16px 18px;
+        padding: 4px 16px 18px;
     }
 
-    .novel-volume__summary,
     .novel-volume__empty
     {
         margin-top: 14px;
