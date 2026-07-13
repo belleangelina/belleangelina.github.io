@@ -6,6 +6,7 @@ type HomeEntry = {
     title: string;
     url: string;
     date: string;
+    order?: number;
 };
 
 const [novels, shorts, notes] = await Promise.all([
@@ -23,7 +24,11 @@ function latestByDate<T extends HomeEntry>(items: T[]): T | null {
 }
 
 const latestChapters = novels.flatMap((novel) => novel.volumes.flatMap((volume) => volume.chapters));
-const latestNovel = latestByDate(latestChapters.length > 0 ? latestChapters : novels);
+const novelUpdates: HomeEntry[] = novels.map((novel) => {
+    const latestChapter = latestByDate(novel.volumes.flatMap((volume) => volume.chapters));
+    return latestChapter ? { ...latestChapter, title: novel.title } : novel;
+});
+const latestNovel = latestByDate(novelUpdates);
 const firstNovelChapters: HomeEntry[] = [];
 
 novels.forEach((novel) => {
@@ -42,6 +47,7 @@ const categoryPanels = [
         title: '长篇',
         latestLabel: '最新长篇',
         latest: latestNovel,
+        latestMeta: latestNovel?.order ? `第 ${latestNovel.order} 章` : '',
         emptyTitle: '长篇整理中',
         emptyMeta: '新的章节会放在这里'
     },
@@ -51,6 +57,7 @@ const categoryPanels = [
         title: '短篇',
         latestLabel: '最新短篇',
         latest: latestByDate(shorts),
+        latestMeta: '',
         emptyTitle: '短篇整理中',
         emptyMeta: '新的短篇会放在这里'
     },
@@ -60,6 +67,7 @@ const categoryPanels = [
         title: '记录',
         latestLabel: '最新记录',
         latest: latestByDate(notes),
+        latestMeta: '',
         emptyTitle: '记录整理中',
         emptyMeta: '新的记录会放在这里'
     }
@@ -71,7 +79,8 @@ const categoryPanels = [
         <section class="hero">
             <h1 class="hero__title">天然未来派的摸鱼小屋</h1>
             <p class="hero__subtitle">
-                <span data-typewriter></span><span class="typed-cursor"></span>
+                <span class="visually-hidden">一个写代码的人，顺便记点东西。</span>
+                <span data-typewriter aria-hidden="true">一个写代码的人,顺便记点东西。</span><span class="typed-cursor" aria-hidden="true"></span>
             </p>
             <div class="hero__actions">
                 <a class="btn btn--primary" href="/articles/"><span>进入目录</span></a>
@@ -88,7 +97,7 @@ const categoryPanels = [
         <div class="category-panels" aria-label="内容分类">
             {categoryPanels.map((panel) => {
                 const latest = panel.latest;
-                const cardMeta = latest ? [latest.date, panel.latestLabel].filter(Boolean).join(' · ') : panel.emptyMeta;
+                const cardMeta = latest ? [latest.date, panel.latestMeta].filter(Boolean).join(' · ') : panel.emptyMeta;
 
                 return (
                     <section class="category-panel" id={panel.id} data-reveal-group>
@@ -102,7 +111,12 @@ const categoryPanels = [
 
                             <a class:list={['category-feature', 'reveal', 'reveal--delay-3', { 'is-empty': !latest }]} href={latest?.url ?? panel.href} data-reveal-child>
                                 <span class="category-feature__label">{latest ? panel.latestLabel : '暂未发布'}</span>
-                                <strong>{latest?.title ?? panel.emptyTitle}</strong>
+                                <strong class="category-feature__title" data-scroll-title>
+                                    <span class="category-feature__title-track">
+                                        <span data-scroll-title-text>{latest?.title ?? panel.emptyTitle}</span>
+                                        <span aria-hidden="true">{latest?.title ?? panel.emptyTitle}</span>
+                                    </span>
+                                </strong>
                                 <span class="category-feature__meta">{cardMeta}</span>
                                 <span class="category-feature__read">{latest ? '阅读 →' : '去目录 →'}</span>
                             </a>
@@ -148,6 +162,64 @@ const categoryPanels = [
                 event.preventDefault();
                 const index = Math.floor(Math.random() * randomTargets.length);
                 window.location.assign(randomTargets[index]);
+            });
+        })();
+
+        (() => {
+            const titles = document.querySelectorAll('[data-scroll-title]');
+            if (titles.length === 0) return;
+            const animations = new WeakMap();
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            const gap = 32;
+            const pauseDuration = 1200;
+            const speed = 45;
+
+            function updateTitle(title) {
+                const text = title.querySelector('[data-scroll-title-text]');
+                const track = title.querySelector('.category-feature__title-track');
+                if (!text || !track) return;
+
+                animations.get(title)?.cancel();
+                animations.delete(title);
+
+                const isOverflowing = text.scrollWidth > title.clientWidth + 1;
+                title.dataset.overflowing = String(isOverflowing);
+
+                if (!isOverflowing || reducedMotion.matches) return;
+
+                const loopDistance = text.scrollWidth + gap;
+                const scrollDuration = loopDistance / speed * 1000;
+                const duration = pauseDuration + scrollDuration;
+                const startOffset = pauseDuration / duration;
+
+                const animation = track.animate([
+                    { transform: 'translateX(0)', offset: 0 },
+                    { transform: 'translateX(0)', offset: startOffset },
+                    { transform: `translateX(-${loopDistance}px)`, offset: 1 }
+                ], {
+                    duration,
+                    easing: 'linear',
+                    iterations: Infinity
+                });
+
+                animations.set(title, animation);
+            }
+
+            const observer = new ResizeObserver((entries) => {
+                entries.forEach((entry) => updateTitle(entry.target));
+            });
+
+            titles.forEach((title) => {
+                observer.observe(title);
+                updateTitle(title);
+            });
+
+            document.fonts?.ready.then(() => {
+                titles.forEach(updateTitle);
+            });
+
+            reducedMotion.addEventListener('change', () => {
+                titles.forEach(updateTitle);
             });
         })();
     </script>

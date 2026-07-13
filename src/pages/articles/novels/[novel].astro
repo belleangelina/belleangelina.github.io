@@ -15,7 +15,13 @@ const chapters = novel.volumes.flatMap((volume) => volume.chapters);
 const firstChapter = chapters[0];
 ---
 
-<BaseLayout title={novel.title} description={novel.summary || novel.title}>
+<BaseLayout
+    title={novel.title}
+    description={novel.summary || novel.title}
+    image={novel.cover}
+    contentType="article"
+    publishedTime={novel.date}
+>
     <section class="reading reading-wide novel-detail">
         <header class="reading-header novel-hero">
             <div class="eyebrow"><a href="/articles/novels/">长篇</a></div>
@@ -23,7 +29,7 @@ const firstChapter = chapters[0];
             {novel.summary && <p class="novel-summary">{novel.summary}</p>}
             <div class="novel-actions">
                 {firstChapter ? (
-                    <a class="btn btn--primary" href={firstChapter.url}><span>开始阅读</span></a>
+                    <a class="btn btn--primary" href={firstChapter.url} data-novel-reading><span>开始阅读</span></a>
                 ) : (
                     <span class="novel-empty-action">暂未发布章节</span>
                 )}
@@ -38,36 +44,179 @@ const firstChapter = chapters[0];
             </header>
 
             {novel.volumes.length > 0 ? (
-                <div class="novel-volume-list">
-                    {novel.volumes.map((volume) => (
-                        <section class="novel-volume">
-                            <header class="novel-volume__header">
+                <div class="novel-volume-list" data-novel-volumes>
+                    {novel.volumes.map((volume, volumeIndex) => (
+                        <details
+                            class="novel-volume"
+                            data-volume-url={volume.url}
+                            open={volumeIndex === 0}
+                        >
+                            <summary class="novel-volume__summary-row">
                                 <span class="novel-volume__label">卷 {String(volume.volume).padStart(2, '0')}</span>
-                                <h3><a href={volume.url}>{volume.title}</a></h3>
-                                {volume.summary && <p class="novel-volume__summary">{volume.summary}</p>}
-                            </header>
+                                <span class="novel-volume__title">{volume.title}</span>
+                                <span class="novel-volume__count">{volume.chapters.length} 章</span>
+                                <span class="novel-volume__toggle" aria-hidden="true"></span>
+                            </summary>
 
-                            {volume.chapters.length > 0 ? (
-                                <ol class="novel-chapter-list">
-                                    {volume.chapters.map((chapter) => (
-                                        <li>
-                                            <a href={chapter.url}>
-                                                <span class="novel-chapter-list__order">{String(chapter.order).padStart(2, '0')}</span>
-                                                <span class="novel-chapter-list__title">{chapter.title}</span>
-                                                <span class="novel-chapter-list__arrow" aria-hidden="true">→</span>
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ol>
-                            ) : (
-                                <p class="novel-volume__empty">这一卷暂时还没有已发布章节。</p>
-                            )}
-                        </section>
+                            <div class="novel-volume__panel">
+                                <div class="novel-volume__body">
+                                    {volume.chapters.length > 0 ? (
+                                        <ol class="novel-chapter-list">
+                                            {volume.chapters.map((chapter) => (
+                                                <li>
+                                                    <a href={chapter.url}>
+                                                        <span class="novel-chapter-list__order">{String(chapter.order).padStart(2, '0')}</span>
+                                                        <span class="novel-chapter-list__title">{chapter.title}</span>
+                                                        <span class="novel-chapter-list__arrow" aria-hidden="true">→</span>
+                                                    </a>
+                                                </li>
+                                            ))}
+                                        </ol>
+                                    ) : (
+                                        <p class="novel-volume__empty">这一卷暂时还没有已发布章节。</p>
+                                    )}
+                                </div>
+                            </div>
+                        </details>
                     ))}
                 </div>
             ) : (
                 <p class="empty">这个作品暂时还没有已发布卷或章节。</p>
             )}
         </section>
+
+        <div class="novel-scroll-reserve" data-novel-scroll-reserve aria-hidden="true"></div>
     </section>
+
+    <script is:inline>
+        (() => {
+            const volumeList = document.querySelector('[data-novel-volumes]');
+            if (!volumeList) return;
+
+            const volumes = Array.from(volumeList.querySelectorAll('details[data-volume-url]'));
+            const readingButton = document.querySelector('[data-novel-reading]');
+            const scrollReserve = document.querySelector('[data-novel-scroll-reserve]');
+            let scrollReserveHeight = 0;
+            let activeVolume = volumes[0];
+
+            const setScrollReserve = (height) => {
+                if (!scrollReserve) return;
+
+                const nextHeight = Math.max(0, Math.ceil(height));
+                if (nextHeight === scrollReserveHeight) return;
+
+                scrollReserveHeight = nextHeight;
+                scrollReserve.style.height = nextHeight > 0 ? `${nextHeight}px` : '';
+            };
+
+            const getNaturalPageHeight = () => {
+                const renderedReserveHeight = scrollReserve
+                    ? scrollReserve.getBoundingClientRect().height
+                    : 0;
+
+                return document.documentElement.scrollHeight - renderedReserveHeight;
+            };
+
+            const syncScrollReserve = () => {
+                const naturalPageHeight = getNaturalPageHeight();
+                const viewportBottom = window.scrollY + window.innerHeight;
+                setScrollReserve(viewportBottom - naturalPageHeight);
+            };
+
+            const prepareScrollReserve = (naturalPageHeight, heightChange) => {
+                const viewportBottom = window.scrollY + window.innerHeight;
+                setScrollReserve(viewportBottom - (naturalPageHeight + heightChange));
+            };
+
+            try {
+                const stored = JSON.parse(localStorage.getItem('belle-last-reading-v1') || 'null');
+
+                if (stored && typeof stored.url === 'string') {
+                    const recordedVolume = volumes.find((volume) => stored.url.startsWith(volume.dataset.volumeUrl || ''));
+
+                    if (recordedVolume) {
+                        activeVolume = recordedVolume;
+
+                        if (readingButton) {
+                            readingButton.href = `${stored.url}${stored.url.includes('?') ? '&' : '?'}continue=1`;
+                            readingButton.querySelector('span').textContent = '继续阅读';
+                            readingButton.setAttribute('aria-label', typeof stored.title === 'string' && stored.title ? `继续阅读：${stored.title}` : '继续阅读');
+                        }
+                    }
+                }
+            } catch (error) {
+                // 阅读记录不可用时，保留第一卷为默认展开项。
+            }
+
+            volumes.forEach((volume) => {
+                volume.open = volume === activeVolume;
+
+                const summary = volume.querySelector('summary');
+                const panel = volume.querySelector('.novel-volume__panel');
+                if (!summary || !panel) return;
+
+                summary.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    if (volume.dataset.animating === 'true') return;
+
+                    const shouldOpen = !volume.open;
+                    const naturalPageHeight = getNaturalPageHeight();
+
+                    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                        if (!shouldOpen) {
+                            prepareScrollReserve(naturalPageHeight, -panel.getBoundingClientRect().height);
+                        }
+
+                        volume.open = shouldOpen;
+
+                        if (shouldOpen) {
+                            prepareScrollReserve(naturalPageHeight, panel.getBoundingClientRect().height);
+                        }
+
+                        window.requestAnimationFrame(syncScrollReserve);
+                        return;
+                    }
+
+                    volume.dataset.animating = 'true';
+
+                    if (shouldOpen) {
+                        volume.open = true;
+                    }
+
+                    const startHeight = shouldOpen ? 0 : panel.getBoundingClientRect().height;
+                    const endHeight = shouldOpen ? panel.scrollHeight : 0;
+
+                    panel.style.height = `${startHeight}px`;
+                    panel.style.opacity = shouldOpen ? '0' : '1';
+                    panel.getBoundingClientRect();
+
+                    const finish = (transitionEvent) => {
+                        if (transitionEvent.target !== panel || transitionEvent.propertyName !== 'height') return;
+
+                        panel.removeEventListener('transitionend', finish);
+
+                        if (!shouldOpen) {
+                            volume.open = false;
+                        }
+
+                        delete volume.dataset.animating;
+                        panel.style.height = '';
+                        panel.style.opacity = '';
+                        syncScrollReserve();
+                    };
+
+                    panel.addEventListener('transitionend', finish);
+
+                    window.requestAnimationFrame(() => {
+                        prepareScrollReserve(naturalPageHeight, shouldOpen ? endHeight : -startHeight);
+                        panel.style.height = `${endHeight}px`;
+                        panel.style.opacity = shouldOpen ? '1' : '0';
+                    });
+                });
+            });
+
+            window.addEventListener('scroll', syncScrollReserve, { passive: true });
+            window.addEventListener('resize', syncScrollReserve);
+        })();
+    </script>
 </BaseLayout>

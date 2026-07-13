@@ -21,8 +21,11 @@
 - 站点名称：`天然未来派的摸鱼小屋`。
 - 顶部导航：左侧菱形标识和站名，右侧 `首页 / 文章 / 关于 / 主题切换`。
 - 窄屏处理：视口宽度不超过 `768px` 时隐藏顶部栏站名文字，只保留菱形标识。
-- 主题模式：默认浅色；用户选择保存在 `localStorage` 的 `belle-theme-v2`，取值为 `light` 或 `dark`。
+- 主题模式：默认浅色；用户选择保存在 `localStorage` 的 `belle-theme-v2`，取值为 `light` 或 `dark`。手动切换时，背景、卡片、导航和主题图标统一使用 `--theme-duration` 与 `--theme-ease`，两个方向的过渡参数一致。
 - 本地阅读记录：正文页把最后阅读的正文、滚动位置和保存时间保存在 `localStorage` 的 `belle-last-reading-v1`，只在同一浏览器内有效。
+- 长篇详情：所有卷位于同一个折叠目录中，不在目录内重复显示卷摘要；章节在桌面端按三列排列，移动端按单列排列。默认展开第一卷，有本书阅读记录时展开记录所在卷，并将入口改为继续阅读。各卷可独立平滑展开；无论展开或收起，卷标题及其上方内容保持不动，仅卷正文和后续内容随高度变化。
+- 页面发现：每个 HTML 页面输出 canonical、Open Graph 和 Twitter 元数据；站点同时提供 `robots.txt`、`sitemap.xml`、`rss.xml` 和 SVG favicon。
+- 可访问性：主导航使用 `aria-current` 标识当前页面，键盘焦点统一可见，并支持 `prefers-reduced-motion`。
 - 构建产物：静态 HTML/CSS/JS，同时生成 `rss.xml` 和 `sitemap.xml`。
 
 首页当前包含：
@@ -31,7 +34,7 @@
 - 打字机短文案。
 - `进入目录` 按钮，以及一个阅读按钮：没有本地阅读记录时显示 `随便看看`，随机进入一篇短篇、记录或长篇首章；有本地阅读记录时显示 `继续阅读`，进入上次正文并恢复滚动位置。
 - 长篇、短篇、记录三个分类分段。
-- 每个分类分段展示对应分类的最新内容；长篇优先取最新章节，没有章节时回退到长篇作品。
+- 每个分类分段展示对应分类的最新内容；移动端保留分区标题与目录按钮在左、内容卡片在右的双栏关系。卡片标题固定为单行，超出可用宽度时在开头停顿一次，再单向滚动并通过间距衔接下一轮标题。长篇卡片显示作品名，链接、日期和章序取最新章节，没有章节时回退到长篇作品；短篇和记录卡片只在元信息中显示日期。
 
 首页打字机文案当前临时与 `web/` 示例一致：
 
@@ -129,11 +132,17 @@ summary: 第一章简介。
 
 ```bash
 npm run dev
+npm run check
 npm run build
 npm run preview
+npm run verify
 ```
 
+`npm run verify` 依次执行 Astro 类型检查、静态构建和 `scripts/verify-build.mjs`。产物审计会检查页面 canonical、描述、单一 `h1`、重复 `id`、内部链接、图片 `alt`、sitemap、RSS self link、robots 和 favicon。
+
 构建前会执行 `scripts/copy-content-assets.mjs`，把内容仓库资源复制到站点可访问路径。若本地没有 `writings-content`，脚本会跳过复制。
+
+依赖使用精确版本并提交 `package-lock.json`。本地和 GitHub Actions 均使用 Node.js 22 或更高版本；GitHub Actions 使用 `npm ci` 按锁文件安装。
 
 发布流程：
 
@@ -152,6 +161,8 @@ belleangelina.github.io GitHub Actions 拉取 writings 内容
 ```
 
 站点仓库保留 `workflow_dispatch` 手动触发入口，用于自动触发失败、调试部署或临时重建站点。跨仓库触发使用内容仓库 secret `SITE_REPO_DISPATCH_TOKEN`。
+
+除部署 workflow 外，`.github/workflows/ci.yml` 会在 `agent/**` 分支 push、Pull Request 和手动触发时运行完整 `npm run verify`，但不会部署页面。
 
 ## GitHub 配置
 

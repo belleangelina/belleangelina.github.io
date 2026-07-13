@@ -15,23 +15,27 @@ export async function GET() {
   const articles = await getAllPublishedArticles();
   const items = articles.map((article) => {
     const url = siteUrl(article.url);
-    const pubDate = article.date ? new Date(`${article.date}T00:00:00Z`).toUTCString() : new Date().toUTCString();
+    const parsedDate = article.date ? new Date(`${article.date}T00:00:00Z`) : null;
+    const pubDate = parsedDate && !Number.isNaN(parsedDate.getTime())
+      ? `<pubDate>${escapeXml(parsedDate.toUTCString())}</pubDate>`
+      : '';
 
     return `
       <item>
         <title>${escapeXml(article.title)}</title>
         <link>${escapeXml(url)}</link>
         <guid>${escapeXml(url)}</guid>
-        <pubDate>${escapeXml(pubDate)}</pubDate>
+        ${pubDate}
         <description>${escapeXml(article.summary || article.title)}</description>
       </item>`;
   }).join('');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>天然未来派的摸鱼小屋</title>
     <link>${siteUrl('/')}</link>
+    <atom:link href="${siteUrl('/rss.xml')}" rel="self" type="application/rss+xml" />
     <description>个人文章、小说和记录。</description>
     <language>zh-CN</language>
     ${items}
