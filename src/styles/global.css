@@ -9,7 +9,7 @@
 .theme-switching .category-feature,
 .theme-switching .chapter-nav__item
 {
-    transition-property: border-color, box-shadow, color;
+    transition-property: border-color, box-shadow;
     transition-duration: var(--theme-duration);
     transition-timing-function: var(--theme-ease);
     transition-delay: 0s;
@@ -20,7 +20,7 @@
 .theme-switching .novel-chapter-list li,
 .theme-switching .novel-chapter-list a
 {
-    transition-property: background, background-color, border-color, box-shadow, color;
+    transition-property: background, background-color, border-color, box-shadow;
     transition-duration: var(--theme-duration);
     transition-timing-function: var(--theme-ease);
     transition-delay: 0s;
@@ -46,4 +46,38 @@
 {
     transition-duration: var(--theme-duration);
     transition-timing-function: var(--theme-ease);
+}
+
+.theme-switching[data-theme="dark"] .archive-routes strong
+{
+    --route-title-from: #211b38;
+    --route-title-to: #f4f1ff;
+    animation: archive-route-title-theme var(--theme-duration) var(--theme-ease) both;
+}
+
+.theme-switching[data-theme="light"] .archive-routes strong
+{
+    --route-title-from: #f4f1ff;
+    --route-title-to: #211b38;
+    animation: archive-route-title-theme var(--theme-duration) var(--theme-ease) both;
+}
+
+@keyframes archive-route-title-theme
+{
+    0%,
+    24%
+    {
+        color: var(--route-title-from);
+    }
+
+    50%
+    {
+        color: #d94f9c;
+    }
+
+    76%,
+    100%
+    {
+        color: var(--route-title-to);
+    }
 }

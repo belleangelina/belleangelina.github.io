@@ -241,6 +241,7 @@
     position: relative;
     z-index: 2;
     margin-top: 12px;
+    color: var(--ink);
     font-family: var(--font-serif);
     font-size: 32px;
     font-weight: 600;

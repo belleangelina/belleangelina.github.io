@@ -53,8 +53,8 @@
     --motion-delay-1: 0.35s;
     --motion-delay-2: 0.55s;
     --motion-delay-3: 0.75s;
-    --theme-duration: 0.82s;
-    --theme-ease: cubic-bezier(0.45, 0, 0.55, 1);
+    --theme-duration: 0.48s;
+    --theme-ease: cubic-bezier(0.4, 0, 0.2, 1);
     --nav-bg: rgba(248, 245, 255, 0.92);
     --footer-bg: rgba(238, 244, 255, 0.72);
     --code-bg: rgba(124, 112, 221, 0.12);
