@@ -187,20 +187,14 @@ const categoryPanels = [
 
                 if (!isOverflowing || reducedMotion.matches) return;
 
-                const tailDistance = text.scrollWidth - title.clientWidth;
                 const loopDistance = text.scrollWidth + gap;
-                const firstScrollDuration = tailDistance / speed * 1000;
-                const nextScrollDuration = (title.clientWidth + gap) / speed * 1000;
-                const duration = pauseDuration * 2 + firstScrollDuration + nextScrollDuration;
+                const scrollDuration = loopDistance / speed * 1000;
+                const duration = pauseDuration + scrollDuration;
                 const startOffset = pauseDuration / duration;
-                const tailOffset = (pauseDuration + firstScrollDuration) / duration;
-                const nextOffset = (pauseDuration * 2 + firstScrollDuration) / duration;
 
                 const animation = track.animate([
                     { transform: 'translateX(0)', offset: 0 },
                     { transform: 'translateX(0)', offset: startOffset },
-                    { transform: `translateX(-${tailDistance}px)`, offset: tailOffset },
-                    { transform: `translateX(-${tailDistance}px)`, offset: nextOffset },
                     { transform: `translateX(-${loopDistance}px)`, offset: 1 }
                 ], {
                     duration,
