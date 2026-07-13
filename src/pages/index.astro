@@ -112,7 +112,10 @@ const categoryPanels = [
                             <a class:list={['category-feature', 'reveal', 'reveal--delay-3', { 'is-empty': !latest }]} href={latest?.url ?? panel.href} data-reveal-child>
                                 <span class="category-feature__label">{latest ? panel.latestLabel : '暂未发布'}</span>
                                 <strong class="category-feature__title" data-scroll-title>
-                                    <span class="category-feature__title-track" data-scroll-title-text>{latest?.title ?? panel.emptyTitle}</span>
+                                    <span class="category-feature__title-track">
+                                        <span data-scroll-title-text>{latest?.title ?? panel.emptyTitle}</span>
+                                        <span aria-hidden="true">{latest?.title ?? panel.emptyTitle}</span>
+                                    </span>
                                 </strong>
                                 <span class="category-feature__meta">{cardMeta}</span>
                                 <span class="category-feature__read">{latest ? '阅读 →' : '去目录 →'}</span>
@@ -165,23 +168,47 @@ const categoryPanels = [
         (() => {
             const titles = document.querySelectorAll('[data-scroll-title]');
             if (titles.length === 0) return;
+            const animations = new WeakMap();
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            const gap = 32;
+            const pauseDuration = 1200;
+            const speed = 45;
 
             function updateTitle(title) {
                 const text = title.querySelector('[data-scroll-title-text]');
-                if (!text) return;
+                const track = title.querySelector('.category-feature__title-track');
+                if (!text || !track) return;
+
+                animations.get(title)?.cancel();
+                animations.delete(title);
 
                 const isOverflowing = text.scrollWidth > title.clientWidth + 1;
                 title.dataset.overflowing = String(isOverflowing);
 
-                if (isOverflowing) {
-                    const distance = text.scrollWidth - title.clientWidth;
-                    const duration = Math.min(14, Math.max(7, distance / 40));
-                    title.style.setProperty('--title-scroll-distance', `${distance}px`);
-                    title.style.setProperty('--title-scroll-duration', `${duration}s`);
-                } else {
-                    title.style.removeProperty('--title-scroll-distance');
-                    title.style.removeProperty('--title-scroll-duration');
-                }
+                if (!isOverflowing || reducedMotion.matches) return;
+
+                const tailDistance = text.scrollWidth - title.clientWidth;
+                const loopDistance = text.scrollWidth + gap;
+                const firstScrollDuration = tailDistance / speed * 1000;
+                const nextScrollDuration = (title.clientWidth + gap) / speed * 1000;
+                const duration = pauseDuration * 2 + firstScrollDuration + nextScrollDuration;
+                const startOffset = pauseDuration / duration;
+                const tailOffset = (pauseDuration + firstScrollDuration) / duration;
+                const nextOffset = (pauseDuration * 2 + firstScrollDuration) / duration;
+
+                const animation = track.animate([
+                    { transform: 'translateX(0)', offset: 0 },
+                    { transform: 'translateX(0)', offset: startOffset },
+                    { transform: `translateX(-${tailDistance}px)`, offset: tailOffset },
+                    { transform: `translateX(-${tailDistance}px)`, offset: nextOffset },
+                    { transform: `translateX(-${loopDistance}px)`, offset: 1 }
+                ], {
+                    duration,
+                    easing: 'linear',
+                    iterations: Infinity
+                });
+
+                animations.set(title, animation);
             }
 
             const observer = new ResizeObserver((entries) => {
@@ -194,6 +221,10 @@ const categoryPanels = [
             });
 
             document.fonts?.ready.then(() => {
+                titles.forEach(updateTitle);
+            });
+
+            reducedMotion.addEventListener('change', () => {
                 titles.forEach(updateTitle);
             });
         })();
