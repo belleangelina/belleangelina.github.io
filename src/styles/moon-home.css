@@ -301,20 +301,13 @@
 
 .category-feature__title-track
 {
-    --title-scroll-gap: 32px;
-    display: flex;
+    display: block;
     width: max-content;
-    gap: var(--title-scroll-gap);
-}
-
-.category-feature__title-text
-{
-    flex: 0 0 auto;
 }
 
 .category-feature__title[data-overflowing="true"] .category-feature__title-track
 {
-    animation: category-title-scroll var(--title-scroll-duration, 8s) linear infinite;
+    animation: category-title-scroll var(--title-scroll-duration, 8s) ease-in-out infinite alternate;
 }
 
 .category-feature__meta
@@ -357,7 +350,7 @@
     82%,
     100%
     {
-        transform: translateX(calc(-50% - var(--title-scroll-gap) / 2));
+        transform: translateX(calc(-1 * var(--title-scroll-distance)));
     }
 }
 
@@ -611,10 +604,5 @@
     .category-feature__title-track
     {
         animation: none !important;
-    }
-
-    .category-feature__title-text[aria-hidden="true"]
-    {
-        display: none;
     }
 }

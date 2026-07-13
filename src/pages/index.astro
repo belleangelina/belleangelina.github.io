@@ -112,10 +112,7 @@ const categoryPanels = [
                             <a class:list={['category-feature', 'reveal', 'reveal--delay-3', { 'is-empty': !latest }]} href={latest?.url ?? panel.href} data-reveal-child>
                                 <span class="category-feature__label">{latest ? panel.latestLabel : '暂未发布'}</span>
                                 <strong class="category-feature__title" data-scroll-title>
-                                    <span class="category-feature__title-track">
-                                        <span class="category-feature__title-text" data-scroll-title-text>{latest?.title ?? panel.emptyTitle}</span>
-                                        <span class="category-feature__title-text" aria-hidden="true">{latest?.title ?? panel.emptyTitle}</span>
-                                    </span>
+                                    <span class="category-feature__title-track" data-scroll-title-text>{latest?.title ?? panel.emptyTitle}</span>
                                 </strong>
                                 <span class="category-feature__meta">{cardMeta}</span>
                                 <span class="category-feature__read">{latest ? '阅读 →' : '去目录 →'}</span>
@@ -177,9 +174,12 @@ const categoryPanels = [
                 title.dataset.overflowing = String(isOverflowing);
 
                 if (isOverflowing) {
-                    const duration = Math.min(14, Math.max(7, (text.scrollWidth + 32) / 40));
+                    const distance = text.scrollWidth - title.clientWidth;
+                    const duration = Math.min(14, Math.max(7, distance / 40));
+                    title.style.setProperty('--title-scroll-distance', `${distance}px`);
                     title.style.setProperty('--title-scroll-duration', `${duration}s`);
                 } else {
+                    title.style.removeProperty('--title-scroll-distance');
                     title.style.removeProperty('--title-scroll-duration');
                 }
             }
