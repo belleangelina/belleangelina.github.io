@@ -287,6 +287,8 @@
 {
     position: relative;
     z-index: 1;
+    display: block;
+    overflow: hidden;
     margin-top: 22px;
     color: var(--ink);
     font-family: var(--font-serif);
@@ -294,6 +296,25 @@
     font-weight: 600;
     line-height: 1.26;
     padding-bottom: 0.04em;
+    white-space: nowrap;
+}
+
+.category-feature__title-track
+{
+    --title-scroll-gap: 32px;
+    display: flex;
+    width: max-content;
+    gap: var(--title-scroll-gap);
+}
+
+.category-feature__title-text
+{
+    flex: 0 0 auto;
+}
+
+.category-feature__title[data-overflowing="true"] .category-feature__title-track
+{
+    animation: category-title-scroll var(--title-scroll-duration, 8s) linear infinite;
 }
 
 .category-feature__meta
@@ -322,6 +343,21 @@
     50%
     {
         background-position: 100% 50%;
+    }
+}
+
+@keyframes category-title-scroll
+{
+    0%,
+    18%
+    {
+        transform: translateX(0);
+    }
+
+    82%,
+    100%
+    {
+        transform: translateX(calc(-50% - var(--title-scroll-gap) / 2));
     }
 }
 
@@ -555,5 +591,30 @@
     .category-feature__read
     {
         font-weight: 500;
+    }
+}
+
+@media (prefers-reduced-motion: reduce)
+{
+    .category-feature__title[data-overflowing="true"]
+    {
+        overflow-x: auto;
+        scrollbar-width: none;
+        touch-action: pan-x;
+    }
+
+    .category-feature__title[data-overflowing="true"]::-webkit-scrollbar
+    {
+        display: none;
+    }
+
+    .category-feature__title-track
+    {
+        animation: none !important;
+    }
+
+    .category-feature__title-text[aria-hidden="true"]
+    {
+        display: none;
     }
 }
