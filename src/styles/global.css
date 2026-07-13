@@ -3,3 +3,40 @@
 @import './moon-home.css';
 @import './moon-content.css';
 @import './moon-reading.css';
+
+.theme-switching .card,
+.theme-switching .archive-routes a,
+.theme-switching .category-feature,
+.theme-switching .novel-volume-list,
+.theme-switching .novel-volume__summary-row,
+.theme-switching .novel-chapter-list li,
+.theme-switching .novel-chapter-list a,
+.theme-switching .chapter-nav__item
+{
+    transition-property: background, background-color, border-color, box-shadow, color;
+    transition-duration: var(--theme-duration);
+    transition-timing-function: var(--theme-ease);
+    transition-delay: 0s;
+}
+
+.theme-switching .category-feature.reveal
+{
+    transition:
+        opacity var(--motion-duration) var(--motion-ease),
+        transform var(--motion-duration) var(--motion-ease),
+        border-color var(--theme-duration) var(--theme-ease),
+        background var(--theme-duration) var(--theme-ease),
+        box-shadow var(--theme-duration) var(--theme-ease);
+    transition-delay: var(--reveal-delay, 0s), var(--reveal-delay, 0s), 0s, 0s, 0s;
+}
+
+.theme-switching .card::before,
+.theme-switching .card::after,
+.theme-switching .archive-routes a::before,
+.theme-switching .archive-routes a::after,
+.theme-switching .chapter-nav__item::after,
+.theme-switching .theme-icon
+{
+    transition-duration: var(--theme-duration);
+    transition-timing-function: var(--theme-ease);
+}
