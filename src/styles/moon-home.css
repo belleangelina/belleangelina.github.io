@@ -307,7 +307,7 @@
 
 .category-feature__title[data-overflowing="true"] .category-feature__title-track
 {
-    animation: category-title-scroll var(--title-scroll-duration, 8s) ease-in-out infinite alternate;
+    animation: category-title-scroll var(--title-scroll-duration, 8s) linear infinite;
 }
 
 .category-feature__meta
@@ -347,10 +347,16 @@
         transform: translateX(0);
     }
 
-    82%,
-    100%
+    78%,
+    90%
     {
         transform: translateX(calc(-1 * var(--title-scroll-distance)));
+    }
+
+    90.01%,
+    100%
+    {
+        transform: translateX(0);
     }
 }
 
