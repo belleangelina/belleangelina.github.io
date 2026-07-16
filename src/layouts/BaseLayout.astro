@@ -15,7 +15,7 @@ interface Props {
 
 const siteName = '天然未来派的摸鱼小屋';
 const title = Astro.props.title ? `${Astro.props.title} · ${siteName}` : siteName;
-const description = Astro.props.description ?? `${siteName} 的小说、短篇和记录。`;
+const description = Astro.props.description ?? `${siteName} 的小说、短篇和笔记。`;
 const readingEntry = Astro.props.readingEntry;
 const currentPath = Astro.url.pathname;
 const canonicalUrl = new URL(currentPath, Astro.site ?? Astro.url.origin).toString();

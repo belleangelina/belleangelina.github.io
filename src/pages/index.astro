@@ -45,7 +45,7 @@ const categoryPanels = [
         id: 'category-novels',
         href: '/articles/novels/',
         title: '长篇',
-        latestLabel: '最新长篇',
+        latestLabel: 'NOVELS',
         latest: latestNovel,
         latestMeta: latestNovel?.order ? `第 ${latestNovel.order} 章` : '',
         emptyTitle: '长篇整理中',
@@ -55,7 +55,7 @@ const categoryPanels = [
         id: 'category-shorts',
         href: '/articles/shorts/',
         title: '短篇',
-        latestLabel: '最新短篇',
+        latestLabel: 'SHORTS',
         latest: latestByDate(shorts),
         latestMeta: '',
         emptyTitle: '短篇整理中',
@@ -64,17 +64,17 @@ const categoryPanels = [
     {
         id: 'category-notes',
         href: '/articles/notes/',
-        title: '记录',
-        latestLabel: '最新记录',
+        title: '笔记',
+        latestLabel: 'NOTES',
         latest: latestByDate(notes),
         latestMeta: '',
-        emptyTitle: '记录整理中',
-        emptyMeta: '新的记录会放在这里'
+        emptyTitle: '笔记整理中',
+        emptyMeta: '新的笔记会放在这里'
     }
 ];
 ---
 
-<BaseLayout title="首页" description="天然未来派的摸鱼小屋的小说、短篇和记录。">
+<BaseLayout title="首页" description="天然未来派的摸鱼小屋的小说、短篇和笔记。">
     <div class="page">
         <section class="hero">
             <h1 class="hero__title">天然未来派的摸鱼小屋</h1>

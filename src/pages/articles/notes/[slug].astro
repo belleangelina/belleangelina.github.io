@@ -23,7 +23,7 @@ const { article } = Astro.props;
 >
   <article class="reading">
     <header class="reading-header">
-      <div class="eyebrow"><a href="/articles/notes/">记录</a></div>
+      <div class="eyebrow"><a href="/articles/notes/">笔记</a></div>
       <h1>{article.title}</h1>
     </header>
     <div class="prose" set:html={article.html} />

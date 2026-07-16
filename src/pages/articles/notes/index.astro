@@ -6,24 +6,24 @@ import { getPublishedNotes } from '../../../lib/content';
 const notes = await getPublishedNotes();
 ---
 
-<BaseLayout title="记录" description="记录列表。">
+<BaseLayout title="笔记" description="笔记列表。">
   <section class="archive-hero category-hero" aria-labelledby="notes-title">
     <div>
-      <h1 id="notes-title" class="reveal reveal--delay-1">记录</h1>
+      <h1 id="notes-title" class="reveal reveal--delay-1">笔记</h1>
       <p class="archive-lede reveal reveal--delay-2">日常整理、临时想法与生活旁注，被收进更轻的一格。</p>
     </div>
   </section>
 
   <section class="section archive-listing" aria-labelledby="notes-list-title">
-    <h2 id="notes-list-title" class="visually-hidden">记录列表</h2>
+    <h2 id="notes-list-title" class="visually-hidden">笔记列表</h2>
     {notes.length > 0 ? (
       <div class="article-list reveal reveal--delay-3">
         {notes.map((article) => (
-          <ArticleCard title={article.title} url={article.url} date={article.date} label="记录" />
+          <ArticleCard title={article.title} url={article.url} date={article.date} label="笔记" />
         ))}
       </div>
     ) : (
-      <p class="empty reveal reveal--delay-3">暂时还没有已发布记录。</p>
+      <p class="empty reveal reveal--delay-3">暂时还没有已发布笔记。</p>
     )}
   </section>
 </BaseLayout>
