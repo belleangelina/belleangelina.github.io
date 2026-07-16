@@ -303,7 +303,7 @@
 {
     display: flex;
     width: max-content;
-    gap: 32px;
+    gap: 64px;
 }
 
 .category-feature__meta
