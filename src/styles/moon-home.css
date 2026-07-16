@@ -301,8 +301,9 @@
 
 .category-feature__title-track
 {
-    display: block;
+    display: flex;
     width: max-content;
+    gap: 32px;
 }
 
 .category-feature__meta

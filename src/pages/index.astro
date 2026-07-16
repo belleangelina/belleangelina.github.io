@@ -180,6 +180,7 @@ const categoryPanels = [
 
                 animations.get(title)?.cancel();
                 animations.delete(title);
+                track.querySelector('[data-scroll-title-copy]')?.remove();
 
                 const textWidth = track.scrollWidth;
                 const isOverflowing = textWidth > title.clientWidth + 1;
@@ -187,20 +188,21 @@ const categoryPanels = [
 
                 if (!isOverflowing || reducedMotion.matches) return;
 
-                const exitDistance = textWidth + gap;
-                const entryDistance = title.clientWidth + gap;
-                const exitDuration = exitDistance / speed * 1000;
-                const entryDuration = entryDistance / speed * 1000;
-                const duration = pauseDuration + exitDuration + entryDuration;
+                const copy = document.createElement('span');
+                copy.textContent = text.textContent;
+                copy.setAttribute('aria-hidden', 'true');
+                copy.dataset.scrollTitleCopy = '';
+                track.append(copy);
+
+                const loopDistance = textWidth + gap;
+                const scrollDuration = loopDistance / speed * 1000;
+                const duration = pauseDuration + scrollDuration;
                 const startOffset = pauseDuration / duration;
-                const exitOffset = (pauseDuration + exitDuration) / duration;
 
                 const animation = track.animate([
                     { transform: 'translateX(0)', offset: 0 },
                     { transform: 'translateX(0)', offset: startOffset },
-                    { transform: `translateX(-${exitDistance}px)`, offset: exitOffset },
-                    { transform: `translateX(${entryDistance}px)`, offset: exitOffset },
-                    { transform: 'translateX(0)', offset: 1 }
+                    { transform: `translateX(-${loopDistance}px)`, offset: 1 }
                 ], {
                     duration,
                     easing: 'linear',
