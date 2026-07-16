@@ -114,7 +114,6 @@ const categoryPanels = [
                                 <strong class="category-feature__title" data-scroll-title>
                                     <span class="category-feature__title-track">
                                         <span data-scroll-title-text>{latest?.title ?? panel.emptyTitle}</span>
-                                        <span aria-hidden="true">{latest?.title ?? panel.emptyTitle}</span>
                                     </span>
                                 </strong>
                                 <span class="category-feature__meta">{cardMeta}</span>
@@ -182,20 +181,26 @@ const categoryPanels = [
                 animations.get(title)?.cancel();
                 animations.delete(title);
 
-                const isOverflowing = text.scrollWidth > title.clientWidth + 1;
+                const textWidth = track.scrollWidth;
+                const isOverflowing = textWidth > title.clientWidth + 1;
                 title.dataset.overflowing = String(isOverflowing);
 
                 if (!isOverflowing || reducedMotion.matches) return;
 
-                const loopDistance = text.scrollWidth + gap;
-                const scrollDuration = loopDistance / speed * 1000;
-                const duration = pauseDuration + scrollDuration;
+                const exitDistance = textWidth + gap;
+                const entryDistance = title.clientWidth + gap;
+                const exitDuration = exitDistance / speed * 1000;
+                const entryDuration = entryDistance / speed * 1000;
+                const duration = pauseDuration + exitDuration + entryDuration;
                 const startOffset = pauseDuration / duration;
+                const exitOffset = (pauseDuration + exitDuration) / duration;
 
                 const animation = track.animate([
                     { transform: 'translateX(0)', offset: 0 },
                     { transform: 'translateX(0)', offset: startOffset },
-                    { transform: `translateX(-${loopDistance}px)`, offset: 1 }
+                    { transform: `translateX(-${exitDistance}px)`, offset: exitOffset },
+                    { transform: `translateX(${entryDistance}px)`, offset: exitOffset },
+                    { transform: 'translateX(0)', offset: 1 }
                 ], {
                     duration,
                     easing: 'linear',

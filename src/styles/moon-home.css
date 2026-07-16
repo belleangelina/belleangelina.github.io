@@ -301,9 +301,8 @@
 
 .category-feature__title-track
 {
-    display: flex;
+    display: block;
     width: max-content;
-    gap: 32px;
 }
 
 .category-feature__meta
@@ -582,13 +581,4 @@
         display: none;
     }
 
-    .category-feature__title-track
-    {
-        gap: 0;
-    }
-
-    .category-feature__title-track > [aria-hidden="true"]
-    {
-        display: none;
-    }
 }
