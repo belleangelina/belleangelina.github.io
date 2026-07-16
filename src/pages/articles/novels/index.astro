@@ -10,7 +10,7 @@ const novels = await getPublishedNovels();
   <section class="archive-hero category-hero" aria-labelledby="novels-title">
     <div>
       <h1 id="novels-title" class="reveal reveal--delay-1">长篇</h1>
-      <p class="archive-lede reveal reveal--delay-2">连续故事与章节被整理成册，像展厅里较长的一面墙。</p>
+      <p class="archive-lede reveal reveal--delay-2">按作品、卷和章节整理。</p>
     </div>
   </section>
 
@@ -23,7 +23,7 @@ const novels = await getPublishedNovels();
         ))}
       </div>
     ) : (
-      <p class="empty reveal reveal--delay-3">暂时还没有已发布长篇作品。</p>
+      <p class="empty reveal reveal--delay-3">暂无长篇。</p>
     )}
   </section>
 </BaseLayout>

@@ -8,11 +8,17 @@ interface Props {
 
 const { title, url, date = '', label = '' } = Astro.props;
 const meta = [date, label].filter(Boolean).join(' · ');
+const tag = ({
+    '长篇': 'NOVELS',
+    '短篇': 'SHORTS',
+    '笔记': 'NOTES',
+    '章节': 'CHAPTERS'
+} as Record<string, string>)[label] ?? (label || 'WRITING');
 ---
 
 <article class="card">
     <a class="card__link" href={url}>
-        <span class="card__tag">{label || 'Writing'}</span>
+        <span class="card__tag">{tag}</span>
         <h3 class="card__title">{title}</h3>
         <span class="card__meta">
             <span>{meta || '天然未来派的摸鱼小屋'}</span>

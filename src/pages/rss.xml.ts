@@ -36,7 +36,7 @@ export async function GET() {
     <title>天然未来派的摸鱼小屋</title>
     <link>${siteUrl('/')}</link>
     <atom:link href="${siteUrl('/rss.xml')}" rel="self" type="application/rss+xml" />
-    <description>个人文章、小说和笔记。</description>
+    <description>长篇、短篇和笔记。</description>
     <language>zh-CN</language>
     ${items}
   </channel>

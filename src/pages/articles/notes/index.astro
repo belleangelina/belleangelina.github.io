@@ -10,7 +10,7 @@ const notes = await getPublishedNotes();
   <section class="archive-hero category-hero" aria-labelledby="notes-title">
     <div>
       <h1 id="notes-title" class="reveal reveal--delay-1">笔记</h1>
-      <p class="archive-lede reveal reveal--delay-2">日常整理、临时想法与生活旁注，被收进更轻的一格。</p>
+      <p class="archive-lede reveal reveal--delay-2">随手写下的想法和日常。</p>
     </div>
   </section>
 
@@ -23,7 +23,7 @@ const notes = await getPublishedNotes();
         ))}
       </div>
     ) : (
-      <p class="empty reveal reveal--delay-3">暂时还没有已发布笔记。</p>
+      <p class="empty reveal reveal--delay-3">暂无笔记。</p>
     )}
   </section>
 </BaseLayout>
