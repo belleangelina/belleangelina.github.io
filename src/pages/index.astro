@@ -169,7 +169,6 @@ const categoryPanels = [
             if (titles.length === 0) return;
             const animations = new WeakMap();
             const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-            const gap = 32;
             const pauseDuration = 1200;
             const speed = 45;
 
@@ -194,7 +193,7 @@ const categoryPanels = [
                 copy.dataset.scrollTitleCopy = '';
                 track.append(copy);
 
-                const loopDistance = textWidth + gap;
+                const loopDistance = copy.getBoundingClientRect().left - text.getBoundingClientRect().left;
                 const scrollDuration = loopDistance / speed * 1000;
                 const duration = pauseDuration + scrollDuration;
                 const startOffset = pauseDuration / duration;
