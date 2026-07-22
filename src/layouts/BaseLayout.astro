@@ -84,7 +84,7 @@ function isActive(href: string) {
         <header class="nav" data-nav>
             <a class="nav__logo" href="/" aria-label={`${siteName} 首页`}>
                 <span class="nav__logo-mark" aria-hidden="true">◆</span>
-                <span class="nav__logo-text"><span class="site-name__segment">天然未来派</span><span class="site-name__segment">的摸鱼小屋</span></span>
+                <span class="nav__logo-text">{siteName}</span>
             </a>
 
             <nav class="nav__menu" aria-label="主导航">
@@ -109,7 +109,7 @@ function isActive(href: string) {
 
         <footer class="footer">
             <div class="footer__inner">
-                <p class="footer__meta">© <span data-current-year></span> <span><span class="site-name__segment">天然未来派</span><span class="site-name__segment">的摸鱼小屋</span></span> · Writings</p>
+                <p class="footer__meta">© <span data-current-year></span> {siteName} · Writings</p>
             </div>
         </footer>
 

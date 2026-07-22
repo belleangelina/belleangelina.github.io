@@ -43,6 +43,12 @@
     animation: shimmer 8s ease infinite, fade-up var(--motion-duration) var(--motion-ease) var(--motion-delay-1) both;
 }
 
+.hero__title .site-name__segment
+{
+    display: inline-block;
+    white-space: nowrap;
+}
+
 .hero__subtitle
 {
     min-height: 58px;

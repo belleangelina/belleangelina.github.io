@@ -95,12 +95,6 @@
     letter-spacing: 0.05em;
 }
 
-.site-name__segment
-{
-    display: inline-block;
-    white-space: nowrap;
-}
-
 .nav__logo-mark
 {
     display: inline-block;
