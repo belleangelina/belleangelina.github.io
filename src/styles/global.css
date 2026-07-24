@@ -52,3 +52,21 @@
 {
     transition: color var(--theme-duration) var(--theme-ease);
 }
+
+.theme-switching .prose
+{
+    transition-property: background, background-color, border-color, box-shadow;
+    transition-duration: var(--theme-duration);
+    transition-timing-function: var(--theme-ease);
+    transition-delay: 0s;
+}
+
+.theme-switching .prose h2,
+.theme-switching .prose h3,
+.theme-switching .prose blockquote,
+.theme-switching .prose code,
+.theme-switching .prose a,
+.theme-switching .prose strong
+{
+    transition: color var(--theme-duration) var(--theme-ease);
+}

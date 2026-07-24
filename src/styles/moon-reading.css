@@ -351,17 +351,12 @@
     border-radius: 28px;
     background: var(--reading-surface);
     padding: clamp(28px, 5vw, 48px);
-    color: var(--ink-soft);
+    color: var(--prose-ink);
     font-family: var(--font-sans);
     font-size: 18px;
     font-weight: 400;
     line-height: 2;
     box-shadow: var(--shadow-soft);
-}
-
-[data-theme="dark"] .prose
-{
-    color: #ded9f6;
 }
 
 .prose p

@@ -26,6 +26,13 @@
     initial-value: rgba(255, 255, 255, 0.78);
 }
 
+@property --prose-ink
+{
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #5f587c;
+}
+
 :root
 {
     color-scheme: light;
@@ -35,6 +42,7 @@
     --ink: #211b38;
     --ink-soft: #5f587c;
     --ink-mute: #706a8a;
+    --prose-ink: #5f587c;
     --accent-1: #a94881;
     --accent-2: #7c70dd;
     --accent-3: #2f75a5;
@@ -87,6 +95,7 @@
     --ink: #f4f1ff;
     --ink-soft: #c8c0e8;
     --ink-mute: #8a82b8;
+    --prose-ink: #ded9f6;
     --accent-1: #ff7ac6;
     --accent-2: #8a7bff;
     --accent-3: #6ec8ff;
@@ -148,6 +157,7 @@ body
     {
         --ink-soft: #4f486b;
         --ink-mute: #706a8a;
+        --prose-ink: #4f486b;
     }
 
     body
@@ -250,7 +260,8 @@ img
         --card-bg-start var(--theme-duration) var(--theme-ease),
         --card-bg-end var(--theme-duration) var(--theme-ease),
         --card-bg-strong-start var(--theme-duration) var(--theme-ease),
-        --card-bg-strong-end var(--theme-duration) var(--theme-ease);
+        --card-bg-strong-end var(--theme-duration) var(--theme-ease),
+        --prose-ink var(--theme-duration) var(--theme-ease);
 }
 
 .theme-ready body
